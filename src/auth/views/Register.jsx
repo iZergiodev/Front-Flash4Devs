@@ -30,7 +30,8 @@ export const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const url = "https://back-flash4devs-production.up.railway.app/api/register";
+    const url =
+      "https://back-flash4devs-production.up.railway.app/api/register";
 
     try {
       startLoading();
@@ -64,8 +65,9 @@ export const Register = () => {
     } catch (error) {
       toast.error("Error al conectar con el servidor");
       console.error(error.message);
+    } finally {
+      stopLoading();
     }
-    stopLoading();
   };
   return (
     <>

@@ -63,8 +63,9 @@ export const Login = () => {
     } catch (error) {
       toast.error("Error al conectar con el servidor");
       console.error(error.message);
+    } finally {
+      stopLoading();
     }
-    stopLoading();
   };
 
   return (
