@@ -50,7 +50,6 @@ export const Login = () => {
         },
       });
       // await waitThreeSeconds();
-      stopLoading();
       if (response.status === 404) {
         toast.error("Usuario o contraseña incorrectos");
         return;
@@ -65,6 +64,7 @@ export const Login = () => {
       toast.error("Error al conectar con el servidor");
       console.error(error.message);
     }
+    stopLoading();
   };
 
   return (

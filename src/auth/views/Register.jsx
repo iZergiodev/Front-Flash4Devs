@@ -15,15 +15,6 @@ export const Register = () => {
     acceptTerms: false,
   });
 
-    const waitThreeSeconds = () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve("¡Han pasado 3 segundos!");
-      }, 3000); // 3000 milisegundos = 3 segundos
-    });
-  };
-
-
   let navigate = useNavigate();
 
   const { isLoading, startLoading, stopLoading } = useLoading();
@@ -42,7 +33,7 @@ export const Register = () => {
     const url = "http://127.0.0.1:8000/api/register";
 
     try {
-      startLoading()
+      startLoading();
       const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify({
@@ -55,8 +46,6 @@ export const Register = () => {
           "Content-Type": "application/json",
         },
       });
-      await waitThreeSeconds();
-      stopLoading()
 
       if (response.status === 400) {
         toast.error("El email ya está registrado");
@@ -76,6 +65,7 @@ export const Register = () => {
       toast.error("Error al conectar con el servidor");
       console.error(error.message);
     }
+    stopLoading();
   };
   return (
     <>
@@ -174,7 +164,6 @@ export const Register = () => {
                       className="border border-muted "
                       checked={formData.acceptTerms}
                       onChange={handleChange}
-                      
                     />
                     <span className="ml-2 text-text">
                       Acepto los{" "}
@@ -200,22 +189,22 @@ export const Register = () => {
             </div>
           </div>
           {isLoading && (
-                    <div
-                      className="absolute inset-0 flex items-center justify-center bg-opacity-75 z-50"
-                      style={{ backdropFilter: "blur(5px)" }}
-                    >
-                      <ThreeDots
-                        visible={true}
-                        height="80"
-                        width="80"
-                        color="#054A91"
-                        radius="9"
-                        ariaLabel="three-dots-loading"
-                        wrapperStyle={{}}
-                        wrapperClass=""
-                      />
-                    </div>
-                  )}
+            <div
+              className="absolute inset-0 flex items-center justify-center bg-opacity-75 z-50"
+              style={{ backdropFilter: "blur(5px)" }}
+            >
+              <ThreeDots
+                visible={true}
+                height="80"
+                width="80"
+                color="#054A91"
+                radius="9"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            </div>
+          )}
         </div>
       </div>
     </>
