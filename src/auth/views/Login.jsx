@@ -35,7 +35,7 @@ export const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const url = "http://127.0.0.1:8000/api/login";
+    const url = "https://back-flash4devs-production.up.railway.app/api/login";
 
     try {
       startLoading();

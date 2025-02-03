@@ -30,7 +30,7 @@ export const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const url = "http://127.0.0.1:8000/api/register";
+    const url = "https://back-flash4devs-production.up.railway.app/api/register";
 
     try {
       startLoading();
