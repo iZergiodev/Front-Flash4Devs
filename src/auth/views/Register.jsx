@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Navbar } from "../../components/Navbar";
 import { useNavigate } from "react-router";
 import toast, { Toaster } from "react-hot-toast";
+import { useLoading } from "../../hooks/useLoading";
+import { ThreeDots } from "react-loader-spinner";
 
 export const Register = () => {
   const [formData, setFormData] = useState({
@@ -13,7 +15,18 @@ export const Register = () => {
     acceptTerms: false,
   });
 
+    const waitThreeSeconds = () => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("¡Han pasado 3 segundos!");
+      }, 3000); // 3000 milisegundos = 3 segundos
+    });
+  };
+
+
   let navigate = useNavigate();
+
+  const { isLoading, startLoading, stopLoading } = useLoading();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -29,6 +42,7 @@ export const Register = () => {
     const url = "http://127.0.0.1:8000/api/register";
 
     try {
+      startLoading()
       const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify({
@@ -41,6 +55,8 @@ export const Register = () => {
           "Content-Type": "application/json",
         },
       });
+      await waitThreeSeconds();
+      stopLoading()
 
       if (response.status === 400) {
         toast.error("El email ya está registrado");
@@ -105,6 +121,7 @@ export const Register = () => {
                     className="border border-muted py-1 px-2 rounded focus:outline-none focus:ring-2 focus:ring-accent"
                     value={formData.firstName}
                     onChange={handleChange}
+                    required
                   />
                   <input
                     type="text"
@@ -113,6 +130,7 @@ export const Register = () => {
                     className="border border-muted py-1 px-2 rounded focus:outline-none focus:ring-2 focus:ring-accent"
                     value={formData.lastName}
                     onChange={handleChange}
+                    required
                   />
                 </div>
                 <div className="mt-5">
@@ -123,6 +141,7 @@ export const Register = () => {
                     className="border border-muted py-1 px-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-accent"
                     value={formData.email}
                     onChange={handleChange}
+                    required
                   />
                 </div>
                 <div className="mt-5">
@@ -133,6 +152,7 @@ export const Register = () => {
                     className="border border-muted py-1 px-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-accent"
                     value={formData.password}
                     onChange={handleChange}
+                    required
                   />
                 </div>
                 <div className="mt-5">
@@ -143,6 +163,7 @@ export const Register = () => {
                     className="border border-muted py-1 px-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-accent"
                     value={formData.confirmPassword}
                     onChange={handleChange}
+                    required
                   />
                 </div>
                 <div className="mt-5">
@@ -153,6 +174,7 @@ export const Register = () => {
                       className="border border-muted "
                       checked={formData.acceptTerms}
                       onChange={handleChange}
+                      
                     />
                     <span className="ml-2 text-text">
                       Acepto los{" "}
@@ -177,6 +199,23 @@ export const Register = () => {
               </form>
             </div>
           </div>
+          {isLoading && (
+                    <div
+                      className="absolute inset-0 flex items-center justify-center bg-opacity-75 z-50"
+                      style={{ backdropFilter: "blur(5px)" }}
+                    >
+                      <ThreeDots
+                        visible={true}
+                        height="80"
+                        width="80"
+                        color="#054A91"
+                        radius="9"
+                        ariaLabel="three-dots-loading"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                      />
+                    </div>
+                  )}
         </div>
       </div>
     </>

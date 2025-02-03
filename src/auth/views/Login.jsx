@@ -2,13 +2,23 @@ import { useState } from "react";
 
 import { Link, useNavigate } from "react-router";
 import { Navbar } from "../../components/Navbar";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
+import { useLoading } from "../../hooks/useLoading";
+import { ThreeDots } from "react-loader-spinner";
 
 export const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  // const waitThreeSeconds = () => {
+  //   return new Promise((resolve) => {
+  //     setTimeout(() => {
+  //       resolve("¡Han pasado 3 segundos!");
+  //     }, 3000); // 3000 milisegundos = 3 segundos
+  //   });
+  // };
 
   let navigate = useNavigate();
 
@@ -20,13 +30,15 @@ export const Login = () => {
     });
   };
 
-  // Envio do form
+  const { isLoading, startLoading, stopLoading } = useLoading();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const url = "http://127.0.0.1:8000/api/login";
 
     try {
+      startLoading();
       const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify({
@@ -37,9 +49,11 @@ export const Login = () => {
           "Content-Type": "application/json",
         },
       });
+      // await waitThreeSeconds();
+      stopLoading();
       if (response.status === 404) {
         toast.error("Usuario o contraseña incorrectos");
-        return
+        return;
       }
 
       const data = await response.json();
@@ -52,6 +66,7 @@ export const Login = () => {
       console.error(error.message);
     }
   };
+
   return (
     <>
       <Toaster position="bottom-right" reverseOrder={false} />
@@ -103,6 +118,7 @@ export const Login = () => {
               Entrar
             </button>
           </form>
+
           <p className="mt-4 text-center text-muted">
             ¿No tienes una cuenta?{" "}
             <Link
@@ -113,6 +129,23 @@ export const Login = () => {
             </Link>
           </p>
         </div>
+        {isLoading && (
+          <div
+            className="absolute inset-0 flex items-center justify-center bg-opacity-75 z-50"
+            style={{ backdropFilter: "blur(5px)" }}
+          >
+            <ThreeDots
+              visible={true}
+              height="80"
+              width="80"
+              color="#054A91"
+              radius="9"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+            />
+          </div>
+        )}
       </div>
     </>
   );
