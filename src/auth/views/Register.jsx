@@ -57,6 +57,7 @@ export const Register = () => {
         navigate("/auth/login");
       }
     } catch (error) {
+      toast.error("Error al conectar con el servidor");
       console.error(error.message);
     }
   };
