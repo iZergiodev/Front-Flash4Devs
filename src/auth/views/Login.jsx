@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { Link, useNavigate } from "react-router";
 import { Navbar } from "../../components/Navbar";
-
+import toast, { Toaster } from 'react-hot-toast';
 
 export const Login = () => {
   const [formData, setFormData] = useState({
@@ -30,15 +30,16 @@ export const Login = () => {
       const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify({
-          'email': formData.email,
-          'password': formData.password,
+          email: formData.email,
+          password: formData.password,
         }),
         headers: {
           "Content-Type": "application/json",
         },
       });
-      if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
+      if (response.status === 404) {
+        toast.error("Usuario o contraseña incorrectos");
+        return
       }
 
       const data = await response.json();
@@ -47,14 +48,15 @@ export const Login = () => {
         navigate("/");
       }
     } catch (error) {
+      toast.error("Error al conectar con el servidor");
       console.error(error.message);
     }
   };
   return (
     <>
-    <Navbar />
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        
+      <Toaster position="bottom-right" reverseOrder={false} />
+      <Navbar />
+      <div className="min-h-screen flex items-center justify-center">
         <div className="bg-card/60 p-8 rounded-lg shadow-lg w-full max-w-md">
           <h2 className="text-2xl font-bold mb-6 text-primary text-center">
             Login
