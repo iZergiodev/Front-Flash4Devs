@@ -16,6 +16,7 @@
     "postcss": "^8.5.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-hot-toast": "^2.5.1",
     "react-loader-spinner": "^6.1.6",
     "react-router": "^7.1.5",
     "zustand": "^5.0.3"
