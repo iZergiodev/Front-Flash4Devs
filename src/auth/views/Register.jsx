@@ -97,7 +97,7 @@ export const Register = () => {
                     Prepárese para las entrevistas con{" "}
                     <span className="font-bold text-accent">Flash4Devs</span>,
                     flashcards que van directo al grano. ¡Domina lo esencial y
-                    convierte tu código en éxito!"{" "}
+                    convierte tu código en éxito!{" "}
                   </p>
                 </div>
               </div>

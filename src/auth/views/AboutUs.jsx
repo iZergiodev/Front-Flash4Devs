@@ -1,9 +1,9 @@
-import { motion } from 'framer-motion'
-import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa'
-import { Navbar } from '../../components/Navbar'
+import { motion } from "framer-motion";
+import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { Navbar } from "../../components/Navbar";
 
-import FotoYago from '../../../public/yagop.jpg'
-import FotoSergio from '../../../public/sergio.jpeg'
+// import FotoYago from "../../../public/yagop.jpg";
+// import FotoSergio from "../../../public/sergio.jpeg";
 
 export const AboutUs = () => {
   return (
@@ -27,14 +27,14 @@ export const AboutUs = () => {
             className="bg-card p-6 rounded-lg shadow-xl flex flex-col items-center w-120"
           >
             <img
-              src={FotoYago}
+              src='/yagop.jpg'
               alt="yago"
               className="w-110 h-110 rounded mb-4 shadow-xl"
             />
             <h2 className="text-xl font-extrabold text-center text-primary">
               Yago Cima Castelao{" "}
               <span className="text-text font-semibold italic">
-                "CodePhantom"
+                &quot;CaffeinMaster&quot;
               </span>
             </h2>
             <p className="text-muted text-center mt-2">
@@ -81,14 +81,14 @@ export const AboutUs = () => {
             className="bg-card p-6 rounded-lg shadow-xl flex flex-col items-center w-120"
           >
             <img
-              src={FotoSergio}
+              src='/sergio.jpeg'
               alt="sergio"
               className="w-100 h-110 rounded mb-4 shadow-xl"
             />
             <h2 className="text-xl font-extrabold text-center text-primary">
               Sergio Carretero Molina{" "}
               <span className="text-text font-semibold italic">
-                "CaffeinMaster"
+                &quot;CaffeinMaster&quot;
               </span>
             </h2>
             <p className="text-muted text-center mt-2">
@@ -131,5 +131,4 @@ export const AboutUs = () => {
       </div>
     </>
   );
-}
-
+};

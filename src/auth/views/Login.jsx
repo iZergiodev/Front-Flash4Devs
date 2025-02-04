@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import { Link, useNavigate } from "react-router";
-import { Navbar } from "../../components/Navbar";
 import toast, { Toaster } from "react-hot-toast";
 import { useLoading } from "../../hooks/useLoading";
 import { ThreeDots } from "react-loader-spinner";
