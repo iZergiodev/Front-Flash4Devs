@@ -19,17 +19,17 @@ export const AboutUs = () => {
           {" "}
           Sobre Nosotros
         </motion.h1>
-        <div className=" flex flex-row gap-10">
+        <div className=" flex flex-row gap-24">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="bg-card p-6 rounded-lg shadow-xl flex flex-col items-center w-90"
+            className="bg-card p-6 rounded-lg shadow-xl flex flex-col items-center w-120"
           >
             <img
               src={FotoYago}
               alt="yago"
-              className="w-70 h-100 rounded mb-4"
+              className="w-110 h-110 rounded mb-4 shadow-xl"
             />
             <h2 className="text-xl font-extrabold text-center text-primary">
               Yago Cima Castelao{" "}
@@ -78,12 +78,12 @@ export const AboutUs = () => {
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="bg-card p-6 rounded-lg shadow-xl flex flex-col items-center w-90"
+            className="bg-card p-6 rounded-lg shadow-xl flex flex-col items-center w-120"
           >
             <img
               src={FotoSergio}
               alt="sergio"
-              className="w-100 h-100 rounded mb-4"
+              className="w-100 h-110 rounded mb-4 shadow-xl"
             />
             <h2 className="text-xl font-extrabold text-center text-primary">
               Sergio Carretero Molina{" "}
