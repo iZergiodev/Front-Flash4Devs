@@ -4,7 +4,7 @@ const listItems = [
     'Cursos',
     'Blog',
     'Developers',
-    'Sobre'
+    'AboutUs'
 ]
 
 export const Navbar = () => {

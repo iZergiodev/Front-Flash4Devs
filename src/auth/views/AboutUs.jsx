@@ -1,0 +1,135 @@
+import { motion } from 'framer-motion'
+import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa'
+import { Navbar } from '../../components/Navbar'
+
+import FotoYago from '../../images/yagop.jpg'
+import FotoSergio from '../../images/sergio.jpeg'
+
+export const AboutUs = () => {
+  return (
+    <>
+      <Navbar />
+      <div className="min-h-screen flex flex-col items-center justify-center bg-background p-4">
+        <motion.h1
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-4xl font-bold text-primary mb-8"
+        >
+          {" "}
+          Sobre Nosotros
+        </motion.h1>
+        <div className=" flex flex-row gap-10">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="bg-card p-6 rounded-lg shadow-xl flex flex-col items-center w-90"
+          >
+            <img
+              src={FotoYago}
+              alt="yago"
+              className="w-70 h-100 rounded mb-4"
+            />
+            <h2 className="text-xl font-extrabold text-center text-primary">
+              Yago Cima Castelao{" "}
+              <span className="text-text font-semibold italic">
+                "CodePhantom"
+              </span>
+            </h2>
+            <p className="text-muted text-center mt-2">
+              Control absoluto de los datos digitales, capaz de reescribir
+              códigos y sistemas en tiempo real!
+            </p>
+            <div className="flex justify-center gap-6 mt-4">
+              <a
+                href="https://github.com/YagoCastelao"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaGithub
+                  className="text-accent hover:text-primary transition-colors duration-300"
+                  size={24}
+                />
+              </a>
+              <a
+                href="https://linkedin.com/in/yagocimacastelao/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaLinkedin
+                  className="text-accent hover:text-primary transition-colors duration-300"
+                  size={24}
+                />
+              </a>
+              <a
+                href="https://twitter.com/yagocastelau"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaTwitter
+                  className="text-accent hover:text-primary transition-colors duration-300"
+                  size={24}
+                />
+              </a>
+            </div>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="bg-card p-6 rounded-lg shadow-xl flex flex-col items-center w-90"
+          >
+            <img
+              src={FotoSergio}
+              alt="sergio"
+              className="w-100 h-100 rounded mb-4"
+            />
+            <h2 className="text-xl font-extrabold text-center text-primary">
+              Sergio Carretero Molina{" "}
+              <span className="text-text font-semibold italic">
+                "CaffeinMaster"
+              </span>
+            </h2>
+            <p className="text-muted text-center mt-2">
+              Capaz de bajar y subir mis niveles de cafeina según mi antojo!
+            </p>
+            <div className="flex justify-center gap-6 mt-4">
+              <a
+                href="https://github.com/iZergiodev"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaGithub
+                  className="text-accent hover:text-primary transition-colors duration-300"
+                  size={24}
+                />
+              </a>
+              <a
+                href="https://linkedin.com/in/izergiodev/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaLinkedin
+                  className="text-accent hover:text-primary transition-colors duration-300"
+                  size={24}
+                />
+              </a>
+              <a
+                href="https://twitter.com/yagocastelau"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaTwitter
+                  className="text-accent hover:text-primary transition-colors duration-300"
+                  size={24}
+                />
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </>
+  );
+}
+
