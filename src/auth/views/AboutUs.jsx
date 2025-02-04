@@ -2,8 +2,8 @@ import { motion } from 'framer-motion'
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa'
 import { Navbar } from '../../components/Navbar'
 
-import FotoYago from '../../images/yagop.jpg'
-import FotoSergio from '../../images/sergio.jpeg'
+import FotoYago from '../../../public/yagop.jpg'
+import FotoSergio from '../../../public/sergio.jpeg'
 
 export const AboutUs = () => {
   return (

@@ -4,7 +4,7 @@ const listItems = [
   { name: "Home", path: "/auth/home" },
   { name: "Cursos", path: "/auth/cursos" },
   { name: "Developers", path: "/auth/developers" },
-  { name: "AboutUs", path: "/auth/aboutus" }
+  { name: "AboutUs", path: "/auth/about-us" }
 ];
 
 export const Navbar = () => {
