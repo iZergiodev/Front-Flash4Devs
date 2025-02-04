@@ -82,7 +82,7 @@ export const Register = () => {
                 backgroundImage: "url('/background.jpeg')",
               }}
             >
-              <div className="absolute inset-0 bg-black/50"></div>
+              <div className="absolute inset-0 bg-black/75"></div>
               <div className="relative z-10">
                 <h1 className="text-card text-3xl mb-5 font-semibold text-center">
                   ¡Bienvenido al bucle infinito de posibilidades!
