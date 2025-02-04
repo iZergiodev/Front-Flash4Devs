@@ -71,7 +71,6 @@ export const Login = () => {
   return (
     <>
       <Toaster position="bottom-right" reverseOrder={false} />
-      <Navbar />
       <div className="min-h-screen flex items-center justify-center">
         <div className="bg-card/60 p-8 rounded-lg shadow-lg w-full max-w-md">
           <h2 className="text-2xl font-bold mb-6 text-primary text-center">
