@@ -48,6 +48,11 @@ export const Register = () => {
         },
       });
 
+       if (!formData.acceptTerms) {
+         alert("Você deve aceitar os termos e condições para se registrar.");
+         return; 
+       }
+
       if (response.status === 400) {
         toast.error("El email ya está registrado");
         return;
