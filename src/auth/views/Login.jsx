@@ -55,13 +55,12 @@ export const Login = () => {
         toast.error("Usuario o contraseña incorrectos");
         return;
       }
-
-      const data = await response.json();
-      console.log(data);
+  
       if (response.ok) {
         const data = await response.json();
         const token = data.access_token;
         localStorage.setItem("token", token);
+
         navigate("/");
       }
     } catch (error) {
