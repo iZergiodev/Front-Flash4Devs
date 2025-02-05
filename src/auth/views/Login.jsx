@@ -59,6 +59,9 @@ export const Login = () => {
       const data = await response.json();
       console.log(data);
       if (response.ok) {
+        const data = await response.json();
+        const token = data.access_token;
+        localStorage.setItem("token", token);
         navigate("/");
       }
     } catch (error) {
@@ -84,7 +87,7 @@ export const Login = () => {
               easing="easeOutCubic"
               threshold={0.2}
               rootMargin="-50px"
-            />  
+            />
           </h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
