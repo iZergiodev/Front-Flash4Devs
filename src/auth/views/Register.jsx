@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import toast, { Toaster } from "react-hot-toast";
 import { useLoading } from "../../hooks/useLoading";
 import { ThreeDots } from "react-loader-spinner";
+import ShinyText from "../../components/ShineText";
 
 export const Register = () => {
   const [formData, setFormData] = useState({
@@ -187,9 +188,9 @@ export const Register = () => {
                 <div className="mt-5">
                   <button
                     type="submit"
-                    className="w-full bg-accent py-3 text-center text-white rounded hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full bg-accent py-3 text-center rounded hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
                   >
-                    Regístrate Ahora
+                    <ShinyText text="Registrate aquí" disabled={false} speed={3} className='custom-class' />
                   </button>
                 </div>
               </form>

@@ -1,3 +1,5 @@
+import ShinyText from "../../components/ShineText";
+
 import { useState } from "react";
 
 import { Link, useNavigate } from "react-router";
@@ -111,10 +113,15 @@ export const Login = () => {
               />
             </div>
             <button
-              className="w-full bg-accent text-white py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+              className=" w-full bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
               type="submit"
             >
-              Entrar
+              <ShinyText
+                text="Entrar"
+                disabled={false}
+                speed={5}
+                className="custom-class"
+              />
             </button>
           </form>
 
