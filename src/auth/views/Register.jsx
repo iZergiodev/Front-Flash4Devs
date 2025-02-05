@@ -4,7 +4,9 @@ import { useNavigate } from "react-router";
 import toast, { Toaster } from "react-hot-toast";
 import { useLoading } from "../../hooks/useLoading";
 import { ThreeDots } from "react-loader-spinner";
-import ShinyText from "../../components/ShineText";
+import SplitText from "../../components/SplitText";
+import AnimatedContent from "../../components/AnimatedContent";
+
 
 export const Register = () => {
   const [formData, setFormData] = useState({
@@ -49,10 +51,10 @@ export const Register = () => {
         },
       });
 
-       if (!formData.acceptTerms) {
-         alert("Você deve aceitar os termos e condições para se registrar.");
-         return; 
-       }
+      if (!formData.acceptTerms) {
+        alert("Você deve aceitar os termos e condições para se registrar.");
+        return;
+      }
 
       if (response.status === 400) {
         toast.error("El email ya está registrado");
@@ -78,7 +80,18 @@ export const Register = () => {
   return (
     <>
       <Toaster position="bottom-right" reverseOrder={false} />
-      <Navbar />
+      <AnimatedContent
+        distance={150}
+        direction="vertical"
+        reverse={false}
+        config={{ tension: 80, friction: 20 }}
+        initialOpacity={0.2}
+        animateOpacity
+        scale={0.1}
+        threshold={0.2}
+      >
+        <Navbar />
+      </AnimatedContent>
       <div className="bg-background min-h-screen flex items-center justify-center">
         <div className="container mx-auto">
           <div className="flex w-8/12 bg-card/60 rounded-xl mx-auto shadow-lg overflow-hidden">
@@ -105,7 +118,19 @@ export const Register = () => {
             </div>
             <div className="w-1/2 py-16 px-12">
               <h2 className="text-3xl font-bold mb-6 text-primary text-center">
-                Registro
+                <SplitText
+                  text="Registro"
+                  className="text-3xl font-semibold text-center"
+                  delay={150}
+                  animationFrom={{
+                    opacity: 0,
+                    transform: "translate3d(0,50px,0)",
+                  }}
+                  animationTo={{ opacity: 1, transform: "translate3d(0,0,0)" }}
+                  easing="easeOutCubic"
+                  threshold={0.2}
+                  rootMargin="-50px"
+                />
               </h2>
               <p className="mb-4 text-text">
                 Crea tu cuenta. Es gratis y sólo te llevará un minuto.
@@ -188,9 +213,9 @@ export const Register = () => {
                 <div className="mt-5">
                   <button
                     type="submit"
-                    className="w-full bg-accent py-3 text-center rounded hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full text-white bg-accent py-3 text-center rounded hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
                   >
-                    <ShinyText text="Registrate aquí" disabled={false} speed={3} className='custom-class' />
+                    Registrate aquí
                   </button>
                 </div>
               </form>

@@ -1,4 +1,4 @@
-import ShinyText from "../../components/ShineText";
+import SplitText from "../../components/SplitText";
 
 import { useState } from "react";
 
@@ -75,7 +75,16 @@ export const Login = () => {
       <div className="min-h-screen flex items-center justify-center">
         <div className="bg-card/60 p-8 rounded-lg shadow-lg w-full max-w-md">
           <h2 className="text-2xl font-bold mb-6 text-primary text-center">
-            Login
+            <SplitText
+              text="Login"
+              className="text-2xl font-semibold text-center"
+              delay={150}
+              animationFrom={{ opacity: 0, transform: "translate3d(0,50px,0)" }}
+              animationTo={{ opacity: 1, transform: "translate3d(0,0,0)" }}
+              easing="easeOutCubic"
+              threshold={0.2}
+              rootMargin="-50px"
+            />  
           </h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
@@ -113,15 +122,10 @@ export const Login = () => {
               />
             </div>
             <button
-              className=" w-full bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+              className=" w-full text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
               type="submit"
             >
-              <ShinyText
-                text="Entrar"
-                disabled={false}
-                speed={5}
-                className="custom-class"
-              />
+              Entrar
             </button>
           </form>
 
