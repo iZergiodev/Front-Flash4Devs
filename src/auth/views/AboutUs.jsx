@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { Navbar } from "../../components/Navbar";
+import GradientText from "../../components/GradientText";
 
 // import FotoYago from "../../../public/yagop.jpg";
 // import FotoSergio from "../../../public/sergio.jpeg";
@@ -27,17 +28,30 @@ export const AboutUs = () => {
             className="bg-card p-6 rounded-lg shadow-xl flex flex-col items-center w-120"
           >
             <img
-              src='/yagop.jpg'
+              src="/yagop.jpg"
               alt="yago"
               className="w-110 h-110 rounded mb-4 shadow-xl"
             />
             <h2 className="text-xl font-extrabold text-center text-primary">
               Yago Cima Castelao{" "}
               <span className="text-text font-semibold italic">
-                &quot;CodePhantom&quot;
+              <GradientText
+                  colors={[
+                    "#054A91",
+                    "#F17300",
+                    "#054A91",
+                    "#F17300",
+                    "#054A91",
+                  ]}
+                  animationSpeed={3}
+                  showBorder={false}
+                  className="custom-class"
+                >
+                  &quot;CodePanthom&quot;
+                </GradientText>
               </span>
             </h2>
-            <p className="text-muted text-center mt-2">
+            <p className=" text-center mt-2">
               Control absoluto de los datos digitales, capaz de reescribir
               códigos y sistemas en tiempo real!
             </p>
@@ -81,17 +95,30 @@ export const AboutUs = () => {
             className="bg-card p-6 rounded-lg shadow-xl flex flex-col items-center w-120"
           >
             <img
-              src='/sergio.jpeg'
+              src="/sergio.jpeg"
               alt="sergio"
               className="w-100 h-110 rounded mb-4 shadow-xl"
             />
             <h2 className="text-xl font-extrabold text-center text-primary">
               Sergio Carretero Molina{" "}
               <span className="text-text font-semibold italic">
-                &quot;CaffeinMaster&quot;
+                <GradientText
+                  colors={[
+                    "#054A91",
+                    "#F17300",
+                    "#054A91",
+                    "#F17300",
+                    "#054A91",
+                  ]}
+                  animationSpeed={3}
+                  showBorder={false}
+                  className="custom-class"
+                >
+                  &quot;CaffeinMaster&quot;
+                </GradientText>
               </span>
             </h2>
-            <p className="text-muted text-center mt-2">
+            <p className="text-center mt-2">
               Capaz de bajar y subir mis niveles de cafeina según mi antojo!
             </p>
             <div className="flex justify-center gap-6 mt-4">
