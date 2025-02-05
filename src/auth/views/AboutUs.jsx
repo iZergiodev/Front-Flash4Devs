@@ -34,7 +34,7 @@ export const AboutUs = () => {
             <h2 className="text-xl font-extrabold text-center text-primary">
               Yago Cima Castelao{" "}
               <span className="text-text font-semibold italic">
-                &quot;CaffeinMaster&quot;
+                &quot;CodePhantom&quot;
               </span>
             </h2>
             <p className="text-muted text-center mt-2">
