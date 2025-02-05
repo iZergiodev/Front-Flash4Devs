@@ -25,13 +25,47 @@ export const Home = () => {
           borderColor="#F17300"
           hoverFillColor="#81A4CD"
         />
-        <div className="absolute inset-20 z-10 flex flex-col items-center justify-center rounded-lg text-text">
-          <h1 className="text-5xl font-bold bg-card/80 p-4 rounded-lg">
-            Bienvenido a Home!
-          </h1>
-          <p className="text-2xl mt-4 bg-card/80 p-4 rounded-lg">
-            Esta página está en construcción, ¡nos vemos pronto!
-          </p>
+        <div className="absolute inset-20 z-10 flex flex-col items-center justify-center">
+          <div className="grid grid-cols-2 gap-8 w-full max-w-4xl">
+            <div className="bg-card p-10 rounded-[75px] shadow-lg">
+              <h2 className="text-2xl font-bold mb-4 text-center">
+                Simulacion de Entrevista
+              </h2>
+              <p className="text-lg">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut
+                voluptatem sunt saepe dignissimos inventore veritatis
+                consectetur officiis laborum recusandae optio assumenda,
+                temporibus in ad. Illo illum velit quisquam vero molestias!
+              </p>
+            </div>
+            <div className="bg-card p-10 rounded-[75px] shadow-lg text-center">
+              <h2 className="text-2xl font-bold mb-4">Practica</h2>
+              <p className="text-lg text-center">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut
+                voluptatem sunt saepe dignissimos inventore veritatis
+                consectetur officiis laborum recusandae optio assumenda,
+                temporibus in ad. Illo illum velit quisquam vero molestias!
+              </p>
+            </div>
+            <div className="bg-card p-10 rounded-[75px] shadow-lg text-center">
+              <h2 className="text-2xl font-bold mb-4">Personal (Racha y Kyu)</h2>
+              <p className="text-lg">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut
+                voluptatem sunt saepe dignissimos inventore veritatis
+                consectetur officiis laborum recusandae optio assumenda,
+                temporibus in ad. Illo illum velit quisquam vero molestias!
+              </p>
+            </div>
+            <div className="bg-card p-10 rounded-[75px] shadow-lg text-center">
+              <h2 className="text-2xl font-bold mb-4">Personalizar tu FlashCards</h2>
+              <p className="text-lg">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut
+                voluptatem sunt saepe dignissimos inventore veritatis
+                consectetur officiis laborum recusandae optio assumenda,
+                temporibus in ad. Illo illum velit quisquam vero molestias!
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </>
