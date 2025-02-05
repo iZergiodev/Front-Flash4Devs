@@ -15,7 +15,7 @@ export const Home = () => {
         />
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center rounded-lg text-text">
           <h1 className="text-5xl font-bold bg-card/80 p-4 rounded-lg">
-            Bien Venido a Home!
+            Bienvenido a Home!
           </h1>
           <p className="text-2xl mt-4 bg-card/80 p-4 rounded-lg">
             Esta página está en construcción, ¡nos vemos pronto!
