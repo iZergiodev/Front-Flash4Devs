@@ -6,6 +6,7 @@ import { useLoading } from "../../hooks/useLoading";
 import { ThreeDots } from "react-loader-spinner";
 import SplitText from "../../components/SplitText";
 import AnimatedContent from "../../components/AnimatedContent";
+import { useUserStore } from "../../store/userStore";
 
 
 export const Register = () => {
@@ -19,6 +20,8 @@ export const Register = () => {
   });
 
   let navigate = useNavigate();
+
+  const { loginAuthorized } = useUserStore();
 
   const { isLoading, startLoading, stopLoading } = useLoading();
 
@@ -68,7 +71,9 @@ export const Register = () => {
       const data = await response.json();
       console.log(data);
       if (response.ok) {
-        navigate("/auth/login");
+        loginAuthorized()
+
+        navigate("/auth/home");
       }
     } catch (error) {
       toast.error("Error al conectar con el servidor");

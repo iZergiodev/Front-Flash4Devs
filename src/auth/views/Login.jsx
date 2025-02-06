@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router";
 import toast, { Toaster } from "react-hot-toast";
 import { useLoading } from "../../hooks/useLoading";
 import { ThreeDots } from "react-loader-spinner";
+import { useUserStore } from "../../store/userStore";
 
 
 export const Login = () => {
@@ -21,6 +22,8 @@ export const Login = () => {
   //     }, 3000); // 3000 milisegundos = 3 segundos
   //   });
   // };
+
+  const { loginAuthorized, isLogged } = useUserStore();
 
   let navigate = useNavigate();
 
@@ -56,13 +59,18 @@ export const Login = () => {
         toast.error("Usuario o contraseña incorrectos");
         return;
       }
-  
+
       if (response.ok) {
         const data = await response.json();
         const token = data.access_token;
         localStorage.setItem("token", token);
 
-        navigate("/");
+        loginAuthorized()
+
+        const { isLogged } = useUserStore.getState();
+        console.log(isLogged); 
+
+        navigate("/home");
       }
     } catch (error) {
       toast.error("Error al conectar con el servidor");

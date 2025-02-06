@@ -2,8 +2,13 @@ import Squares from "../../components/Squares";
 import { Navbar } from "../../components/Navbar";
 import { MenuRight } from "../../components/MenuRight";
 import AnimatedContent from "../../components/AnimatedContent";
+import { useUserStore } from "../../store/userStore";
 
 export const Home = () => {
+
+  const { isLogged } = useUserStore();
+
+
   return (
     <>
       <div className="relative w-full h-screen overflow-hidden">
@@ -17,6 +22,7 @@ export const Home = () => {
           scale={0.1}
           threshold={0.2}
         >
+
           <Navbar />
           <MenuRight />
         </AnimatedContent>
