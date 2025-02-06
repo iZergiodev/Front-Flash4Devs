@@ -9,13 +9,13 @@ export const Home = () => {
   const { isLogged } = useUserStore();
 
   const token = localStorage.getItem("token");
-  console.log(decodeToken(token))
 
   const extraerName = () => {
     if (token) {
       const { name } = decodeToken(token);
       return name;
     }
+    return
   };
 
   const extraerEmail = () => {
@@ -23,6 +23,7 @@ export const Home = () => {
       const { sub } = decodeToken(token);
       return sub;
     }
+    return
   };
 
   return (
