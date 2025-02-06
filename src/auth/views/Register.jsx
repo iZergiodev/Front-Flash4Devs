@@ -71,9 +71,10 @@ export const Register = () => {
       const data = await response.json();
       console.log(data);
       if (response.ok) {
-        loginAuthorized();
 
+        loginAuthorized();
         navigate("/auth/home");
+        navigate("/auth/login");
       }
     } catch (error) {
       toast.error("Error al conectar con el servidor");

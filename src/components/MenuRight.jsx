@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import GradientText from "./GradientText";
 import { FaUser, FaGraduationCap, FaStar, FaSignOutAlt } from "react-icons/fa";
 import DecryptedText from "./DecryptedText";
+import { useUserStore } from "../store/userStore";
 
 export const MenuRight = ({name, email}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -12,6 +13,7 @@ export const MenuRight = ({name, email}) => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  const { logout } = useUserStore()
 
   return (
     <>
@@ -83,6 +85,8 @@ export const MenuRight = ({name, email}) => {
                     <li className="border-t border-muted/20 mt-2 pt-2 flex items-center justify-center">
                       <button
                         className="w-28 flex items-center justify-center text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
+                      onClick={logout}
+                        className="w-28 flex items-center justify-center text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
                         type="submit"
                       >
                         <FaSignOutAlt className="mr-2" />
