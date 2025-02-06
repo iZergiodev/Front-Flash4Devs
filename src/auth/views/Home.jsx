@@ -1,5 +1,6 @@
 import Squares from "../../components/Squares";
 import { Navbar } from "../../components/Navbar";
+import { MenuRight } from "../../components/MenuRight";
 import AnimatedContent from "../../components/AnimatedContent";
 import { useUserStore } from "../../store/userStore";
 
@@ -21,7 +22,9 @@ export const Home = () => {
           scale={0.1}
           threshold={0.2}
         >
-          {!isLogged ?  <Navbar/> : ''}
+
+          <Navbar />
+          <MenuRight />
         </AnimatedContent>
         <Squares
           speed={0.5}
@@ -30,7 +33,7 @@ export const Home = () => {
           borderColor="#F17300"
           hoverFillColor="#81A4CD"
         />
-        <div className="absolute inset-20 z-10 flex flex-col items-center justify-center">
+        <div className="absolute inset-30 z-10 flex flex-col items-center justify-center">
           <div className="grid grid-cols-2 gap-8 w-full max-w-4xl">
             <div className="bg-card p-10 rounded-[75px] shadow-lg">
               <h2 className="text-2xl font-bold mb-4 text-center">
