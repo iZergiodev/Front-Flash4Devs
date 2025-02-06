@@ -10,7 +10,7 @@ const listItems = [
 export const Navbar = () => {
   return (
     <>
-      <div className="fixed bg-card/60 flex justify-between items-center gap-16 py-3 px-8 left-1/2 translate-x-[-50%] top-[20px] rounded-full backdrop-blur-md text-text shadow-lg z-10 font-semibold">
+      <div className="fixed bg-card flex justify-between items-center gap-16 py-3 px-8 left-1/2 translate-x-[-50%] top-[20px] rounded-full backdrop-blur-md text-text shadow-lg z-10 font-semibold">
         <ul className="flex gap-8 text-md">
           {listItems.map((item) => (
             <li className='relative group cursor-pointer' key={item.name}>

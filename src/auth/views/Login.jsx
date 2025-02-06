@@ -1,4 +1,5 @@
 import SplitText from "../../components/SplitText";
+import Squares from "../../components/Squares";
 
 import { useState } from "react";
 
@@ -7,7 +8,6 @@ import toast, { Toaster } from "react-hot-toast";
 import { useLoading } from "../../hooks/useLoading";
 import { ThreeDots } from "react-loader-spinner";
 import { useUserStore } from "../../store/userStore";
-
 
 export const Login = () => {
   const [formData, setFormData] = useState({
@@ -48,7 +48,7 @@ export const Login = () => {
         method: "POST",
         body: JSON.stringify({
           email: formData.email,
-          password: formData.password
+          password: formData.password,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -65,10 +65,10 @@ export const Login = () => {
         const token = data.access_token;
         localStorage.setItem("token", token);
 
-        loginAuthorized()
+        loginAuthorized();
 
         const { isLogged } = useUserStore.getState();
-        console.log(isLogged); 
+        console.log(isLogged);
 
         navigate("/home");
       }
@@ -83,72 +83,85 @@ export const Login = () => {
   return (
     <>
       <Toaster position="bottom-right" reverseOrder={false} />
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="bg-card/60 p-8 rounded-lg shadow-lg w-full max-w-md">
-          <h2 className="text-2xl font-bold mb-6 text-primary text-center">
-            <SplitText
-              text="Login"
-              className="text-2xl font-semibold text-center"
-              delay={150}
-              animationFrom={{ opacity: 0, transform: "translate3d(0,50px,0)" }}
-              animationTo={{ opacity: 1, transform: "translate3d(0,0,0)" }}
-              easing="easeOutCubic"
-              threshold={0.2}
-              rootMargin="-50px"
-            />
-          </h2>
-          <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label
-                htmlFor="email"
-                className="block text-primary text-sm font-bold mb-2"
-              >
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Ingresa tu correo electrónico"
-                className="w-full px-3 py-2 border border-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
-                value={formData.email}
-                onChange={handleInputChange}
+      <div className="relative w-full h-screen overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <Squares
+            speed={0.5}
+            squareSize={40}
+            direction="diagonal"
+            borderColor="rgba(241, 115, 0, 0.4)"
+            hoverFillColor="#81A4CD"
+          />
+        </div>
+        <div className="relative z-10 flex items-center justify-center w-full h-full pointer-events-none">
+          <div className="bg-card p-8 rounded-lg shadow-lg w-full max-w-md pointer-events-auto">
+            <h2 className="text-2xl font-bold mb-6 text-primary text-center">
+              <SplitText
+                text="Login"
+                className="text-2xl font-semibold text-center"
+                delay={150}
+                animationFrom={{
+                  opacity: 0,
+                  transform: "translate3d(0,50px,0)",
+                }}
+                animationTo={{ opacity: 1, transform: "translate3d(0,0,0)" }}
+                easing="easeOutCubic"
+                threshold={0.2}
+                rootMargin="-50px"
               />
-            </div>
-            <div className="mb-6">
-              <label
-                htmlFor="password"
-                className="block text-primary text-sm font-bold mb-2"
+            </h2>
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <label
+                  htmlFor="email"
+                  className="block text-primary text-sm font-bold mb-2"
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Ingresa tu correo electrónico"
+                  className="w-full px-3 py-2 border border-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="mb-6">
+                <label
+                  htmlFor="password"
+                  className="block text-primary text-sm font-bold mb-2"
+                >
+                  Contraseña
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="Ingresa tu contraseña"
+                  className="w-full px-3 py-2 border border-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <button
+                className="w-full text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+                type="submit"
               >
-                Contraseña
-              </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Ingresa tu contraseña"
-                className="w-full px-3 py-2 border border-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
-                value={formData.password}
-                onChange={handleInputChange}
-              />
-            </div>
-            <button
-              className=" w-full text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
-              type="submit"
-            >
-              Entrar
-            </button>
-          </form>
-
-          <p className="mt-4 text-center text-muted">
-            ¿No tienes una cuenta?{" "}
-            <Link
-              to="/auth/register"
-              className="text-secondary hover:underline"
-            >
-              Registro
-            </Link>
-          </p>
+                Entrar
+              </button>
+            </form>
+            <p className="mt-4 text-center text-muted">
+              ¿No tienes una cuenta?{" "}
+              <Link
+                to="/auth/register"
+                className="text-secondary hover:underline"
+              >
+                Registro
+              </Link>
+            </p>
+          </div>
         </div>
         {isLoading && (
           <div
