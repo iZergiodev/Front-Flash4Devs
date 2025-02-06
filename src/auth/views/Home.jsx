@@ -1,8 +1,13 @@
 import Squares from "../../components/Squares";
 import { Navbar } from "../../components/Navbar";
 import AnimatedContent from "../../components/AnimatedContent";
+import { useUserStore } from "../../store/userStore";
 
 export const Home = () => {
+
+  const { isLogged } = useUserStore();
+
+
   return (
     <>
       <div className="relative w-full h-screen overflow-hidden">
@@ -16,7 +21,7 @@ export const Home = () => {
           scale={0.1}
           threshold={0.2}
         >
-          <Navbar />
+          {!isLogged ?  <Navbar/> : ''}
         </AnimatedContent>
         <Squares
           speed={0.5}
@@ -48,7 +53,9 @@ export const Home = () => {
               </p>
             </div>
             <div className="bg-card p-10 rounded-[75px] shadow-lg text-center">
-              <h2 className="text-2xl font-bold mb-4">Personal (Racha y Kyu)</h2>
+              <h2 className="text-2xl font-bold mb-4">
+                Personal (Racha y Kyu)
+              </h2>
               <p className="text-lg">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut
                 voluptatem sunt saepe dignissimos inventore veritatis
@@ -57,7 +64,9 @@ export const Home = () => {
               </p>
             </div>
             <div className="bg-card p-10 rounded-[75px] shadow-lg text-center">
-              <h2 className="text-2xl font-bold mb-4">Personalizar tu FlashCards</h2>
+              <h2 className="text-2xl font-bold mb-4">
+                Personalizar tu FlashCards
+              </h2>
               <p className="text-lg">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut
                 voluptatem sunt saepe dignissimos inventore veritatis
