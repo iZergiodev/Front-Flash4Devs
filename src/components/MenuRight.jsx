@@ -1,15 +1,17 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import GradientText from "./GradientText";
 import { FaUser, FaGraduationCap, FaStar, FaSignOutAlt } from "react-icons/fa";
 import DecryptedText from "./DecryptedText";
 
-export const MenuRight = () => {
+export const MenuRight = ({name, email}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+
 
   return (
     <>
@@ -21,7 +23,7 @@ export const MenuRight = () => {
             showBorder={false}
             className="custom-class"
           >
-            &quot;Nombre&quot;
+            &quot;{name}&quot;
           </GradientText>
           <div className="relative">
             <button
@@ -40,15 +42,15 @@ export const MenuRight = () => {
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  className="absolute right-0 mt-4 w-40 bg-card rounded-lg shadow-lg backdrop-blur-md border border-muted/20"
+                  className="absolute right-0 mt-4 w-45 bg-card rounded-lg shadow-lg backdrop-blur-md border border-muted/20"
                 >
                   <ul className="py-2">
                     <li className="border-b border-muted/20 mb-1 pb-2 flex flex-col items-center justify-center">
                       <span className="text-base">
-                        <DecryptedText text="Pró-user" />
+                        <DecryptedText text="Pró-user" animateOn="view" />
                       </span>
                       <span className="text-sm underline decoration-solid">
-                        <DecryptedText text="user@user.com" />
+                        <DecryptedText text={email} animateOn="view" />
                       </span>
                     </li>
                     <li>

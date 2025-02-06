@@ -6,15 +6,24 @@ import { useUserStore } from "../../store/userStore";
 import { decodeToken } from "../../utils/decodeToken";
 
 export const Home = () => {
-
   const { isLogged } = useUserStore();
 
+  const token = localStorage.getItem("token");
+  console.log(decodeToken(token))
 
-    const token = localStorage.getItem('token')
-    const {sub, id, name, last_name} = decodeToken(token)
-    console.log(sub, id, name, last_name)
+  const extraerName = () => {
+    if (token) {
+      const { name } = decodeToken(token);
+      return name;
+    }
+  };
 
-
+  const extraerEmail = () => {
+    if (token) {
+      const { sub } = decodeToken(token);
+      return sub;
+    }
+  };
 
   return (
     <>
@@ -29,9 +38,11 @@ export const Home = () => {
           scale={0.1}
           threshold={0.2}
         >
-
-          <Navbar />
-          <MenuRight />
+          {isLogged ? (
+            <MenuRight name={extraerName()} email={extraerEmail()} />
+          ) : (
+            <Navbar />
+          )}
         </AnimatedContent>
         <Squares
           speed={0.5}
@@ -44,7 +55,7 @@ export const Home = () => {
           <div className="grid grid-cols-2 gap-8 w-full max-w-4xl">
             <div className="bg-card p-10 rounded-[75px] shadow-lg">
               <h2 className="text-2xl font-bold mb-4 text-center">
-                Simulacion de Entrevista {`<h1>Bienvenido ${name}</h1>`}
+                Simulacion de Entrevista
               </h2>
               <p className="text-lg">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut
