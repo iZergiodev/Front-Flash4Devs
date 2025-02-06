@@ -3,10 +3,17 @@ import { Navbar } from "../../components/Navbar";
 import { MenuRight } from "../../components/MenuRight";
 import AnimatedContent from "../../components/AnimatedContent";
 import { useUserStore } from "../../store/userStore";
+import { decodeToken } from "../../utils/decodeToken";
 
 export const Home = () => {
 
   const { isLogged } = useUserStore();
+
+
+    const token = localStorage.getItem('token')
+    const {sub, id, name, last_name} = decodeToken(token)
+    console.log(sub, id, name, last_name)
+
 
 
   return (
@@ -37,7 +44,7 @@ export const Home = () => {
           <div className="grid grid-cols-2 gap-8 w-full max-w-4xl">
             <div className="bg-card p-10 rounded-[75px] shadow-lg">
               <h2 className="text-2xl font-bold mb-4 text-center">
-                Simulacion de Entrevista
+                Simulacion de Entrevista {`<h1>Bienvenido ${name}</h1>`}
               </h2>
               <p className="text-lg">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut

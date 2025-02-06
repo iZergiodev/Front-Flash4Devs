@@ -48,7 +48,7 @@ export const Login = () => {
         method: "POST",
         body: JSON.stringify({
           email: formData.email,
-          password: formData.password,
+          password: formData.password
         }),
         headers: {
           "Content-Type": "application/json",
