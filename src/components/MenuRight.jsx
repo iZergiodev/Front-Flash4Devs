@@ -42,7 +42,7 @@ export const MenuRight = ({name, email}) => {
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  className="absolute right-0 mt-4 w-45 bg-card rounded-lg shadow-lg backdrop-blur-md border border-muted/20"
+                  className="absolute right-0 mt-4 w-50 bg-card rounded-lg shadow-lg backdrop-blur-md border border-muted/20"
                 >
                   <ul className="py-2">
                     <li className="border-b border-muted/20 mb-1 pb-2 flex flex-col items-center justify-center">
@@ -56,7 +56,7 @@ export const MenuRight = ({name, email}) => {
                     <li>
                       <a
                         href="#"
-                        className="flex items-center px-4 py-2 text-text hover:bg-muted/30 transition-colors duration-200 font-semibold"
+                        className="flex items-center px-4 py-2 text-text hover:bg-muted/30 transition-colors duration-200 font-semibold cursor-pointer"
                       >
                         <FaUser className="mr-3" />
                         Perfil
@@ -65,7 +65,7 @@ export const MenuRight = ({name, email}) => {
                     <li>
                       <a
                         href="#"
-                        className="flex items-center px-4 py-2 text-text hover:bg-muted/30 transition-colors duration-200 font-semibold"
+                        className="flex items-center px-4 py-2 text-text hover:bg-muted/30 transition-colors duration-200 font-semibold cursor-pointer"
                       >
                         <FaGraduationCap className="mr-3" />
                         Flashcards
@@ -74,7 +74,7 @@ export const MenuRight = ({name, email}) => {
                     <li>
                       <a
                         href="#"
-                        className="flex items-center px-4 py-2 text-text hover:bg-muted/30 transition-colors duration-200 font-semibold"
+                        className="flex items-center px-4 py-2 text-text hover:bg-muted/30 transition-colors duration-200 font-semibold cursor-pointer"
                       >
                         <FaStar className="mr-3" />
                         Calificación
@@ -82,7 +82,7 @@ export const MenuRight = ({name, email}) => {
                     </li>
                     <li className="border-t border-muted/20 mt-2 pt-2 flex items-center justify-center">
                       <button
-                        className="w-28 flex items-center justify-center text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+                        className="w-28 flex items-center justify-center text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
                         type="submit"
                       >
                         <FaSignOutAlt className="mr-2" />

@@ -49,7 +49,7 @@ export const Home = () => {
           speed={0.5}
           squareSize={40}
           direction="diagonal"
-          borderColor="#F17300"
+          borderColor="rgba(241, 115, 0, 0.4)"
           hoverFillColor="#81A4CD"
         />
         <div className="absolute inset-30 z-10 flex flex-col items-center justify-center">
