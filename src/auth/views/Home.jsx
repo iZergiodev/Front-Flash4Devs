@@ -15,7 +15,7 @@ export const Home = () => {
       const { name } = decodeToken(token);
       return name;
     }
-    return
+    return;
   };
 
   const extraerEmail = () => {
@@ -23,7 +23,7 @@ export const Home = () => {
       const { sub } = decodeToken(token);
       return sub;
     }
-    return
+    return;
   };
 
   return (
