@@ -8,7 +8,6 @@ import SplitText from "../../components/SplitText";
 import AnimatedContent from "../../components/AnimatedContent";
 import { useUserStore } from "../../store/userStore";
 
-
 export const Register = () => {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -71,9 +70,7 @@ export const Register = () => {
       const data = await response.json();
       console.log(data);
       if (response.ok) {
-        loginAuthorized()
-
-        navigate("/auth/home");
+        navigate("/auth/login");
       }
     } catch (error) {
       toast.error("Error al conectar con el servidor");
