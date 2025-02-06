@@ -52,7 +52,7 @@ export const Home = () => {
           borderColor="#F17300"
           hoverFillColor="#81A4CD"
         />
-        <div className="absolute inset-30 z-10 flex flex-col items-center justify-center">
+        <div className="absolute inset-100 z-10 flex flex-col items-center justify-center">
           <div className="grid grid-cols-2 gap-8 w-full max-w-4xl">
             <div className="bg-card p-10 rounded-[75px] shadow-lg">
               <h2 className="text-2xl font-bold mb-4 text-center">
