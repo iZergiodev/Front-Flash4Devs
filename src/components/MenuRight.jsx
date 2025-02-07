@@ -6,14 +6,14 @@ import { FaUser, FaGraduationCap, FaStar, FaSignOutAlt } from "react-icons/fa";
 import DecryptedText from "./DecryptedText";
 import { useUserStore } from "../store/userStore";
 
-export const MenuRight = ({name, email}) => {
+export const MenuRight = ({ name, email }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const { logout } = useUserStore()
+  const { logout } = useUserStore();
 
   return (
     <>
@@ -57,7 +57,7 @@ export const MenuRight = ({name, email}) => {
                     </li>
                     <li>
                       <a
-                        href="#"
+                        href="/auth/profile"
                         className="flex items-center px-4 py-2 text-text hover:bg-muted/30 transition-colors duration-200 font-semibold cursor-pointer"
                       >
                         <FaUser className="mr-3" />
@@ -85,8 +85,7 @@ export const MenuRight = ({name, email}) => {
                     <li className="border-t border-muted/20 mt-2 pt-2 flex items-center justify-center">
                       <button
                         className="w-28 flex items-center justify-center text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
-                      onClick={logout}
-                        className="w-28 flex items-center justify-center text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+                        onClick={logout}
                         type="submit"
                       >
                         <FaSignOutAlt className="mr-2" />

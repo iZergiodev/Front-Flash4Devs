@@ -52,44 +52,44 @@ export const Home = () => {
           borderColor="rgba(241, 115, 0, 0.4)"
           hoverFillColor="#81A4CD"
         />
-        <div className="absolute inset-100 z-10 flex flex-col items-center justify-center">
-          <div className="grid grid-cols-2 gap-8 w-full max-w-4xl">
-            <div className="bg-card p-10 rounded-[75px] shadow-lg">
-              <h2 className="text-2xl font-bold mb-4 text-center">
-                Simulacion de Entrevista
+        <div className="absolute inset-0 flex items-center justify-center p-4 z-10 sm:mt-0 mt-30 pointer-events-none">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
+            <div className="bg-card p-6 md:p-10 rounded-3xl md:rounded-[75px] shadow-lg pointer-events-auto">
+              <h2 className="text-xl md:text-2xl font-bold mb-4 text-center">
+                Preguntas de Entrevista
               </h2>
-              <p className="text-lg">
+              <p className="text-base md:text-lg">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut
                 voluptatem sunt saepe dignissimos inventore veritatis
                 consectetur officiis laborum recusandae optio assumenda,
                 temporibus in ad. Illo illum velit quisquam vero molestias!
               </p>
             </div>
-            <div className="bg-card p-10 rounded-[75px] shadow-lg text-center">
-              <h2 className="text-2xl font-bold mb-4">Practica</h2>
-              <p className="text-lg text-center">
+            <div className="bg-card p-6 md:p-10 rounded-3xl md:rounded-[75px] shadow-lg text-center pointer-events-auto">
+              <h2 className="text-xl md:text-2xl font-bold mb-4">Practica</h2>
+              <p className="text-base md:text-lg text-center">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut
                 voluptatem sunt saepe dignissimos inventore veritatis
                 consectetur officiis laborum recusandae optio assumenda,
                 temporibus in ad. Illo illum velit quisquam vero molestias!
               </p>
             </div>
-            <div className="bg-card p-10 rounded-[75px] shadow-lg text-center">
-              <h2 className="text-2xl font-bold mb-4">
-                Personal (Racha y Kyu)
+            <div className="bg-card p-6 md:p-10 rounded-3xl md:rounded-[75px] shadow-lg text-center pointer-events-auto">
+              <h2 className="text-xl md:text-2xl font-bold mb-4">
+                Coding Flashcards
               </h2>
-              <p className="text-lg">
+              <p className="text-base md:text-lg">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut
                 voluptatem sunt saepe dignissimos inventore veritatis
                 consectetur officiis laborum recusandae optio assumenda,
                 temporibus in ad. Illo illum velit quisquam vero molestias!
               </p>
             </div>
-            <div className="bg-card p-10 rounded-[75px] shadow-lg text-center">
-              <h2 className="text-2xl font-bold mb-4">
-                Personalizar tu FlashCards
+            <div className="bg-card p-6 md:p-10 rounded-3xl md:rounded-[75px] shadow-lg text-center pointer-events-auto">
+              <h2 className="text-xl md:text-2xl font-bold mb-4">
+                Custom Flashcards
               </h2>
-              <p className="text-lg">
+              <p className="text-base md:text-lg">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut
                 voluptatem sunt saepe dignissimos inventore veritatis
                 consectetur officiis laborum recusandae optio assumenda,
