@@ -42,8 +42,9 @@ export const Home = () => {
           {isLogged ? (
             <MenuRight name={extraerName()} email={extraerEmail()} />
           ) : (
-            <Navbar />
+            ""
           )}
+          <Navbar />
         </AnimatedContent>
         <Squares
           speed={0.5}
