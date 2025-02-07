@@ -2,8 +2,7 @@ import { Link } from 'react-router'
 
 const listItems = [
   { name: "Home", path: "/auth/home" },
-  { name: "Cursos", path: "/auth/cursos" },
-  { name: "Developers", path: "/auth/developers" },
+  { name: "Categorias", path: "/auth/categorias" },
   { name: "AboutUs", path: "/auth/about-us" }
 ];
 
