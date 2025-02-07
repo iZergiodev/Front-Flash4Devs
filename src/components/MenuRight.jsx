@@ -17,7 +17,7 @@ export const MenuRight = ({ name, email }) => {
 
   return (
     <>
-      <nav className="fixed top-3 right-3 p-4 bg-card py-1 px-4 rounded-full backdrop-blur-md text-text shadow-lg z-10 font-semibold border-t border-muted/20">
+      <nav className="fixed top-3 right-3 p-4 bg-card py-1 px-4 rounded-full backdrop-blur-md text-text shadow-lg z-50 font-semibold border-t border-muted/20">
         <div className="flex flex-row space-x-4 items-center gap-4">
           <GradientText
             colors={["#054A91", "#F17300", "#054A91", "#F17300", "#054A91"]}
