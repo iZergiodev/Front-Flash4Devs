@@ -82,8 +82,6 @@ export const Login = () => {
     }
   };
 
-  // Function Eye to see password in input
-
   const inputRef = useRef(null)
   const [eyeIsClosed, setEyeState] = useState(false)
 
@@ -152,9 +150,7 @@ export const Login = () => {
                 >
                   Contraseña
                 </label>
-                {/* Container para input e botão */}
                 <div className="relative w-full">
-                  {/* Input */}
                   <input
                     ref={inputRef}
                     type="password"
@@ -165,7 +161,6 @@ export const Login = () => {
                     value={formData.password}
                     onChange={handleInputChange}
                   />
-                  {/* Botão com ícone */}
                   <button
                     type="button"
                     onClick={toggleShow}
