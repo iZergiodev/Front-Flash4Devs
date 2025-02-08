@@ -1,15 +1,17 @@
 import SplitText from "../../components/SplitText";
 import Squares from "../../components/Squares";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import { Link, useNavigate } from "react-router";
 import toast, { Toaster } from "react-hot-toast";
 import { useLoading } from "../../hooks/useLoading";
 import { ThreeDots } from "react-loader-spinner";
 import { useUserStore } from "../../store/userStore";
+import { VscEye, VscEyeClosed } from 'react-icons/vsc'
 
 export const Login = () => {
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -80,6 +82,21 @@ export const Login = () => {
     }
   };
 
+  // Function Eye to see password in input
+
+  const inputRef = useRef(null)
+  const [eyeIsClosed, setEyeState] = useState(false)
+
+  const toggleShow = () => {
+    if (inputRef.current.type === "password") {
+      setEyeState(true)
+      inputRef.current.type = "text"
+    } else {
+      setEyeState(false)
+      inputRef.current.type = "password"
+    }
+  }
+
   return (
     <>
       <Toaster position="bottom-right" reverseOrder={false} />
@@ -135,15 +152,32 @@ export const Login = () => {
                 >
                   Contraseña
                 </label>
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  placeholder="Ingresa tu contraseña"
-                  className="w-full px-3 py-2 border border-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                />
+                {/* Container para input e botão */}
+                <div className="relative w-full">
+                  {/* Input */}
+                  <input
+                    ref={inputRef}
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Ingresa tu contraseña"
+                    className="w-full px-3 py-2 border border-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                  />
+                  {/* Botão com ícone */}
+                  <button
+                    type="button"
+                    onClick={toggleShow}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none cursor-pointer"
+                  >
+                    {eyeIsClosed ? (
+                      <VscEye size={20} />
+                    ) : (
+                      <VscEyeClosed size={20} />
+                    )}
+                  </button>
+                </div>
               </div>
               <button
                 className="w-full text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
