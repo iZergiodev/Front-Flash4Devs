@@ -44,7 +44,7 @@ export const MenuRight = ({ name, email }) => {
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  className="absolute right-0 mt-4 w-50 bg-card rounded-lg shadow-lg backdrop-blur-md border border-muted/20"
+                  className="absolute right-0 mt-4 w-60 bg-card rounded-lg shadow-lg backdrop-blur-md border border-muted/20"
                 >
                   <ul className="py-2">
                     <li className="border-b border-muted/20 mb-1 pb-2 flex flex-col items-center justify-center">

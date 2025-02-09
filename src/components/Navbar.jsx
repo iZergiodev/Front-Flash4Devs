@@ -4,6 +4,7 @@ import { useUserStore } from "../store/userStore";
 const listItems = [
   { name: "Home", path: "/auth/home" },
   { name: "Categorias", path: "/auth/categorias" },
+  { name: "Contacto", path: "/auth/contacto" },
   { name: "AboutUs", path: "/auth/about-us" },
 ];
 
