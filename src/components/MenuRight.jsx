@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import GradientText from "./GradientText";
+import GradientText from "./effectcomponents/GradientText";
 import { FaUser, FaGraduationCap, FaStar, FaSignOutAlt } from "react-icons/fa";
-import DecryptedText from "./DecryptedText";
+import DecryptedText from "./effectcomponents/DecryptedText";
 import { useUserStore } from "../store/userStore";
 
 export const MenuRight = ({ name, email }) => {

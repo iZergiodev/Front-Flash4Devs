@@ -1,17 +1,15 @@
-import SplitText from "../../components/SplitText";
-import Squares from "../../components/Squares";
+import SplitText from "../../components/effectcomponents/SplitText";
+import Squares from "../../components/effectcomponents/Squares";
 
 import { useState, useRef } from "react";
-
 import { Link, useNavigate } from "react-router";
 import toast, { Toaster } from "react-hot-toast";
 import { useLoading } from "../../hooks/useLoading";
 import { ThreeDots } from "react-loader-spinner";
 import { useUserStore } from "../../store/userStore";
-import { VscEye, VscEyeClosed } from 'react-icons/vsc'
+import { VscEye, VscEyeClosed } from "react-icons/vsc";
 
 export const Login = () => {
-
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -82,18 +80,18 @@ export const Login = () => {
     }
   };
 
-  const inputRef = useRef(null)
-  const [eyeIsClosed, setEyeState] = useState(false)
+  const inputRef = useRef(null);
+  const [eyeIsClosed, setEyeState] = useState(false);
 
   const toggleShow = () => {
     if (inputRef.current.type === "password") {
-      setEyeState(true)
-      inputRef.current.type = "text"
+      setEyeState(true);
+      inputRef.current.type = "text";
     } else {
-      setEyeState(false)
-      inputRef.current.type = "password"
+      setEyeState(false);
+      inputRef.current.type = "password";
     }
-  }
+  };
 
   return (
     <>

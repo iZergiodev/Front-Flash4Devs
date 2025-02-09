@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from 'react-router'
+import { useNavigate } from "react-router";
 import {
   FaPen,
   FaMedal,
@@ -11,7 +11,7 @@ import {
   FaClock,
   FaInfoCircle,
 } from "react-icons/fa";
-import Squares from "../../components/Squares";
+import Squares from "../../components/effectcomponents/Squares";
 import { Navbar } from "../../components/Navbar";
 
 export const Profile = () => {
@@ -42,10 +42,10 @@ export const Profile = () => {
     }
   };
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSave = () => {
-    navigate('/home');
+    navigate("/home");
     //Falta lógica
   };
 
@@ -60,7 +60,7 @@ export const Profile = () => {
           hoverFillColor="#81A4CD"
         />
       </div>
-     <Navbar />
+      <Navbar />
       <div className="relative z-10 flex items-center justify-center min-h-screen p-4 pointer-events-none">
         <div className="bg-card p-4 rounded-lg shadow-lg w-full max-w-5xl pointer-events-auto">
           <h1 className="text-3xl font-semibold text-center mb-4 text-text">

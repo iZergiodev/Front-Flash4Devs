@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { Navbar } from "../../components/Navbar";
 import { useNavigate } from "react-router";
+import { useUserStore } from "../../store/userStore";
 import toast, { Toaster } from "react-hot-toast";
+
+import { Navbar } from "../../components/Navbar";
 import { useLoading } from "../../hooks/useLoading";
 import { ThreeDots } from "react-loader-spinner";
-import SplitText from "../../components/SplitText";
-import AnimatedContent from "../../components/AnimatedContent";
-import { useUserStore } from "../../store/userStore";
-import Squares from "../../components/Squares";
+import SplitText from "../../components/effectcomponents/SplitText";
+import AnimatedContent from "../../components/effectcomponents/AnimatedContent";
+import Squares from "../../components/effectcomponents/Squares";
 
 export const Register = () => {
   const [formData, setFormData] = useState({
