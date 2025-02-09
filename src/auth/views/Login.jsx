@@ -23,7 +23,7 @@ export const Login = () => {
   //   });
   // };
 
-  const { loginAuthorized, isLogged } = useUserStore();
+  const { loginAuthorized } = useUserStore();
 
   let navigate = useNavigate();
 

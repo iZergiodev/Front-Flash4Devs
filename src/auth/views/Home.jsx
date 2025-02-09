@@ -6,27 +6,51 @@ import { useUserStore } from "../../store/userStore";
 import { decodeToken } from "../../utils/decodeToken";
 import { motion } from "framer-motion";
 import { Link } from "react-router";
+import { useEffect } from "react";
+import { useState } from "react";
 
 export const Home = () => {
+
+  const [emailState, setEmail] = useState('');
+  const [nameState, setName] = useState('');
+
   const { isLogged } = useUserStore();
+
 
   const token = localStorage.getItem("token");
 
-  const extraerName = () => {
-    if (token) {
-      const { name } = decodeToken(token);
-      return name;
-    }
-    return;
-  };
+  const decodedToken = token ? decodeToken(token) : null;
+  const id = decodedToken ? decodedToken.id : null;
 
-  const extraerEmail = () => {
-    if (token) {
-      const { sub } = decodeToken(token);
-      return sub;
+
+  const extraer = async() => {
+    try {
+      const response = await fetch(`https://back-flash4devs-production.up.railway.app/api/user/${id}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        console.log("Información del usuario:", data);
+        setEmail(data.email);
+        setName(data.name)
+      } else {
+        console.error("Error al obtener la información del usuario");
+      }
+    } catch (error) {
+      console.error("Error de red:", error);
     }
-    return;
-  };
+  }
+
+  useEffect(() => {
+    if (id) {
+      extraer(); // Llama a la función para obtener la información del usuario
+    }
+  }, [id]);
 
   const cardVariants = {
     hidden: { opacity: 0, scale: 0.8 },
@@ -48,7 +72,7 @@ export const Home = () => {
           threshold={0.2}
         >
           {isLogged ? (
-            <MenuRight name={extraerName()} email={extraerEmail()} />
+            <MenuRight name={nameState} email={emailState} />
           ) : (
             ""
           )}
