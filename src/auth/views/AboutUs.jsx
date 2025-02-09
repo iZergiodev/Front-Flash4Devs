@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { Navbar } from "../../components/Navbar";
-import GradientText from "../../components/GradientText";
-import Squares from "../../components/Squares";
+import GradientText from "../../components/effectcomponents/GradientText";
+import Squares from "../../components/effectcomponents/Squares";
 
 // import FotoYago from "../../../public/yagop.jpg";
 // import FotoSergio from "../../../public/sergio.jpeg";
@@ -171,4 +171,5 @@ export const AboutUs = () => {
         </div>
       </div>
     </>
-  );}
+  );
+};

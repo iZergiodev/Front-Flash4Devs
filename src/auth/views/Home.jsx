@@ -1,7 +1,7 @@
-import Squares from "../../components/Squares";
+import Squares from "../../components/effectcomponents/Squares";
 import { Navbar } from "../../components/Navbar";
 import { MenuRight } from "../../components/MenuRight";
-import AnimatedContent from "../../components/AnimatedContent";
+import AnimatedContent from "../../components/effectcomponents/AnimatedContent";
 import { useUserStore } from "../../store/userStore";
 import { decodeToken } from "../../utils/decodeToken";
 
