@@ -79,7 +79,7 @@ export const MenuRight = ({ name, email, profileImage }) => {
                         className="flex items-center px-4 py-2 text-text hover:bg-muted/30 transition-colors duration-200 font-semibold cursor-pointer"
                       >
                         <FaStar className="mr-3" />
-                        Estatisticas
+                        Estadisticas
                       </a>
                     </li>
                     <li className="border-t border-muted/20 mt-2 pt-2 flex items-center justify-center">
