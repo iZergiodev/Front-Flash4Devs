@@ -4,6 +4,7 @@ import { Login } from "../views/Login.jsx";
 import { Register } from "../views/Register.jsx";
 import { Profile } from "../views/Profile.jsx";
 import { AboutUs } from "../views/AboutUs.jsx";
+import { Estatisticas } from "../views/Estatisticas.jsx";
 import { PublicRoutes } from "../../router/PublicRoutes.jsx";
 import { ProtectedRoutes } from "../../router/ProtectedRoutes.jsx";
 
@@ -33,6 +34,7 @@ export const AuthRouter = () => {
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/home" element={<Home />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/estatisticas" element={<Estatisticas />} />
     </Routes>
   );
 };
