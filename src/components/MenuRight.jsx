@@ -75,7 +75,7 @@ export const MenuRight = ({ name, email, profileImage }) => {
                     </li>
                     <li>
                       <a
-                        href="/auth/estatisticas"
+                        href="/auth/estadistica"
                         className="flex items-center px-4 py-2 text-text hover:bg-muted/30 transition-colors duration-200 font-semibold cursor-pointer"
                       >
                         <FaStar className="mr-3" />
