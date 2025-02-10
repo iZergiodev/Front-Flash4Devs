@@ -2,10 +2,12 @@ import { useEffect } from "react";
 import { decodeToken } from "../utils/decodeToken";
 import { useState } from "react";
 
-const useExtractInfo = (url) => {
+
+const useExtractInfo = () => {
   const [emailState, setEmail] = useState("");
   const [nameState, setName] = useState("");
-  const [avatar, setAvatar] = useState("");
+  const [lastName, setLastName] = useState("")
+  const [avatar, setAvatar] = useState("/avatarejemplo.jpg");
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -35,6 +37,7 @@ const useExtractInfo = (url) => {
           console.log("Información del usuario:", data);
           setEmail(data.email);
           setName(data.name);
+          setLastName(data.last_name);
           setAvatar(data.profile_image);
         } else {
           console.error("Error al obtener la información del usuario");
@@ -45,9 +48,9 @@ const useExtractInfo = (url) => {
     };
 
     extraer();
-  }, [url]);
+  }, []);
 
-  return { emailState, nameState, avatar };
+  return { emailState, nameState, lastName, avatar };
 };
 
 export default useExtractInfo;

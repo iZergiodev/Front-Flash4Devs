@@ -5,7 +5,7 @@ import GradientText from "./effectcomponents/GradientText";
 import { FaUser, FaGraduationCap, FaStar, FaSignOutAlt } from "react-icons/fa";
 import DecryptedText from "./effectcomponents/DecryptedText";
 import { useUserStore } from "../store/userStore";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 export const MenuRight = ({ name, email, profileImage }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
