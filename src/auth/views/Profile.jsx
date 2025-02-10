@@ -54,9 +54,13 @@ export const Profile = () => {
       }
     );
 
-    const { profile_image } = await resp.json();
+    const { profile_image, email, name, last_name } = await resp.json();
 
     setAvatar(profile_image);
+    setFirstName(name);
+    setLastName(last_name);
+    setEmail(email);
+
     stopLoading()
   };
 
