@@ -1,6 +1,7 @@
 import Squares from "../../components/effectcomponents/Squares";
 import { Navbar } from "../../components/Navbar";
 import { MenuRight } from "../../components/MenuRight";
+import RotatingText from "../../components/effectcomponents/RotatingText";
 import AnimatedContent from "../../components/effectcomponents/AnimatedContent";
 import { useUserStore } from "../../store/userStore";
 import { decodeToken } from "../../utils/decodeToken";
@@ -93,7 +94,6 @@ export const Home = () => {
           borderColor="rgba(241, 115, 0, 0.4)"
           hoverFillColor="#81A4CD"
         />
-
         <div className="absolute inset-0 flex items-center justify-center p-4 z-10 sm:mt-0 mt-30 pointer-events-none">
           <div className="flex flex-wrap gap-14 w-[700px] h-[600px] max-w-4xl justify-center mt-10">
             <motion.div

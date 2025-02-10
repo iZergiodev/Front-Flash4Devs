@@ -33,7 +33,7 @@ export const MenuRight = ({ name, email, profileImage }) => {
               className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary cursor-pointer"
             >
               <img
-                src= { profileImage || "/avatarejemplo.jpg" }  
+                src={profileImage || "/avatarejemplo.jpg"}
                 alt="Avatar"
                 className="w-full h-full object-cover"
               />
@@ -75,11 +75,11 @@ export const MenuRight = ({ name, email, profileImage }) => {
                     </li>
                     <li>
                       <a
-                        href="#"
+                        href="/auth/estatisticas"
                         className="flex items-center px-4 py-2 text-text hover:bg-muted/30 transition-colors duration-200 font-semibold cursor-pointer"
                       >
                         <FaStar className="mr-3" />
-                        Calificación
+                        Estatisticas
                       </a>
                     </li>
                     <li className="border-t border-muted/20 mt-2 pt-2 flex items-center justify-center">
