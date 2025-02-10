@@ -10,15 +10,9 @@ import { useEffect } from "react";
 import { useState } from "react";
 
 export const Home = () => {
-
   const [emailState, setEmail] = useState("");
   const [nameState, setName] = useState("");
-
-
-  const [emailState, setEmail] = useState('');
-  const [nameState, setName] = useState('');
-  const [avatar, setAvatar] = useState()
-
+  const [avatar, setAvatar] = useState("");
 
   const { isLogged } = useUserStore();
 
@@ -45,10 +39,7 @@ export const Home = () => {
         console.log("Información del usuario:", data);
         setEmail(data.email);
         setName(data.name);
-
-
-        setAvatar(data.profile_image)
-
+        setAvatar(data.profile_image);
       } else {
         console.error("Error al obtener la información del usuario");
       }
@@ -81,11 +72,14 @@ export const Home = () => {
           scale={0.1}
           threshold={0.2}
         >
-
           {isLogged ? <MenuRight name={nameState} email={emailState} /> : ""}
 
           {isLogged ? (
-            <MenuRight name={nameState} email={emailState} profileImage={avatar} />
+            <MenuRight
+              name={nameState}
+              email={emailState}
+              profileImage={avatar}
+            />
           ) : (
             ""
           )}

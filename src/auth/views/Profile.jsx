@@ -25,10 +25,6 @@ export const Profile = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
 
-  const [avatar, setAvatar] = useState('/avatarejemplo.jpg');
-  const [firstName, setFirstName] = useState("Yago");
-  const [lastName, setLastName] = useState("Cima Castelao");
-  const [email, setEmail] = useState("yago@castelao.dev");
 
   const [description, setDescription] = useState(
     ""
