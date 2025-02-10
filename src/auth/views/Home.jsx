@@ -13,6 +13,7 @@ export const Home = () => {
 
   const [emailState, setEmail] = useState('');
   const [nameState, setName] = useState('');
+  const [avatar, setAvatar] = useState()
 
   const { isLogged } = useUserStore();
 
@@ -37,7 +38,8 @@ export const Home = () => {
       if (response.ok) {
         console.log("Información del usuario:", data);
         setEmail(data.email);
-        setName(data.name)
+        setName(data.name);
+        setAvatar(data.profile_image)
       } else {
         console.error("Error al obtener la información del usuario");
       }
@@ -72,7 +74,7 @@ export const Home = () => {
           threshold={0.2}
         >
           {isLogged ? (
-            <MenuRight name={nameState} email={emailState} />
+            <MenuRight name={nameState} email={emailState} profileImage={avatar} />
           ) : (
             ""
           )}

@@ -6,7 +6,7 @@ import { FaUser, FaGraduationCap, FaStar, FaSignOutAlt } from "react-icons/fa";
 import DecryptedText from "./effectcomponents/DecryptedText";
 import { useUserStore } from "../store/userStore";
 
-export const MenuRight = ({ name, email }) => {
+export const MenuRight = ({ name, email, profileImage }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -33,7 +33,7 @@ export const MenuRight = ({ name, email }) => {
               className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary cursor-pointer"
             >
               <img
-                src="/avatarejemplo.jpg"
+                src= { profileImage || "/avatarejemplo.jpg" }  
                 alt="Avatar"
                 className="w-full h-full object-cover"
               />
