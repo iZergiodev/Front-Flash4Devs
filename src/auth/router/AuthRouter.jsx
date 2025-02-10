@@ -7,6 +7,7 @@ import { AboutUs } from "../views/AboutUs.jsx";
 import { Estadistica } from "../views/Estadistica.jsx";
 import { PublicRoutes } from "../../router/PublicRoutes.jsx";
 import { ProtectedRoutes } from "../../router/ProtectedRoutes.jsx";
+import { ConceptCard } from "../../flash4devs/ConceptCard.jsx";
 
 export const AuthRouter = () => {
   return (
@@ -35,6 +36,8 @@ export const AuthRouter = () => {
       <Route path="/home" element={<Home />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/estadistica" element={<Estadistica />} />
+      <Route path="/conceptcard" element={<ConceptCard/>} />
+
     </Routes>
   );
 };
