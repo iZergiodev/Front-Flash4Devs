@@ -5,6 +5,7 @@ import GradientText from "./effectcomponents/GradientText";
 import { FaUser, FaGraduationCap, FaStar, FaSignOutAlt } from "react-icons/fa";
 import DecryptedText from "./effectcomponents/DecryptedText";
 import { useUserStore } from "../store/userStore";
+import { Navigate, useNavigate } from "react-router";
 
 export const MenuRight = ({ name, email, profileImage }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -13,7 +14,14 @@ export const MenuRight = ({ name, email, profileImage }) => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  const navigate = useNavigate()
   const { logout } = useUserStore();
+  const handleLogout = () => {
+    logout();
+
+    navigate('/auth/home')
+
+  };
 
   return (
     <>
@@ -85,7 +93,7 @@ export const MenuRight = ({ name, email, profileImage }) => {
                     <li className="border-t border-muted/20 mt-2 pt-2 flex items-center justify-center">
                       <button
                         className="w-28 flex items-center justify-center text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
-                        onClick={logout}
+                        onClick={handleLogout}
                         type="submit"
                       >
                         <FaSignOutAlt className="mr-2" />

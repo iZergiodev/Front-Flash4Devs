@@ -4,6 +4,8 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 import Squares from "../../components/effectcomponents/Squares";
 import { Navbar } from "../../components/Navbar";
+import { MenuRight } from "../../components/MenuRight";
+import useExtractInfo from "../../hooks/useExtractInfo";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -18,13 +20,14 @@ const colors = {
 };
 
 export function Estadistica() {
+  
+  const {emailState, nameState, avatar} = useExtractInfo()
 
   const totalCorrect = 75;
   const totalIncorrect = 25;
   const accuracyPercentage =
     (totalCorrect / (totalCorrect + totalIncorrect)) * 100;
   const currentLevel = "Intermedio";
-
 
   const correctAnswersChart = {
     options: {
@@ -71,7 +74,6 @@ export function Estadistica() {
     ],
   };
 
-
   const incorrectAnswersChart = {
     options: {
       chart: {
@@ -117,7 +119,6 @@ export function Estadistica() {
     ],
   };
 
-
   const accuracyChartData = {
     labels: ["Acertadas", "Falladas"],
     datasets: [
@@ -130,7 +131,6 @@ export function Estadistica() {
       },
     ],
   };
-
 
   const currentLevelChart = {
     options: {
@@ -183,7 +183,7 @@ export function Estadistica() {
         />
       </div>
       <Navbar />
-
+      <MenuRight name={nameState} email={emailState} profileImage={avatar} />
       <div className="relative z-20 inset-0 flex flex-col items-center mt-16">
         <h1 className="text-3xl font-bold text-primary mb-2 mt-6 text-center">
           Estadisticas
@@ -226,4 +226,3 @@ export function Estadistica() {
     </div>
   );
 }
-

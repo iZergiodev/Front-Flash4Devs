@@ -1,59 +1,18 @@
 import Squares from "../../components/effectcomponents/Squares";
 import { Navbar } from "../../components/Navbar";
 import { MenuRight } from "../../components/MenuRight";
-import RotatingText from "../../components/effectcomponents/RotatingText";
 import AnimatedContent from "../../components/effectcomponents/AnimatedContent";
 import { useUserStore } from "../../store/userStore";
-import { decodeToken } from "../../utils/decodeToken";
 import { motion } from "framer-motion";
 import { Link } from "react-router";
-import { useEffect } from "react";
 import { useState } from "react";
+import useExtractInfo from "../../hooks/useExtractInfo";
 
 export const Home = () => {
-  const [emailState, setEmail] = useState("");
-  const [nameState, setName] = useState("");
-  const [avatar, setAvatar] = useState("");
 
   const { isLogged } = useUserStore();
-
-  const token = localStorage.getItem("token");
-
-  const decodedToken = token ? decodeToken(token) : null;
-  const id = decodedToken ? decodedToken.id : null;
-
-  const extraer = async () => {
-    try {
-      const response = await fetch(
-        `https://back-flash4devs-production.up.railway.app/api/user/${id}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      const data = await response.json();
-
-      if (response.ok) {
-        console.log("Información del usuario:", data);
-        setEmail(data.email);
-        setName(data.name);
-        setAvatar(data.profile_image);
-      } else {
-        console.error("Error al obtener la información del usuario");
-      }
-    } catch (error) {
-      console.error("Error de red:", error);
-    }
-  };
-
-  useEffect(() => {
-    if (id) {
-      extraer(); // Llama a la función para obtener la información del usuario
-    }
-  }, [id]);
+  
+  const {emailState, nameState, avatar} = useExtractInfo()
 
   const [isHoveredCard1, setIsHoveredCard1] = useState(false);
   const [isHoveredCard2, setIsHoveredCard2] = useState(false);
@@ -73,7 +32,6 @@ export const Home = () => {
           scale={0.1}
           threshold={0.2}
         >
-          {isLogged ? <MenuRight name={nameState} email={emailState} /> : ""}
 
           {isLogged ? (
             <MenuRight
