@@ -13,12 +13,23 @@ import {
 } from "react-icons/fa";
 import Squares from "../../components/effectcomponents/Squares";
 import { Navbar } from "../../components/Navbar";
+import { useLoading } from "../../hooks/useLoading";
+import { ThreeDots } from "react-loader-spinner";
+import { decodeToken } from "../../utils/decodeToken";
+import { useEffect } from "react";
 
 export const Profile = () => {
+
   const [avatar, setAvatar] = useState("/avatarejemplo.jpg");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+
+  const [avatar, setAvatar] = useState('/avatarejemplo.jpg');
+  const [firstName, setFirstName] = useState("Yago");
+  const [lastName, setLastName] = useState("Cima Castelao");
+  const [email, setEmail] = useState("yago@castelao.dev");
+
   const [description, setDescription] = useState(
     ""
   );
@@ -29,16 +40,73 @@ export const Profile = () => {
   const [linkedin, setLinkedin] = useState("");
   const [twitter, setTwitter] = useState("");
 
+  const { isLoading, startLoading, stopLoading } = useLoading();
+
   const [isEditingFirstName, setIsEditingFirstName] = useState(false);
 
-  const handleAvatarChange = (event) => {
+  const getUserInfo = async () => {
+    const token = localStorage.getItem("token");
+    const decodedToken = token ? decodeToken(token) : null;
+    const idFromToken = decodedToken ? decodedToken.id : null;
+
+    startLoading()
+    const resp = await fetch(
+      `https://back-flash4devs-production.up.railway.app/api/user/${idFromToken}`,
+      {
+        method: "GET", 
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        }
+      }
+    );
+
+    const { profile_image, email, name, last_name } = await resp.json();
+
+    setAvatar(profile_image);
+    setFirstName(name);
+    setLastName(last_name);
+    setEmail(email);
+
+    stopLoading()
+  };
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
+  const handleAvatarChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setAvatar(reader.result);
-      };
-      reader.readAsDataURL(file);
+      startLoading();
+
+      try {
+        const token = localStorage.getItem("token");
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const response = await fetch(
+          "https://back-flash4devs-production.up.railway.app/api/upload/",
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            body: formData,
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Error al subir la imagen");
+        }
+
+        const data = await response.json();
+        setAvatar(data.url);
+      } catch (error) {
+        console.error("Error:", error);
+      } finally {
+        stopLoading();
+      }
     }
   };
 
@@ -269,6 +337,23 @@ export const Profile = () => {
           </div>
         </div>
       </div>
+      {isLoading && (
+        <div
+          className="absolute inset-0 flex items-center justify-center bg-opacity-75 z-50"
+          style={{ backdropFilter: "blur(5px)" }}
+        >
+          <ThreeDots
+            visible={true}
+            height="80"
+            width="80"
+            color="#054A91"
+            radius="9"
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+          />
+        </div>
+      )}
     </div>
   );
 };
