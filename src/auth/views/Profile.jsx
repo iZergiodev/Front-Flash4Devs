@@ -19,12 +19,19 @@ import { decodeToken } from "../../utils/decodeToken";
 import { useEffect } from "react";
 
 export const Profile = () => {
+
+  const [avatar, setAvatar] = useState("/avatarejemplo.jpg");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+
   const [avatar, setAvatar] = useState('/avatarejemplo.jpg');
   const [firstName, setFirstName] = useState("Yago");
   const [lastName, setLastName] = useState("Cima Castelao");
   const [email, setEmail] = useState("yago@castelao.dev");
+
   const [description, setDescription] = useState(
-    "Desarrollador de software de Flash4Geeks"
+    ""
   );
   const [porcentage, setPorcentage] = useState(85);
   const [studyTime, setStudyTime] = useState("120 horas");
@@ -177,6 +184,7 @@ export const Profile = () => {
                 <div className="mt-2 flex items-center">
                   <input
                     type="text"
+                    placeholder="Escribe tu apellido"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                     className="flex-1 p-1 border border-muted rounded-lg w-full text-sm"
@@ -208,6 +216,7 @@ export const Profile = () => {
                   </label>
                   <textarea
                     value={description}
+                    placeholder="Escribe un poco sobre ti"
                     onChange={(e) => setDescription(e.target.value)}
                     className="w-full p-1 border border-muted rounded-lg resize-none text-sm mt-1"
                     rows={3}
@@ -267,6 +276,7 @@ export const Profile = () => {
                 <div className="mt-1 flex items-center">
                   <input
                     type="text"
+                    placeholder="Enlace a tu GitHub"
                     value={github}
                     onChange={(e) => setGithub(e.target.value)}
                     className="flex-1 p-1 border border-muted rounded-lg w-full text-sm"
@@ -285,6 +295,7 @@ export const Profile = () => {
                 <div className="mt-1 flex items-center">
                   <input
                     type="text"
+                    placeholder="Enlace a tu Linkedin"
                     value={linkedin}
                     onChange={(e) => setLinkedin(e.target.value)}
                     className="flex-1 p-1 border border-muted rounded-lg w-full text-sm"
@@ -303,6 +314,7 @@ export const Profile = () => {
                 <div className="mt-1 flex items-center">
                   <input
                     type="text"
+                    placeholder="Enlace a tu Twitter"
                     value={twitter}
                     onChange={(e) => setTwitter(e.target.value)}
                     className="flex-1 p-1 border border-muted rounded-lg w-full text-sm"
