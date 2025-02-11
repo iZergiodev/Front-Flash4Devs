@@ -9,6 +9,8 @@ import { Estadistica } from "../views/Estadistica.jsx";
 import { PublicRoutes } from "../../router/PublicRoutes.jsx";
 import { ProtectedRoutes } from "../../router/ProtectedRoutes.jsx";
 import { ConceptCard } from "../../flash4devs/ConceptCard.jsx";
+import { CustomFlashCard } from "../../flash4devs/CustomFlashCard.jsx";
+import { EligeCategoria } from "../../flash4devs/EligeCategoria.jsx";
 
 export const AuthRouter = () => {
   return (
@@ -39,6 +41,8 @@ export const AuthRouter = () => {
       <Route path="/estadistica" element={<Estadistica />} />
       <Route path="/categorias" element={<Categorias />} />
       <Route path="/conceptcard" element={<ConceptCard />} />
+      <Route path="/eligecategoria" element={<EligeCategoria />} />
+      <Route path="/customflash" element={<CustomFlashCard />} />
     </Routes>
   );
 };
