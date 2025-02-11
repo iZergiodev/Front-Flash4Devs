@@ -73,7 +73,7 @@ export const Register = () => {
       console.log(data);
       if (response.ok) {
         loginAuthorized();
-        navigate("/auth/home");
+        navigate("/");
         navigate("/auth/login");
       }
     } catch (error) {
