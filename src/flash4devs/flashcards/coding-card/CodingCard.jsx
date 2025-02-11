@@ -7,6 +7,7 @@ import "./Card.css";
 import { useState, useEffect } from "react";
 import Editor from "@monaco-editor/react";
 import { useRef } from "react";
+import { ThreeDots } from "react-loader-spinner";
 
 export const CodingCard = () => {
   const [respIA, setResIA] = useState(""); 
@@ -109,8 +110,24 @@ export const CodingCard = () => {
   const currentQuestion = questions[currentQuestionIndex];
 
   if (!currentQuestion) {
-    return <p>Cargando preguntas...</p>;
-  }
+      return (
+        <div
+          className="absolute inset-0 flex items-center justify-center bg-opacity-75 z-50"
+          style={{ backdropFilter: "blur(5px)" }}
+        >
+          <ThreeDots
+            visible={true}
+            height="80"
+            width="80"
+            color="#054A91"
+            radius="9"
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+          />
+        </div>
+      );
+    }
 
   return (
     <div className="relative w-full h-screen overflow-hidden z-10">
