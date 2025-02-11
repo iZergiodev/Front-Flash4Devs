@@ -4,9 +4,10 @@ import { Home } from "../../Home";
 import { Estadistica } from "../flash4devs/Estadistica";
 import { Categorias } from "../flash4devs/Categorias";
 import { ConceptCard } from "../flash4devs/ConceptCard";
-import { CustomFlashCard } from "../flash4devs/CustomFlashCard";
+
 import { ProtectedRoutes } from "../router/ProtectedRoutes.jsx";
 import { CategoriasRouter } from "../flash4devs/pantallasCategorias/router/CategoriasRouter.jsx";
+import { FlashcardsRouter } from "../flash4devs/flashcards/router/FlashcardsRouter.jsx";
 
 export const AppRouter = () => {
   return (
@@ -32,10 +33,10 @@ export const AppRouter = () => {
         }
       />
       <Route
-        path="/customflash"
+        path="/flashcards/*"
         element={
           <ProtectedRoutes>
-            <CustomFlashCard />
+            <FlashcardsRouter />
           </ProtectedRoutes>
         }
       />
