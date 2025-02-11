@@ -70,7 +70,7 @@ export const Login = () => {
         const { isLogged } = useUserStore.getState();
         console.log(isLogged);
 
-        navigate("/home");
+        navigate("/");
       }
     } catch (error) {
       toast.error("Error al conectar con el servidor");
