@@ -6,7 +6,10 @@ import useExtractInfo from "../../../hooks/useExtractInfo";
 import "./Card.css";
 import { useState, useEffect } from "react";
 
+import { ThreeDots } from "react-loader-spinner";
+
 export const ConceptCard = () => {
+
   const { tech } = useParams();
   const { emailState, nameState, avatar } = useExtractInfo();
   const [questions, setQuestions] = useState([]);
@@ -15,7 +18,7 @@ export const ConceptCard = () => {
   const [, setShowSolution] = useState(false);
   const [score, setScore] = useState({ good: 0, regular: 0, bad: 0 });
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -35,7 +38,7 @@ export const ConceptCard = () => {
         alert(
           "Hubo un error al cargar las preguntas. Por favor, intenta de nuevo."
         );
-      }
+      } 
     };
 
     fetchQuestions();
@@ -46,8 +49,7 @@ export const ConceptCard = () => {
       alert(
         `Cuestionario completado!\nBuenas: ${score.good}\nRegulares: ${score.regular}\nMalas: ${score.bad}`
       );
-      navigate('/')
-
+      navigate("/");
     }
   }, [currentQuestionIndex, navigate, questions.length, score]);
 
@@ -73,7 +75,23 @@ export const ConceptCard = () => {
   const currentQuestion = questions[currentQuestionIndex];
 
   if (!currentQuestion) {
-    return <p>Cargando preguntas...</p>;
+    return (
+      <div
+        className="absolute inset-0 flex items-center justify-center bg-opacity-75 z-50"
+        style={{ backdropFilter: "blur(5px)" }}
+      >
+        <ThreeDots
+          visible={true}
+          height="80"
+          width="80"
+          color="#054A91"
+          radius="9"
+          ariaLabel="three-dots-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </div>
+    );
   }
 
   return (
