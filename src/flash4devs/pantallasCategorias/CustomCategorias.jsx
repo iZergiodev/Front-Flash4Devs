@@ -33,6 +33,12 @@ const tecnologias = [
       descricao:
         "Sistema de control de versiones para la gestión del código fuente.",
     },
+    {
+      nome: "Crea tu flashcard",
+      logo: "/flash-favicon1.png",
+      descricao:
+        "Sistema de control de versiones para la gestión del código fuente.",
+    }
   ];
 
 export const CustomCategorias = () => {

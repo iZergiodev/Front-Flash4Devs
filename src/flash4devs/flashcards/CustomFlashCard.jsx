@@ -1,9 +1,9 @@
-import Squares from "../../src/components/effectcomponents/Squares";
-import useExtractInfo from "../../src/hooks/useExtractInfo";
-import './CustomFlashCard.css'
+import Squares from "../../components/effectcomponents/Squares";
+import useExtractInfo from "../../hooks/useExtractInfo";
+import './Card.css'
 
-import { Navbar } from "../../src/components/Navbar";
-import { MenuRight } from "../../src/components/MenuRight";
+import { Navbar } from "../../components/Navbar";
+import { MenuRight } from "../../components/MenuRight";
 
 import { useState } from "react";
 
