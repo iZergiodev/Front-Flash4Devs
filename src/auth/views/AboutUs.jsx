@@ -17,7 +17,7 @@ export const AboutUs = () => {
             speed={0.5}
             squareSize={40}
             direction="diagonal"
-            borderColor="rgba(241, 115, 0, 0.4)" // 50% transparente
+            borderColor="rgba(241, 115, 0, 0.4)"
             hoverFillColor="#81A4CD"
           />
         </div>
