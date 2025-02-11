@@ -2,10 +2,10 @@ import Chart from "react-apexcharts";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
-import Squares from "../../components/effectcomponents/Squares";
-import { Navbar } from "../../components/Navbar";
-import { MenuRight } from "../../components/MenuRight";
-import useExtractInfo from "../../hooks/useExtractInfo";
+import Squares from "../components/effectcomponents/Squares";
+import { Navbar } from "../components/Navbar";
+import { MenuRight } from "../components/MenuRight";
+import useExtractInfo from "../hooks/useExtractInfo";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 

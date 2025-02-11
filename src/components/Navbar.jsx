@@ -2,8 +2,8 @@ import { Link } from "react-router";
 import { useUserStore } from "../store/userStore";
 
 const listItems = [
-  { name: "Home", path: "/auth/home" },
-  { name: "Categorias", path: "/auth/categorias" },
+  { name: "Home", path: "/" },
+  { name: "Categorias", path: "/categorias" },
   { name: "AboutUs", path: "/auth/about-us" },
 ];
 

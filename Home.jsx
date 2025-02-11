@@ -1,12 +1,12 @@
-import Squares from "../../components/effectcomponents/Squares";
-import { Navbar } from "../../components/Navbar";
-import { MenuRight } from "../../components/MenuRight";
-import AnimatedContent from "../../components/effectcomponents/AnimatedContent";
-import { useUserStore } from "../../store/userStore";
+import Squares from "./src/components/effectcomponents/Squares";
+import { Navbar } from "./src/components/Navbar";
+import { MenuRight } from "./src/components/MenuRight";
+import AnimatedContent from "./src/components/effectcomponents/AnimatedContent";
+import { useUserStore } from "./src/store/userStore";
 import { motion } from "framer-motion";
 import { Link } from "react-router";
 import { useState } from "react";
-import useExtractInfo from "../../hooks/useExtractInfo";
+import useExtractInfo from "./src/hooks/useExtractInfo";
 
 export const Home = () => {
   const { isLogged } = useUserStore();
@@ -52,7 +52,7 @@ export const Home = () => {
         />
         <div className="absolute inset-0 flex items-center justify-center p-4 z-10 sm:mt-0 mt-30 pointer-events-none">
           <div className="flex flex-wrap gap-14 w-[700px] h-[600px] max-w-4xl justify-center mt-10">
-            <Link to="/auth/eligecategoria">
+            <Link to="/eligecategoria/coding">
               <motion.div
                 className={`w-64 h-70 rounded-lg flex flex-col ${
                   isHoveredCard1 ? "bg-accent text-white" : "bg-card text-text"
@@ -81,7 +81,7 @@ export const Home = () => {
                     </div>
                     <div className="flex-1 p-8 overflow-y-auto bg-card text-text text-center items-center">
                       <p className="text-sm">
-                        Descrição breve sobre o Coding Flashcards
+                        ¿Quieres mejorar tu habilidad como programador?
                       </p>
                     </div>
                     <div className="p-4 bg-card rounded-b-lg border-t border-gray-300 text-center">
@@ -93,7 +93,7 @@ export const Home = () => {
                 )}
               </motion.div>
             </Link>
-            <Link to="/auth/eligecategoria">
+            <Link to="/eligecategoria/concept">
               <motion.div
                 className={`w-64 h-70 rounded-lg flex flex-col ${
                   isHoveredCard2 ? "bg-accent text-white" : "bg-card text-text"
@@ -110,19 +110,19 @@ export const Home = () => {
                 {!isHoveredCard2 ? (
                   <div className="flex items-center justify-center h-full p-6 text-center">
                     <h2 className="text-xl md:text-2xl font-bold font-mono">
-                      Practica
+                      Concept Flashcards
                     </h2>
                   </div>
                 ) : (
                   <div className="flex flex-col h-full">
                     <div className="p-4 bg-secondary text-white rounded-t-lg border-b font-semibold border-gray-300">
                       <h2 className="text-xl md:text-2xl font-bold text-center">
-                        Practica Flash4Devs
+                      Concept Flashcards
                       </h2>
                     </div>
                     <div className="flex-1 p-8 overflow-y-auto bg-card text-text text-center items-center">
                       <p className="text-sm">
-                        Descrição breve sobre la Practica de Flash4Devs
+                        ¡Aprende la teoría de las tecnologías más demandadas del sector!
                       </p>
                     </div>
                     <div className="p-4 bg-card rounded-b-lg border-t border-gray-300 text-center">
@@ -134,7 +134,7 @@ export const Home = () => {
                 )}
               </motion.div>
             </Link>
-            <Link to="/auth/eligecategoria">
+            <Link to="/eligecategoria/entrevista">
               <motion.div
                 className={`w-64 h-70 rounded-lg flex flex-col ${
                   isHoveredCard3 ? "bg-accent text-white" : "bg-card text-text"
@@ -163,8 +163,7 @@ export const Home = () => {
                     </div>
                     <div className="flex-1 p-8 overflow-y-auto bg-card text-text text-center items-center">
                       <p className="text-sm">
-                        Descrição breve sobre o card de Flashcards
-                        Personalizados...
+                        ¡Preparate para una entrevista laboral!
                       </p>
                     </div>
                     <div className="p-4 bg-card rounded-b-lg border-t border-gray-300 text-center">
@@ -176,7 +175,7 @@ export const Home = () => {
                 )}
               </motion.div>
             </Link>
-            <Link to="/auth/eligecategoria">
+            <Link to="/eligecategoria/custom">
               <motion.div
                 className={`w-64 h-70 rounded-lg flex flex-col ${
                   isHoveredCard4 ? "bg-accent text-white" : "bg-card text-text"
@@ -205,7 +204,7 @@ export const Home = () => {
                     </div>
                     <div className="flex-1 p-8 overflow-y-auto bg-card text-text text-center items-center">
                       <p className="text-sm">
-                        Descrição breve sobre los Custom FlashCards
+                        Crea tus propias Flashcards y ¡practica!
                       </p>
                     </div>
                     <div className="p-4 bg-card rounded-b-lg border-t border-gray-300 text-center">

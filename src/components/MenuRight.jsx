@@ -19,7 +19,7 @@ export const MenuRight = ({ name, email, profileImage }) => {
   const handleLogout = () => {
     logout();
 
-    navigate('/auth/home')
+    navigate('/home')
 
   };
 
@@ -83,7 +83,7 @@ export const MenuRight = ({ name, email, profileImage }) => {
                     </li>
                     <li>
                       <a
-                        href="/auth/estadistica"
+                        href="/estadistica"
                         className="flex items-center px-4 py-2 text-text hover:bg-muted/30 transition-colors duration-200 font-semibold cursor-pointer"
                       >
                         <FaStar className="mr-3" />

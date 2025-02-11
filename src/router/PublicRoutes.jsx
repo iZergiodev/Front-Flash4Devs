@@ -6,7 +6,7 @@ export const PublicRoutes = ({ children }) => {
     const isLogged = useUserStore((state) => state.isLogged);
 
   if (isLogged) {
-    return <Navigate to="/auth/home" replace />;
+    return <Navigate to="/home" replace />;
   }
 
   return <>{children}</>;
