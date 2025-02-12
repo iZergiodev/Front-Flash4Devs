@@ -39,7 +39,7 @@ export const CodingCategorias = () => {
   return (
     <div className="max-w-[900px] mx-auto p-4 mt-30">
     <h1 className="bg-card text-center p-6 font-extrabold text-text text-2xl rounded-full shadow-lg ">
-      ¡Elige una categoria para comenzar las Concept Flashcards!
+      ¡Elige una categoria para comenzar las Coding Flashcards!
     </h1>
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 mt-10">
       {tecnologias.map((tech, index) => (
