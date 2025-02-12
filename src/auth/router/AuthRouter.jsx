@@ -4,7 +4,7 @@ import { Register } from "../views/Register.jsx";
 import { Profile } from "../views/Profile.jsx";
 import { AboutUs } from "../views/AboutUs.jsx";
 import { PublicRoutes } from "../../router/PublicRoutes.jsx";
-import { ProtectedRoutes } from "../../router/ProtectedRoutes.jsx";
+
 
 export const AuthRouter = () => {
   return (
