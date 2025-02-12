@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import Editor from "@monaco-editor/react";
 import { useRef } from "react";
 import { ThreeDots } from "react-loader-spinner";
+import { FaTimes } from "react-icons/fa";
 
 export const CodingCard = () => {
   const [respIA, setResIA] = useState(""); 
@@ -99,6 +100,10 @@ export const CodingCard = () => {
     }
   };
 
+   const handleGoBack = () => {
+     window.history.back(); 
+   };
+
   const handleFlip = async () => {
     if (!isFlipped) {
       await getResponse(); 
@@ -146,8 +151,16 @@ export const CodingCard = () => {
         <div className={`flip-card ${isFlipped ? "flipped" : ""}`}>
           <div className="flip-card-inner">
             <div className="flex flex-col flip-card-front w-[400px] h-[300px] bg-white rounded-lg shadow-lg">
-              <div className="w-full text-center text-text mb-4 bg-card p-3 border-b-1 border-gray-300 rounded-md">
-                {tech.toUpperCase()}
+              <div className="w-full flex relative items-center text-center text-text mb-4 bg-card p-3 border-b-1 border-gray-300 rounded-md">
+                <div className="absolute left-1/2 transform -translate-x-1/2">
+                  {tech.toUpperCase()}
+                </div>
+                <button
+                  onClick={handleGoBack}
+                  className="ml-auto text-red-500 hover:text-red-700 transition-colors"
+                >
+                  <FaTimes size={20} />
+                </button>
               </div>
               <div className="text-xl font-bold text-text w-full flex flex-col justify-center items-center mt-5 rounded-lg gap-3">
                 <p>PREGUNTA</p>
@@ -181,11 +194,11 @@ export const CodingCard = () => {
                 {chatResponse || "Cargando respuesta..."}{" "}
               </div>
               <button
-                  className="px-4 py-2 bg-accent text-white rounded"
-                  onClick={() => handleAnswer()}
-                >
-                  Siguiente
-                </button>
+                className="px-4 py-2 bg-accent text-white rounded"
+                onClick={() => handleAnswer()}
+              >
+                Siguiente
+              </button>
             </div>
           </div>
         </div>
