@@ -9,9 +9,70 @@ import {
   FaTags,
   FaChartLine,
 } from "react-icons/fa";
+import { useState } from "react";
 
 export const FormCustom = () => {
   const { emailState, nameState, avatar } = useExtractInfo();
+
+  const [question, setQuestion] = useState("");
+  const [solution, setSolution] = useState("");
+  const [category, setCategory] = useState("");
+  const [difficult, setDifficult] = useState("");
+
+  const handleState = (event) => {
+    const { name, value } = event.target;
+
+    switch (name) {
+      case "question":
+        setQuestion(value);
+        break;
+      case "solution":
+        setSolution(value);
+        break;
+      case "category":
+        setCategory(value);
+        break;
+      case "difficult":
+        setDifficult(value);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const token = localStorage.getItem("token");
+
+    const resp = await fetch(
+      "https://back-flash4devs-production.up.railway.app/card/register-custom",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          question: question,
+          answer: solution,
+          category: category,
+          difficult: difficult,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (resp.ok) {
+      const data = await resp.json();
+      console.log("Card creada", data);
+      setQuestion('');
+      setSolution('');
+      setCategory('');
+      setDifficult('');
+    } else {
+      console.error("Error", resp.statusText);
+    }
+  };
 
   return (
     <>
@@ -30,7 +91,7 @@ export const FormCustom = () => {
         <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
           <div className="bg-card p-8 rounded-lg shadow-lg max-w-md w-full">
             <h1 className="text-2xl font-bold mb-6 text-text">Custom Card</h1>
-            <form className="space-y-4">
+            <form className="space-y-4 pointer-events-auto">
               <div className="flex items-center space-x-2">
                 <FaQuestionCircle className="text-accent" size={20} />
                 <label htmlFor="question" className="text-text">
@@ -38,6 +99,7 @@ export const FormCustom = () => {
                 </label>
               </div>
               <input
+                onChange={handleState}
                 type="text"
                 id="question"
                 name="question"
@@ -52,6 +114,7 @@ export const FormCustom = () => {
                 </label>
               </div>
               <textarea
+                onChange={handleState}
                 id="solution"
                 name="solution"
                 className="w-full p-2 border border-muted rounded-md focus:outline-none focus:border-accent"
@@ -65,6 +128,7 @@ export const FormCustom = () => {
                 </label>
               </div>
               <input
+                onChange={handleState}
                 type="text"
                 id="category"
                 name="category"
@@ -79,6 +143,7 @@ export const FormCustom = () => {
                 </label>
               </div>
               <textarea
+                onChange={handleState}
                 id="difficulty"
                 name="difficulty"
                 className="w-full p-2 border border-muted rounded-md focus:outline-none focus:border-accent"
@@ -88,7 +153,8 @@ export const FormCustom = () => {
 
               <div className="flex justify-center">
                 <button
-                  type="submit"
+                  onClick={handleSubmit}
+                  type="button"
                   className=" w-50 text-white bg-accent py-2 md:py-3 text-center rounded hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
                 >
                   Enviar

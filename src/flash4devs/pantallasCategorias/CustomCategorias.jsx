@@ -43,7 +43,7 @@ export const CustomCategorias = () => {
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 mt-10">
         {tecnologias.map((tech, index) => (
-          <Link key={index} to="/customflash">
+          <Link key={index} to={`/flashcards/custom/${tech.nome.toLowerCase()}`}>
             <div className="w-58 h-58 bg-white rounded-lg shadow-lg flex flex-col items-center transform transition-transform hover:scale-105 border-b-1 border-gray-300 cursor-pointer">
               <div className="w-full text-center mb-4 bg-text/60 p-3 border-b-1 border-gray-500 rounded-md">
                 <h2 className="text-xl font-bold text-white">{tech.nome}</h2>

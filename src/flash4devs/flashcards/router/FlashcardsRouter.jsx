@@ -2,14 +2,11 @@ import { Route, Routes } from "react-router";
 import { ProtectedRoutes } from "../../../router/ProtectedRoutes.jsx";
 import { ConceptCard } from "../concept-card/ConceptCard.jsx";
 import { CodingCard } from "../coding-card/CodingCard.jsx";
-
-
+import { CustomCard } from "../custom-card/CustomCard.jsx";
 
 export const FlashcardsRouter = () => {
   return (
     <Routes>
-      
-
       <Route
         path="/concept/:tech"
         element={
@@ -19,11 +16,20 @@ export const FlashcardsRouter = () => {
         }
       />
 
-<Route
+      <Route
         path="/coding/:tech"
         element={
           <ProtectedRoutes>
             <CodingCard />
+          </ProtectedRoutes>
+        }
+      />
+
+      <Route
+        path="/custom/:tech"
+        element={
+          <ProtectedRoutes>
+            <CustomCard />
           </ProtectedRoutes>
         }
       />
