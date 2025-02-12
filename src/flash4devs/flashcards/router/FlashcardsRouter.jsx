@@ -3,6 +3,7 @@ import { ProtectedRoutes } from "../../../router/ProtectedRoutes.jsx";
 import { ConceptCard } from "../concept-card/ConceptCard.jsx";
 import { CodingCard } from "../coding-card/CodingCard.jsx";
 import { CustomCard } from "../custom-card/CustomCard.jsx";
+import { EntrevistaCard } from "../entrevista-card/EntrevistaCard.jsx";
 
 export const FlashcardsRouter = () => {
   return (
@@ -30,6 +31,15 @@ export const FlashcardsRouter = () => {
         element={
           <ProtectedRoutes>
             <CustomCard />
+          </ProtectedRoutes>
+        }
+      />
+
+      <Route
+        path="/entrevista/:tech"
+        element={
+          <ProtectedRoutes>
+            <EntrevistaCard />
           </ProtectedRoutes>
         }
       />
