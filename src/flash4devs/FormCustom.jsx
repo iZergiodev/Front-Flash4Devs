@@ -107,6 +107,7 @@ export const FormCustom = () => {
               <input
                 onChange={handleState}
                 type="text"
+                value = {question}
                 id="question"
                 name="question"
                 className="w-full p-2 border border-muted rounded-md focus:outline-none focus:border-accent"
@@ -123,6 +124,7 @@ export const FormCustom = () => {
                 onChange={handleState}
                 id="solution"
                 name="solution"
+                value={solution}
                 className="w-full p-2 border border-muted rounded-md focus:outline-none focus:border-accent"
                 placeholder="Introduzca la respuesta"
                 rows={3}
@@ -136,6 +138,7 @@ export const FormCustom = () => {
               <input
                 onChange={handleState}
                 type="text"
+                value={category}
                 id="category"
                 name="category"
                 className="w-full p-2 border border-muted rounded-md focus:outline-none focus:border-accent"
@@ -151,6 +154,7 @@ export const FormCustom = () => {
               <textarea
                 onChange={handleState}
                 id="difficult"
+                value={difficult}
                 name="difficult"
                 className="w-full p-2 border border-muted rounded-md focus:outline-none focus:border-accent"
                 placeholder="Introduzca la dificultad"
