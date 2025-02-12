@@ -51,7 +51,7 @@ export const FormCustom = () => {
         method: "POST",
         body: JSON.stringify({
           question: question,
-          answer: solution,
+          solution: solution,
           category: category,
           difficult: difficult,
         }),
