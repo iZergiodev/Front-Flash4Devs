@@ -65,14 +65,19 @@ export const FormCustom = () => {
     if (resp.ok) {
       const data = await resp.json();
       console.log("Card creada", data);
-      setQuestion('');
-      setSolution('');
-      setCategory('');
-      setDifficult('');
+      clearForm();
+
     } else {
       console.error("Error", resp.statusText);
     }
   };
+
+  const clearForm = () => {
+    setQuestion('');
+    setSolution('');
+    setCategory('');
+    setDifficult('');
+  }
 
   return (
     <>
