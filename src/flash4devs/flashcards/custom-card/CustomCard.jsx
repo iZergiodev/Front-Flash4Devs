@@ -146,7 +146,7 @@ export const CustomCard = () => {
                 Respuesta
               </div>
               <div className="text-xl font-bold text-text w-full flex flex-col justify-center items-center mt-5 rounded-lg gap-3">
-                <p>{currentQuestion.answer}</p>
+                <p>{currentQuestion.solution}</p>
               </div>
               <div className="button-container">
                 <button
