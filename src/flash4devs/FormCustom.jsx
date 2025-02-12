@@ -73,6 +73,7 @@ export const FormCustom = () => {
   };
 
   const clearForm = () => {
+    console.log('limpiando formulario')
     setQuestion('');
     setSolution('');
     setCategory('');
@@ -143,14 +144,14 @@ export const FormCustom = () => {
 
               <div className="flex items-center space-x-2">
                 <FaChartLine className="text-accent" size={20} />
-                <label htmlFor="difficulty" className="text-text">
-                  Difficulty
+                <label htmlFor="difficult" className="text-text">
+                difficult
                 </label>
               </div>
               <textarea
                 onChange={handleState}
-                id="difficulty"
-                name="difficulty"
+                id="difficult"
+                name="difficult"
                 className="w-full p-2 border border-muted rounded-md focus:outline-none focus:border-accent"
                 placeholder="Introduzca la dificultad"
                 rows={1}
