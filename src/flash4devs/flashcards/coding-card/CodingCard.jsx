@@ -159,6 +159,7 @@ export const CodingCard = () => {
                     height={"300px"}
                     width={"600px"}
                     theme="light"
+                    defaultLanguage="javascript"
                     onMount={handleEditorDidMount}
                   />
                 </div>
