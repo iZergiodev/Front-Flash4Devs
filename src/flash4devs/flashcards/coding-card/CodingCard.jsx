@@ -187,8 +187,16 @@ export const CodingCard = () => {
             </div>
 
             <div className="flip-card-back flex flex-col flip-card-front w-[400px] h-[300px] bg-white rounded-lg shadow-lg">
-              <div className="w-full text-center text-text mb-4 bg-card p-3 border-b-1 border-gray-300 rounded-md">
-                Respuesta
+              <div className="w-full flex relative items-center text-center text-text mb-4 bg-card p-3 border-b-1 border-gray-300 rounded-md">
+                <div className="absolute left-1/2 transform -translate-x-1/2">
+                  Respuesta
+                </div>
+                <button
+                  onClick={handleGoBack}
+                  className="ml-auto text-red-500 hover:text-red-700 transition-colors"
+                >
+                  <FaTimes size={20} />
+                </button>
               </div>
               <div className="flex items-center justify-center p-4 text-gray-700">
                 {chatResponse || "Cargando respuesta..."}{" "}
