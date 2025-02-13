@@ -3,6 +3,7 @@ import Squares from "../../../components/effectcomponents/Squares";
 import { MenuRight } from "../../../components/MenuRight";
 import { Navbar } from "../../../components/Navbar";
 import useExtractInfo from "../../../hooks/useExtractInfo";
+import { EligirDificultad } from "../../EligirDificultad";
 import "./Card.css";
 import { useState, useEffect } from "react";
 
@@ -11,6 +12,7 @@ import { FaTimes } from "react-icons/fa";
 
 export const ConceptCard = () => {
 
+  const [selectedDifficulty, setSelectedDifficulty] = useState(null);
   const { tech } = useParams();
   const { emailState, nameState, avatar } = useExtractInfo();
   const [questions, setQuestions] = useState([]);
@@ -25,7 +27,7 @@ export const ConceptCard = () => {
     const fetchQuestions = async () => {
       try {
         const response = await fetch(
-          `https://back-flash4devs-production.up.railway.app/card/questions?tech=${tech}&limit=10`
+          `https://back-flash4devs-production.up.railway.app/card/questions?tech=${tech}&difficult=${selectedDifficulty}&limit=20`
         );
 
         if (!response.ok) {
@@ -33,20 +35,21 @@ export const ConceptCard = () => {
         }
 
         const data = await response.json();
+        console.log(data);
         setQuestions(data);
       } catch (err) {
         console.error(err);
         alert(
           "Hubo un error al cargar las preguntas. Por favor, intenta de nuevo."
         );
-      } 
+      }
     };
 
     fetchQuestions();
-  }, [tech]);
+  }, [tech, selectedDifficulty]);
 
   useEffect(() => {
-    if (currentQuestionIndex === questions.length - 1) {
+    if (questions.length > 0 && currentQuestionIndex === questions.length) {
       alert(
         `Cuestionario completado!\nBuenas: ${score.good}\nRegulares: ${score.regular}\nMalas: ${score.bad}`
       );
@@ -77,8 +80,13 @@ export const ConceptCard = () => {
     setShowSolution(true);
   };
 
-  const currentQuestion = questions[currentQuestionIndex];
+  const handleDifficultySelect = (difficulty) => {
+    setSelectedDifficulty(difficulty);
+     
+  };
 
+  const currentQuestion = questions[currentQuestionIndex];
+console.log(selectedDifficulty);
   if (!currentQuestion) {
     return (
       <div
@@ -112,66 +120,78 @@ export const ConceptCard = () => {
       </div>
       <Navbar />
       <MenuRight name={nameState} email={emailState} profileImage={avatar} />
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <div className={`flip-card ${isFlipped ? "flipped" : ""}`}>
-          <div className="flip-card-inner">
-            <div className="flex flex-col flip-card-front w-[400px] h-[300px] bg-white rounded-lg shadow-lg">
-              <div className="w-full flex relative items-center text-center text-text mb-4 bg-card p-3 border-b-1 border-gray-300 rounded-md">
-                <div className="absolute left-1/2 transform -translate-x-1/2">
-                  {tech.toUpperCase()}
+      {!selectedDifficulty ? (
+        <EligirDificultad onSelectDifficulty={handleDifficultySelect} />
+      ) : (
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <div className={`flip-card ${isFlipped ? "flipped" : ""}`}>
+            <div className="flip-card-inner">
+              <div className="flex flex-col flip-card-front w-[400px] h-[300px] bg-white rounded-lg shadow-lg">
+                <div className="w-full flex relative items-center text-center text-text mb-4 bg-card p-3 border-b-1 border-gray-300 rounded-md">
+                  <div className="absolute left-1/2 transform -translate-x-1/2">
+                    {tech.toUpperCase()}
+                  </div>
+                  <button
+                    onClick={handleGoBack}
+                    className="ml-auto text-red-500 hover:text-red-700 transition-colors"
+                  >
+                    <FaTimes size={20} />
+                  </button>
                 </div>
-                <button
-                  onClick={handleGoBack}
-                  className="ml-auto text-red-500 hover:text-red-700 transition-colors"
-                >
-                  <FaTimes size={20} />
-                </button>
+                <div className="text-xl font-bold text-text w-full flex flex-col justify-center items-center mt-5 rounded-lg gap-3">
+                  <p>PREGUNTA</p>
+                  <p className="text-gray-400">{currentQuestion.question}</p>
+                </div>
+                <div>
+                  <button
+                    className="w-50 mt-5 border-t-1 border-gray-300 text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+                    onClick={handleFlip}
+                  >
+                    Mostrar Respuesta
+                  </button>
+                </div>
               </div>
-              <div className="text-xl font-bold text-text w-full flex flex-col justify-center items-center mt-5 rounded-lg gap-3">
-                <p>PREGUNTA</p>
-                <p className="text-gray-400">{currentQuestion.question}</p>
-              </div>
-              <div>
-                <button
-                  className="w-50 mt-5 border-t-1 border-gray-300 text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
-                  onClick={handleFlip}
-                >
-                  Mostrar Respuesta
-                </button>
-              </div>
-            </div>
 
-            <div className="flip-card-back flex flex-col flip-card-front w-[400px] h-[300px] bg-white rounded-lg shadow-lg">
-              <div className="w-full text-center text-text mb-4 bg-card p-3 border-b-1 border-gray-300 rounded-md">
-                Respuesta
-              </div>
-              <div className="text-xl font-bold text-text w-full flex flex-col justify-center items-center mt-5 rounded-lg gap-3">
-                <p>{currentQuestion.solution}</p>
-              </div>
-              <div className="button-container">
-                <button
-                  className="px-4 py-2 bg-green-500 text-white rounded"
-                  onClick={() => handleAnswer("good")}
-                >
-                  Buena
-                </button>
-                <button
-                  className="px-4 py-2 bg-yellow-500 text-white rounded"
-                  onClick={() => handleAnswer("regular")}
-                >
-                  Regular
-                </button>
-                <button
-                  className="px-4 py-2 bg-red-500 text-white rounded"
-                  onClick={() => handleAnswer("bad")}
-                >
-                  Mala
-                </button>
+              <div className="flip-card-back flex flex-col flip-card-front w-[400px] h-[300px] bg-white rounded-lg shadow-lg">
+                <div className="w-full flex relative items-center text-center text-text mb-4 bg-card p-3 border-b-1 border-gray-300 rounded-md">
+                  <div className="absolute left-1/2 transform -translate-x-1/2">
+                    Respuesta
+                  </div>
+                  <button
+                    onClick={handleGoBack}
+                    className="ml-auto text-red-500 hover:text-red-700 transition-colors"
+                  >
+                    <FaTimes size={20} />
+                  </button>
+                </div>
+                <div className="text-xl font-bold text-text w-full flex flex-col justify-center items-center mt-5 rounded-lg gap-3">
+                  <p>{currentQuestion.solution}</p>
+                </div>
+                <div className="button-container">
+                  <button
+                    className="px-4 py-2 bg-green-500 text-white rounded"
+                    onClick={() => handleAnswer("good")}
+                  >
+                    Buena
+                  </button>
+                  <button
+                    className="px-4 py-2 bg-yellow-500 text-white rounded"
+                    onClick={() => handleAnswer("regular")}
+                  >
+                    Regular
+                  </button>
+                  <button
+                    className="px-4 py-2 bg-red-500 text-white rounded"
+                    onClick={() => handleAnswer("bad")}
+                  >
+                    Mala
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
