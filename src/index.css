@@ -1,18 +1,24 @@
 @import "tailwindcss";
 
 * {
-    font-family: "Fira Code", serif;
-    font-optical-sizing: auto;
-    font-weight: 500;
-    font-style: normal;
+ font-family: "Fira Code", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
 }
 
 @theme {
-    --color-primary: #054A91;
-    --color-secondary: #3E7CB1;
-    --color-accent: #F17300;
-    --color-background: #FFFFFF;
-    --color-card: #DBE4EE;
-    --color-text: #054A91;
-    --color-muted: #81A4CD;
+  --color-primary: #054a91;
+  --color-secondary: #3e7cb1;
+  --color-accent: #f17300;
+  --color-background: #ffffff;
+  --color-card: #dbe4ee;
+  --color-text: #054a91;
+  --color-muted: #81a4cd;
+}
+
+.text_logo {
+  font-family: "Lato", serif;
+  font-weight: 700;
+  font-style: normal;
 }

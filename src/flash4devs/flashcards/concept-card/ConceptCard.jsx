@@ -169,10 +169,10 @@ console.log(selectedDifficulty);
                 </div>
                 <div className="button-container">
                   <button
-                    className="px-4 py-2 bg-green-500 text-white rounded"
-                    onClick={() => handleAnswer("good")}
+                    className="px-4 py-2 bg-red-500 text-white rounded"
+                    onClick={() => handleAnswer("bad")}
                   >
-                    Buena
+                    Mala
                   </button>
                   <button
                     className="px-4 py-2 bg-yellow-500 text-white rounded"
@@ -181,10 +181,10 @@ console.log(selectedDifficulty);
                     Regular
                   </button>
                   <button
-                    className="px-4 py-2 bg-red-500 text-white rounded"
-                    onClick={() => handleAnswer("bad")}
+                    className="px-4 py-2 bg-green-500 text-white rounded"
+                    onClick={() => handleAnswer("good")}
                   >
-                    Mala
+                    Buena
                   </button>
                 </div>
               </div>
