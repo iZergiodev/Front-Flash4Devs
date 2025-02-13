@@ -11,8 +11,8 @@ import { ThreeDots } from "react-loader-spinner";
 import { FaTimes } from "react-icons/fa";
 
 export const CodingCard = () => {
-  const [respIA, setResIA] = useState(""); 
-  const [chatResponse, setChatResponse] = useState(""); 
+  const [respIA, setResIA] = useState("");
+  const [chatResponse, setChatResponse] = useState("");
   const editorRef = useRef(null);
 
   const getResponse = async () => {
@@ -31,7 +31,7 @@ export const CodingCard = () => {
       );
       const { generated_text } = await resp.json();
       setResIA(generated_text);
-      setChatResponse(generated_text); 
+      setChatResponse(generated_text);
     } catch (error) {
       console.error("Error al obtener la respuesta de ChatGPT:", error);
       setChatResponse("Error al obtener la respuesta. Inténtalo de nuevo.");
@@ -96,17 +96,17 @@ export const CodingCard = () => {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
       setIsFlipped(false);
       setShowSolution(false);
-      setChatResponse(""); 
+      setChatResponse("");
     }
   };
 
-   const handleGoBack = () => {
-     window.history.back(); 
-   };
+  const handleGoBack = () => {
+    window.history.back();
+  };
 
   const handleFlip = async () => {
     if (!isFlipped) {
-      await getResponse(); 
+      await getResponse();
     }
     setIsFlipped(!isFlipped);
     setShowSolution(true);
@@ -115,24 +115,24 @@ export const CodingCard = () => {
   const currentQuestion = questions[currentQuestionIndex];
 
   if (!currentQuestion) {
-      return (
-        <div
-          className="absolute inset-0 flex items-center justify-center bg-opacity-75 z-50"
-          style={{ backdropFilter: "blur(5px)" }}
-        >
-          <ThreeDots
-            visible={true}
-            height="80"
-            width="80"
-            color="#054A91"
-            radius="9"
-            ariaLabel="three-dots-loading"
-            wrapperStyle={{}}
-            wrapperClass=""
-          />
-        </div>
-      );
-    }
+    return (
+      <div
+        className="absolute inset-0 flex items-center justify-center bg-opacity-75 z-50"
+        style={{ backdropFilter: "blur(5px)" }}
+      >
+        <ThreeDots
+          visible={true}
+          height="80"
+          width="80"
+          color="#054A91"
+          radius="9"
+          ariaLabel="three-dots-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="relative w-full h-screen overflow-hidden z-10">

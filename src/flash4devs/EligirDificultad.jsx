@@ -1,13 +1,8 @@
 import { FaBrain, FaBalanceScale, FaFire } from "react-icons/fa";
 
 export const EligirDificultad = ({ onSelectDifficulty }) => {
-  const handleClick = (e) => {
-
-    const h2Element = e.currentTarget.querySelector("h2");
-    if (h2Element) {
-      onSelectDifficulty(h2Element.textContent.toLowerCase());
-    }
-
+  const handleClick = (difficultOnButton) => {
+    onSelectDifficulty(difficultOnButton);
   };
 
   return (
@@ -19,7 +14,7 @@ export const EligirDificultad = ({ onSelectDifficulty }) => {
       </header>
 
       <div className="p-4 flex flex-col space-y-4 items-center justify-center">
-        <button onClick={handleClick}>
+        <button onClick={() => handleClick("easy")}>
           <div className="rounded-lg overflow-hidden shadow-lg w-60">
             <header className="bg-green-600 p-2 border-b-1 border-gray-300">
               <h2 className="text-white text-center font-semibold">Easy</h2>
@@ -31,7 +26,7 @@ export const EligirDificultad = ({ onSelectDifficulty }) => {
           </div>
         </button>
 
-        <button onClick={handleClick}>
+        <button onClick={() => handleClick("medium")}>
           <div className="rounded-lg overflow-hidden shadow-lg w-60">
             <header className="bg-yellow-400 p-2 border-b-1 border-gray-300">
               <h2 className="text-white text-center font-semibold">Medium</h2>
@@ -43,7 +38,7 @@ export const EligirDificultad = ({ onSelectDifficulty }) => {
           </div>
         </button>
 
-        <button onClick={handleClick}>
+        <button onClick={() => handleClick("hard")}>
           <div className="rounded-lg overflow-hidden shadow-lg w-60">
             <header className="bg-red-600 p-2 border-b-1 border-gray-300">
               <h2 className="text-white text-center font-semibold">Hard</h2>

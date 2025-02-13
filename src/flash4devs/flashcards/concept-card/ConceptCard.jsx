@@ -11,8 +11,7 @@ import { ThreeDots } from "react-loader-spinner";
 import { FaTimes } from "react-icons/fa";
 
 export const ConceptCard = () => {
-
-  const [selectedDifficulty, setSelectedDifficulty] = useState(null);
+  const [selectedDifficulty, setSelectedDifficulty] = useState(null); // Inicialmente null
   const { tech } = useParams();
   const { emailState, nameState, avatar } = useExtractInfo();
   const [questions, setQuestions] = useState([]);
@@ -25,23 +24,25 @@ export const ConceptCard = () => {
 
   useEffect(() => {
     const fetchQuestions = async () => {
-      try {
-        const response = await fetch(
-          `https://back-flash4devs-production.up.railway.app/card/questions?tech=${tech}&difficult=${selectedDifficulty}&limit=20`
-        );
+      if (selectedDifficulty !== null) {
+        try {
+          const response = await fetch(
+            `https://back-flash4devs-production.up.railway.app/card/questions?tech=${tech}&difficult=${selectedDifficulty}&limit=20`
+          );
 
-        if (!response.ok) {
-          throw new Error("Error al obtener las preguntas");
+          if (!response.ok) {
+            throw new Error("Error al obtener las preguntas");
+          }
+
+          const data = await response.json();
+          console.log(data);
+          setQuestions(data);
+        } catch (err) {
+          console.error(err);
+          alert(
+            "Hubo un error al cargar las preguntas. Por favor, intenta de nuevo."
+          );
         }
-
-        const data = await response.json();
-        console.log(data);
-        setQuestions(data);
-      } catch (err) {
-        console.error(err);
-        alert(
-          "Hubo un error al cargar las preguntas. Por favor, intenta de nuevo."
-        );
       }
     };
 
@@ -68,9 +69,18 @@ export const ConceptCard = () => {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
       setIsFlipped(false);
       setShowSolution(false);
+    } else {
+      alert(
+        `Cuestionario completado!\nBuenas: ${
+          score.good + (answer === "good" ? 1 : 0)
+        }\nRegulares: ${
+          score.regular + (answer === "regular" ? 1 : 0)
+        }\nMalas: ${score.bad + (answer === "bad" ? 1 : 0)}`
+      );
+      navigate("/");
     }
   };
-  
+
   const handleGoBack = () => {
     window.history.back();
   };
@@ -82,12 +92,11 @@ export const ConceptCard = () => {
 
   const handleDifficultySelect = (difficulty) => {
     setSelectedDifficulty(difficulty);
-     
   };
 
   const currentQuestion = questions[currentQuestionIndex];
-console.log(selectedDifficulty);
-  if (!currentQuestion) {
+
+  if (!currentQuestion && selectedDifficulty !== null) {
     return (
       <div
         className="absolute inset-0 flex items-center justify-center bg-opacity-75 z-50"
