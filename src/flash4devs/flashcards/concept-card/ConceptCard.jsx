@@ -213,29 +213,8 @@ export const ConceptCard = () => {
                     <FaTimes size={20} />
                   </button>
                 </div>
-                <div className="text-xl font-bold text-text w-full flex flex-col justify-center items-center mt-5 rounded-lg gap-3">
+                <div className="text-xl font-bold text-text w-full my-auto flex flex-col justify-center items-center mt-10 rounded-lg gap-3">
                   <p>{resIA}</p>
-                </div>
-                <div className="button-container">
-                  <button
-                    className="px-4 py-2 bg-red-500 text-white rounded"
-                    onClick={() => handleAnswer("bad")}
-                  >
-                    Mala
-                  </button>
-
-                  <button
-                    className="px-4 py-2 bg-yellow-500 text-white rounded"
-                    onClick={() => handleAnswer("regular")}
-                  >
-                    Regular
-                  </button>
-                  <button
-                    className="px-4 py-2 bg-green-500 text-white rounded"
-                    onClick={() => handleAnswer("good")}
-                  >
-                    Buena
-                  </button>
                 </div>
               </div>
             </div>
