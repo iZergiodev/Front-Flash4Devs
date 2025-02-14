@@ -31,7 +31,6 @@ export const AboutUs = () => {
             transition={{ duration: 0.8 }}
             className="text-4xl font-bold text-primary mb-8 pointer-events-auto"
           >
-            Sobre Nosotros
           </motion.h1>
           <div className="flex flex-row gap-24">
             <motion.div

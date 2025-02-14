@@ -99,7 +99,7 @@ export const Login = () => {
       <div className="relative w-full h-screen overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Squares
-            speed={0.5}
+            speed={0.1}
             squareSize={40}
             direction="diagonal"
             borderColor="rgba(241, 115, 0, 0.4)"
