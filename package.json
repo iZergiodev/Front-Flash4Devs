@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@monaco-editor/react": "^4.6.0",
+    "@monaco-editor/react": "^4.7.0",
     "@react-spring/web": "^9.7.5",
     "@tailwindcss/vite": "^4.0.3",
     "apexcharts": "^4.4.0",
