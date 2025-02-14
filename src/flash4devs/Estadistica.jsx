@@ -1,7 +1,7 @@
+import { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-
 import Squares from "../components/effectcomponents/Squares";
 import { Navbar } from "../components/Navbar";
 import { MenuRight } from "../components/MenuRight";
@@ -20,14 +20,65 @@ const colors = {
 };
 
 export function Estadistica() {
-  
-  const {emailState, nameState, avatar} = useExtractInfo()
+  const { emailState, nameState, avatar } = useExtractInfo();
+  const [stats, setStats] = useState({
+    good_answers: 0,
+    bad_answers: 0,
+    level: "beginner",
+    rating_interview_front_react: 0,
+    rating_interview_backend_python: 0,
+  });
+  const [loading, setLoading] = useState(true);
 
-  const totalCorrect = 75;
-  const totalIncorrect = 25;
+  // Obtener las estadísticas del usuario desde el backend
+  useEffect(() => {
+    const fetchStats = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("No se encontró el token de acceso.");
+        return;
+      }
+
+      try {
+        const response = await fetch(
+          "https://back-flash4devs-production.up.railway.app/card/user-stats",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setStats(data);
+      } catch (error) {
+        console.error("Error al obtener las estadísticas:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStats();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p>Cargando estadísticas...</p>
+      </div>
+    );
+  }
+
+  const totalCorrect = stats.good_answers;
+  const totalIncorrect = stats.bad_answers;
   const accuracyPercentage =
-    (totalCorrect / (totalCorrect + totalIncorrect)) * 100;
-  const currentLevel = "Intermedio";
+    (totalCorrect / (totalCorrect + totalIncorrect)) * 100 || 0;
+  const currentLevel = stats.level;
 
   const correctAnswersChart = {
     options: {
@@ -168,7 +219,7 @@ export function Estadistica() {
         },
       },
     },
-    series: [75],
+    series: [accuracyPercentage], // Usar el porcentaje de acierto para el gráfico radial
   };
 
   return (
@@ -186,7 +237,7 @@ export function Estadistica() {
       <MenuRight name={nameState} email={emailState} profileImage={avatar} />
       <div className="relative z-20 inset-0 flex flex-col items-center mt-16">
         <h1 className="text-3xl font-bold text-primary mb-2 mt-6 text-center">
-          Estadisticas
+          Estadísticas
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
           <div className="bg-card p-6 rounded-lg shadow-md pointer-events: auto">
