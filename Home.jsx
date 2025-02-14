@@ -44,7 +44,7 @@ export const Home = () => {
           <Navbar />
         </AnimatedContent>
         <Squares
-          speed={0.5}
+          speed={0.1}
           squareSize={40}
           direction="diagonal"
           borderColor="rgba(241, 115, 0, 0.4)"
