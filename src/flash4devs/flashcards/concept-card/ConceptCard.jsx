@@ -20,6 +20,7 @@ export const ConceptCard = () => {
   const [score, setScore] = useState({ good: 0, regular: 0, bad: 0 });
   const [message, setMessage] = useState("");
   const [resIA, setResIA] = useState("");
+  // const [textAreaMessage, setTextAreaMessage] = useState('')
 
   const navigate = useNavigate();
 
@@ -83,7 +84,7 @@ export const ConceptCard = () => {
   const handleFlip = async () => {
     const url = "https://back-flash4devs-production.up.railway.app/chat/";
     const data = {
-      system_prompt: `Eres un profesor y estás evaluando una respuesta a una pregunta sobre programación, en este momento se trata de la tecnología ${tech}. Debes de responder el primer mensaje con un BIEN o MAL en mayúscula seguida de ¬, acto seguido debes de dar un breve resumen de porque está mal la pregunta, en caso de que esté bien, simplemente felicitalo. La pregunta es: ${currentQuestion.question}`,
+      system_prompt: `Eres un profesor y estás evaluando una respuesta a una pregunta sobre programación, en este momento se trata de la tecnología ${tech}. Debes de responder el primer mensaje con un BIEN o MAL en mayúscula seguida de ¬, tal que así BIEN¬ o MAL¬ acto seguido debes de dar un breve resumen de porque está mal la pregunta, en caso de que esté bien, simplemente felicitalo. La pregunta es: ${currentQuestion.question}`,
       user_message: message,
     };
 
@@ -107,6 +108,7 @@ export const ConceptCard = () => {
       setResIA(textoLimpio);
       setIsFlipped(true);
       setShowSolution(true);
+      setMessage('')
 
       if (palabraClave === "BIEN¬") {
         await updateUserAnswers("good");
@@ -149,7 +151,7 @@ export const ConceptCard = () => {
   }
 
   const updateUserAnswers = async (type) => {
-    const token = localStorage.getItem("accessToken"); // Obtener el token de acceso
+    const token = localStorage.getItem("token"); // Obtener el token de acceso
     if (!token) {
       console.error("No se encontró el token de acceso.");
       return;
@@ -226,6 +228,7 @@ export const ConceptCard = () => {
                     className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-50 dark:border-gray-300 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none"
                     placeholder="Tu respuesta..."
                     onChange={handleMessageChange}
+                    value={message}
                   ></textarea>
                 </div>
                 <div>

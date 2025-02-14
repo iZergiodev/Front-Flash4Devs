@@ -72,8 +72,7 @@ export const Register = () => {
       const data = await response.json();
       console.log(data);
       if (response.ok) {
-        loginAuthorized();
-        navigate("/");
+        // loginAuthorized();
         navigate("/auth/login");
       }
     } catch (error) {
