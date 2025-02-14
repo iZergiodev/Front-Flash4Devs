@@ -8,6 +8,7 @@ import "./Card.css";
 import { useState, useEffect } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import { FaTimes } from "react-icons/fa";
+import Editor from "@monaco-editor/react";
 
 export const CodingCard = () => {
   const [selectedDifficulty, setSelectedDifficulty] = useState(null);
@@ -20,6 +21,7 @@ export const CodingCard = () => {
   const [score, setScore] = useState({ good: 0, regular: 0, bad: 0 });
   const [message, setMessage] = useState("");
   const [resIA, setResIA] = useState("");
+  const [code, setCode] = useState("");
 
   const navigate = useNavigate();
 
@@ -119,9 +121,11 @@ export const CodingCard = () => {
     setSelectedDifficulty(difficulty);
   };
 
-  const handleMessageChange = (event) => {
-    setMessage(event.target.value);
+  const handleMessageChange = (value, event) => {
+    setMessage(event.target.value)
+    setCode(value);
   };
+
 
   const currentQuestion = questions[currentQuestionIndex];
 
@@ -164,7 +168,7 @@ export const CodingCard = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <div className={`flip-card ${isFlipped ? "flipped" : ""}`}>
             <div className="flip-card-inner">
-              <div className="flex flex-col flip-card-front w-[400px] h-[300px] bg-white rounded-lg shadow-lg">
+              <div className="flex flex-col flip-card-front w-[400px] h-[500px] bg-white border-1 border-gray-200 rounded-lg shadow-lg">
                 <div className="w-full flex relative items-center text-center text-text mb-4 bg-card p-3 border-b-1 border-gray-300 rounded-md">
                   <div className="absolute left-1/2 transform -translate-x-1/2">
                     {tech.toUpperCase()}
@@ -176,24 +180,34 @@ export const CodingCard = () => {
                     <FaTimes size={20} />
                   </button>
                 </div>
-                <div className="text-xl font-bold text-text w-full flex flex-col justify-center items-center mt-5 rounded-lg gap-3">
+                <div className="text-xl font-bold text-text w-full flex flex-col justify-center items-center rounded-lg gap-3">
                   <p>PREGUNTA</p>
                   <p className="text-gray-400">{currentQuestion.question}</p>
                 </div>
-                <div className="max-w-3xl w-[400px] mt-25 mx-auto">
+                <div className="max-w-3xl w-[400px] mt-5 mx-auto shadow-lg">
                   <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
                     Respuesta
                   </label>
-                  <textarea
-                    rows="5"
-                    className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-50 dark:border-gray-300 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none"
-                    placeholder="Tu respuesta..."
+                  <Editor
+                    height="350px"
+                    width="100%"
+                    language="javascript"
+                    theme="vs-dark"
+                    value={code}
                     onChange={handleMessageChange}
-                  ></textarea>
+                    options={{
+                      fontSize: 14,
+                      minimap: { enabled: false },
+                      lineNumbers: "on",
+                      scrollBeyondLastLine: false,
+                      automaticLayout: true,
+                      formatOnType: true,
+                    }}
+                  />
                 </div>
                 <div>
                   <button
-                    className="w-50 mt-5 border-t-1 border-gray-300 text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-50 mt-5 border-t-1 shadow-lg border-gray-300 text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
                     onClick={handleFlip}
                   >
                     Mostrar Respuesta
@@ -217,7 +231,7 @@ export const CodingCard = () => {
                   <p>{resIA}</p>
                 </div>
                 <button
-                  className="px-4 py-2 bg-accent text-white rounded"
+                  className="w-50 mt-5 border-t-1 shadow-lg border-gray-300 text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
                   onClick={() => handleAnswer()}
                 >
                   Siguiente

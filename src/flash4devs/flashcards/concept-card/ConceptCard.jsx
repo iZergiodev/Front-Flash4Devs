@@ -257,7 +257,7 @@ export const ConceptCard = () => {
                   <p>{resIA}</p>
                 </div>
                 <button
-                  className="px-4 py-2 bg-accent text-white rounded"
+                  className="w-50 mt-5 border-t-1 shadow-lg border-gray-300 text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
                   onClick={() => {
                     if (currentQuestionIndex < questions.length - 1) {
                       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
