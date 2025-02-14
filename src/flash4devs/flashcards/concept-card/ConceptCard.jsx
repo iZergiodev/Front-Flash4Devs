@@ -216,6 +216,12 @@ export const ConceptCard = () => {
                 <div className="text-xl font-bold text-text w-full my-auto flex flex-col justify-center items-center mt-10 rounded-lg gap-3">
                   <p>{resIA}</p>
                 </div>
+                <button
+                  className="px-4 py-2 bg-accent text-white rounded"
+                  onClick={() => handleAnswer()}
+                >
+                  Siguiente
+                </button>
               </div>
             </div>
           </div>
