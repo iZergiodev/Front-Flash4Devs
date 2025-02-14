@@ -25,12 +25,62 @@ export const CodingCard = () => {
 
   const navigate = useNavigate();
 
+  function parsearRespuesta(texto) {
+    const contieneBien = texto.includes("BIEN¬");
+    const contieneMal = texto.includes("MAL¬");
+
+    const palabraClave = contieneBien ? "BIEN¬" : contieneMal ? "MAL¬" : null;
+
+    const textoLimpio = palabraClave
+      ? texto.replace(palabraClave, "").trim()
+      : texto;
+
+    return {
+      palabraClave,
+      textoLimpio,
+    };
+  }
+
+  const updateUserAnswers = async (type) => {
+    const token = localStorage.getItem("token"); // Obtener el token de acceso
+    if (!token) {
+      console.error("No se encontró el token de acceso.");
+      return;
+    }
+
+    const url =
+      "https://back-flash4devs-production.up.railway.app/card/update-user-answers";
+    const data = {
+      type: type,
+    };
+
+    try {
+      const response = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("Respuesta actualizada:", result);
+    } catch (error) {
+      console.error("Error al actualizar las respuestas:", error);
+    }
+  };
+
   useEffect(() => {
     const fetchQuestions = async () => {
       if (selectedDifficulty !== null) {
         try {
           const response = await fetch(
-            `https://back-flash4devs-production.up.railway.app/card/questions?tech=${tech}&difficult=${selectedDifficulty}&limit=20`
+            `https://back-flash4devs-production.up.railway.app/card/coding-questions?tech=${tech}&difficult=${selectedDifficulty}&limit=20`
           );
 
           if (!response.ok) {
@@ -61,29 +111,6 @@ export const CodingCard = () => {
     }
   }, [currentQuestionIndex, navigate, questions.length, score]);
 
-  const handleAnswer = (answer) => {
-    console.log("Respuesta seleccionada:", answer);
-    setScore((prevScore) => ({
-      ...prevScore,
-      [answer]: prevScore[answer] + 1,
-    }));
-
-    if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-      setIsFlipped(false);
-      setShowSolution(false);
-    } else {
-      alert(
-        `Cuestionario completado!\nBuenas: ${
-          score.good + (answer === "good" ? 1 : 0)
-        }\nRegulares: ${
-          score.regular + (answer === "regular" ? 1 : 0)
-        }\nMalas: ${score.bad + (answer === "bad" ? 1 : 0)}`
-      );
-      navigate("/");
-    }
-  };
-
   const handleGoBack = () => {
     window.history.back();
   };
@@ -91,7 +118,7 @@ export const CodingCard = () => {
   const handleFlip = async () => {
     const url = "https://back-flash4devs-production.up.railway.app/chat/";
     const data = {
-      system_prompt: `Eres un profesor y estás evaluando una respuesta a una pregunta sobre programación, en este momento se trata de la tecnología ${tech}. Debes de responder el primer mensaje con un BIEN o MAL en mayúscula, acto seguido debes de dar un breve resumen de porque está mal la pregunta, en caso de que esté bien, simplemente felicitalo. La pregunta es: ${currentQuestion.question}`,
+      system_prompt: `Eres un profesor y estás evaluando una respuesta a una pregunta sobre programación, en este momento se trata de la tecnología ${tech}. Debes de responder el primer mensaje con un BIEN o MAL en mayúscula seguida de ¬, tal que así BIEN¬ o MAL¬ acto seguido debes de dar un breve resumen de porque está mal la pregunta, en caso de que esté bien, simplemente felicitalo. La pregunta es: ${currentQuestion.question}. El alumno te va a responder con código.`,
       user_message: message,
     };
 
@@ -109,9 +136,25 @@ export const CodingCard = () => {
       }
 
       const result = await response.json();
-      setResIA(result.generated_text);
+      const { palabraClave, textoLimpio } = parsearRespuesta(result.generated_text);
+      setResIA(textoLimpio);
       setIsFlipped(true);
       setShowSolution(true);
+      setMessage('');
+
+      if (palabraClave === "BIEN¬") {
+        setScore((prevScore) => ({
+          ...prevScore,
+          good: prevScore.good + 1,
+        }));
+        await updateUserAnswers("good"); // Actualizar estadísticas en el backend
+      } else if (palabraClave === "MAL¬") {
+        setScore((prevScore) => ({
+          ...prevScore,
+          bad: prevScore.bad + 1,
+        }));
+        await updateUserAnswers("bad"); // Actualizar estadísticas en el backend
+      }
     } catch (error) {
       console.error("Error posting data:", error);
     }
@@ -122,10 +165,9 @@ export const CodingCard = () => {
   };
 
   const handleMessageChange = (value, event) => {
-    setMessage(event.target.value)
+    setMessage(event.target.value);
     setCode(value);
   };
-
 
   const currentQuestion = questions[currentQuestionIndex];
 
@@ -232,7 +274,18 @@ export const CodingCard = () => {
                 </div>
                 <button
                   className="w-50 mt-5 border-t-1 shadow-lg border-gray-300 text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
-                  onClick={() => handleAnswer()}
+                  onClick={() => {
+                    if (currentQuestionIndex < questions.length - 1) {
+                      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+                      setIsFlipped(false);
+                      setShowSolution(false);
+                    } else {
+                      alert(
+                        `Cuestionario completado!\nBuenas: ${score.good}\nRegulares: ${score.regular}\nMalas: ${score.bad}`
+                      );
+                      navigate("/");
+                    }
+                  }}
                 >
                   Siguiente
                 </button>

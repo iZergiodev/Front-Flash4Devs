@@ -219,7 +219,7 @@ export function Estadistica() {
         },
       },
     },
-    series: [accuracyPercentage], // Usar el porcentaje de acierto para el gráfico radial
+    series: [accuracyPercentage],
   };
 
   return (

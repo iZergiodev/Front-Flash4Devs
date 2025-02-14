@@ -16,8 +16,8 @@ export const ConceptCard = () => {
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
-  const [showSolution, setShowSolution] = useState(false);
-  const [score, setScore] = useState({ good: 0, regular: 0, bad: 0 });
+  const [, setShowSolution] = useState(false);
+  const [score] = useState({ good: 0, regular: 0, bad: 0 });
   const [message, setMessage] = useState("");
   const [resIA, setResIA] = useState("");
   // const [textAreaMessage, setTextAreaMessage] = useState('')
