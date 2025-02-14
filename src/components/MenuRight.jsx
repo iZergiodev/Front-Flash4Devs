@@ -19,7 +19,7 @@ export const MenuRight = ({ name, email, profileImage }) => {
   const handleLogout = () => {
     logout();
 
-    navigate('/home')
+    navigate('/')
 
   };
 
