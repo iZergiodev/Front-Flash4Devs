@@ -6,19 +6,20 @@ import useExtractInfo from "../../../hooks/useExtractInfo";
 import { EligirDificultad } from "../../EligirDificultad";
 import "./Card.css";
 import { useState, useEffect } from "react";
-
 import { ThreeDots } from "react-loader-spinner";
 import { FaTimes } from "react-icons/fa";
 
 export const ConceptCard = () => {
-  const [selectedDifficulty, setSelectedDifficulty] = useState(null); // Inicialmente null
+  const [selectedDifficulty, setSelectedDifficulty] = useState(null);
   const { tech } = useParams();
   const { emailState, nameState, avatar } = useExtractInfo();
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
-  const [, setShowSolution] = useState(false);
+  const [showSolution, setShowSolution] = useState(false);
   const [score, setScore] = useState({ good: 0, regular: 0, bad: 0 });
+  const [message, setMessage] = useState("");
+  const [resIA, setResIA] = useState("");
 
   const navigate = useNavigate();
 
@@ -85,13 +86,41 @@ export const ConceptCard = () => {
     window.history.back();
   };
 
-  const handleFlip = () => {
-    setIsFlipped(!isFlipped);
-    setShowSolution(true);
+  const handleFlip = async () => {
+    const url = "https://back-flash4devs-production.up.railway.app/chat/";
+    const data = {
+      system_prompt: `Eres un profesor y estás evaluando una respuesta a una pregunta sobre programación, en este momento se trata de la tecnología ${tech}. Debes de responder el primer mensaje con un BIEN o MAL en mayúscula, acto seguido debes de dar un breve resumen de porque está mal la pregunta, en caso de que esté bien, simplemente felicitalo. La pregunta es: ${currentQuestion.question}`,
+      user_message: message,
+    };
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      setResIA(result.generated_text);
+      setIsFlipped(true);
+      setShowSolution(true);
+    } catch (error) {
+      console.error("Error posting data:", error);
+    }
   };
 
   const handleDifficultySelect = (difficulty) => {
     setSelectedDifficulty(difficulty);
+  };
+
+  const handleMessageChange = (event) => {
+    setMessage(event.target.value);
   };
 
   const currentQuestion = questions[currentQuestionIndex];
@@ -151,6 +180,17 @@ export const ConceptCard = () => {
                   <p>PREGUNTA</p>
                   <p className="text-gray-400">{currentQuestion.question}</p>
                 </div>
+                <div className="max-w-3xl w-[400px] mt-25 mx-auto">
+                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
+                    Respuesta
+                  </label>
+                  <textarea
+                    rows="5"
+                    className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-50 dark:border-gray-300 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none"
+                    placeholder="Tu respuesta..."
+                    onChange={handleMessageChange}
+                  ></textarea>
+                </div>
                 <div>
                   <button
                     className="w-50 mt-5 border-t-1 border-gray-300 text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
@@ -174,7 +214,7 @@ export const ConceptCard = () => {
                   </button>
                 </div>
                 <div className="text-xl font-bold text-text w-full flex flex-col justify-center items-center mt-5 rounded-lg gap-3">
-                  <p>{currentQuestion.solution}</p>
+                  <p>{resIA}</p>
                 </div>
                 <div className="button-container">
                   <button
@@ -183,6 +223,7 @@ export const ConceptCard = () => {
                   >
                     Mala
                   </button>
+
                   <button
                     className="px-4 py-2 bg-yellow-500 text-white rounded"
                     onClick={() => handleAnswer("regular")}
