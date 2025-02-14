@@ -3,81 +3,55 @@ import Squares from "../../../components/effectcomponents/Squares";
 import { MenuRight } from "../../../components/MenuRight";
 import { Navbar } from "../../../components/Navbar";
 import useExtractInfo from "../../../hooks/useExtractInfo";
+import { EligirDificultad } from "../../EligirDificultad";
 import "./Card.css";
 import { useState, useEffect } from "react";
-import Editor from "@monaco-editor/react";
-import { useRef } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import { FaTimes } from "react-icons/fa";
 
 export const CodingCard = () => {
-  const [respIA, setResIA] = useState("");
-  const [chatResponse, setChatResponse] = useState("");
-  const editorRef = useRef(null);
-
-  const getResponse = async () => {
-    try {
-      const resp = await fetch(
-        "https://back-flash4devs-production.up.railway.app/chat/",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            user_message: editorRef.current.getValue().trim(),
-            system_prompt:
-              "Estás corrigiendo un código de un alumno, responde en la primera palabra bien o mal, dependiendo si está técnicamente correcto o no, y después un breve resumen explicando por qué está mal",
-          }),
-        }
-      );
-      const { generated_text } = await resp.json();
-      setResIA(generated_text);
-      setChatResponse(generated_text);
-    } catch (error) {
-      console.error("Error al obtener la respuesta de ChatGPT:", error);
-      setChatResponse("Error al obtener la respuesta. Inténtalo de nuevo.");
-    }
-  };
-
-  function handleEditorDidMount(editor) {
-    editorRef.current = editor;
-  }
-
+  const [selectedDifficulty, setSelectedDifficulty] = useState(null);
   const { tech } = useParams();
   const { emailState, nameState, avatar } = useExtractInfo();
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
-  const [, setShowSolution] = useState(false);
+  const [showSolution, setShowSolution] = useState(false);
   const [score, setScore] = useState({ good: 0, regular: 0, bad: 0 });
+  const [message, setMessage] = useState("");
+  const [resIA, setResIA] = useState("");
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchQuestions = async () => {
-      try {
-        const response = await fetch(
-          `https://back-flash4devs-production.up.railway.app/card/coding-questions?tech=${tech}&limit=10`
-        );
+      if (selectedDifficulty !== null) {
+        try {
+          const response = await fetch(
+            `https://back-flash4devs-production.up.railway.app/card/questions?tech=${tech}&difficult=${selectedDifficulty}&limit=20`
+          );
 
-        if (!response.ok) {
-          throw new Error("Error al obtener las preguntas");
+          if (!response.ok) {
+            throw new Error("Error al obtener las preguntas");
+          }
+
+          const data = await response.json();
+          console.log(data);
+          setQuestions(data);
+        } catch (err) {
+          console.error(err);
+          alert(
+            "Hubo un error al cargar las preguntas. Por favor, intenta de nuevo."
+          );
         }
-
-        const data = await response.json();
-        setQuestions(data);
-      } catch (err) {
-        console.error(err);
-        alert(
-          "Hubo un error al cargar las preguntas. Por favor, intenta de nuevo."
-        );
       }
     };
 
     fetchQuestions();
-  }, [tech]);
+  }, [tech, selectedDifficulty]);
 
   useEffect(() => {
-    if (currentQuestionIndex === questions.length - 1) {
+    if (questions.length > 0 && currentQuestionIndex === questions.length) {
       alert(
         `Cuestionario completado!\nBuenas: ${score.good}\nRegulares: ${score.regular}\nMalas: ${score.bad}`
       );
@@ -96,7 +70,15 @@ export const CodingCard = () => {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
       setIsFlipped(false);
       setShowSolution(false);
-      setChatResponse("");
+    } else {
+      alert(
+        `Cuestionario completado!\nBuenas: ${
+          score.good + (answer === "good" ? 1 : 0)
+        }\nRegulares: ${
+          score.regular + (answer === "regular" ? 1 : 0)
+        }\nMalas: ${score.bad + (answer === "bad" ? 1 : 0)}`
+      );
+      navigate("/");
     }
   };
 
@@ -105,16 +87,45 @@ export const CodingCard = () => {
   };
 
   const handleFlip = async () => {
-    if (!isFlipped) {
-      await getResponse();
+    const url = "https://back-flash4devs-production.up.railway.app/chat/";
+    const data = {
+      system_prompt: `Eres un profesor y estás evaluando una respuesta a una pregunta sobre programación, en este momento se trata de la tecnología ${tech}. Debes de responder el primer mensaje con un BIEN o MAL en mayúscula, acto seguido debes de dar un breve resumen de porque está mal la pregunta, en caso de que esté bien, simplemente felicitalo. La pregunta es: ${currentQuestion.question}`,
+      user_message: message,
+    };
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      setResIA(result.generated_text);
+      setIsFlipped(true);
+      setShowSolution(true);
+    } catch (error) {
+      console.error("Error posting data:", error);
     }
-    setIsFlipped(!isFlipped);
-    setShowSolution(true);
+  };
+
+  const handleDifficultySelect = (difficulty) => {
+    setSelectedDifficulty(difficulty);
+  };
+
+  const handleMessageChange = (event) => {
+    setMessage(event.target.value);
   };
 
   const currentQuestion = questions[currentQuestionIndex];
 
-  if (!currentQuestion) {
+  if (!currentQuestion && selectedDifficulty !== null) {
     return (
       <div
         className="absolute inset-0 flex items-center justify-center bg-opacity-75 z-50"
@@ -147,70 +158,75 @@ export const CodingCard = () => {
       </div>
       <Navbar />
       <MenuRight name={nameState} email={emailState} profileImage={avatar} />
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <div className={`flip-card ${isFlipped ? "flipped" : ""}`}>
-          <div className="flip-card-inner">
-            <div className="flex flex-col flip-card-front w-[400px] h-[300px] bg-white rounded-lg shadow-lg">
-              <div className="w-full flex relative items-center text-center text-text mb-4 bg-card p-3 border-b-1 border-gray-300 rounded-md">
-                <div className="absolute left-1/2 transform -translate-x-1/2">
-                  {tech.toUpperCase()}
+      {!selectedDifficulty ? (
+        <EligirDificultad onSelectDifficulty={handleDifficultySelect} />
+      ) : (
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <div className={`flip-card ${isFlipped ? "flipped" : ""}`}>
+            <div className="flip-card-inner">
+              <div className="flex flex-col flip-card-front w-[400px] h-[300px] bg-white rounded-lg shadow-lg">
+                <div className="w-full flex relative items-center text-center text-text mb-4 bg-card p-3 border-b-1 border-gray-300 rounded-md">
+                  <div className="absolute left-1/2 transform -translate-x-1/2">
+                    {tech.toUpperCase()}
+                  </div>
+                  <button
+                    onClick={handleGoBack}
+                    className="ml-auto text-red-500 hover:text-red-700 transition-colors"
+                  >
+                    <FaTimes size={20} />
+                  </button>
                 </div>
-                <button
-                  onClick={handleGoBack}
-                  className="ml-auto text-red-500 hover:text-red-700 transition-colors"
-                >
-                  <FaTimes size={20} />
-                </button>
-              </div>
-              <div className="text-xl font-bold text-text w-full flex flex-col justify-center items-center mt-5 rounded-lg gap-3">
-                <p>PREGUNTA</p>
-                <p className="text-gray-400">{currentQuestion.question}</p>
-              </div>
-              <div>
-                <div className="flex justify-center items-center mt-5 border mx-10 rounded-lg">
-                  <Editor
-                    height={"300px"}
-                    width={"600px"}
-                    theme="light"
-                    defaultLanguage="javascript"
-                    onMount={handleEditorDidMount}
-                  />
+                <div className="text-xl font-bold text-text w-full flex flex-col justify-center items-center mt-5 rounded-lg gap-3">
+                  <p>PREGUNTA</p>
+                  <p className="text-gray-400">{currentQuestion.question}</p>
                 </div>
+                <div className="max-w-3xl w-[400px] mt-25 mx-auto">
+                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
+                    Respuesta
+                  </label>
+                  <textarea
+                    rows="5"
+                    className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-50 dark:border-gray-300 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none"
+                    placeholder="Tu respuesta..."
+                    onChange={handleMessageChange}
+                  ></textarea>
+                </div>
+                <div>
+                  <button
+                    className="w-50 mt-5 border-t-1 border-gray-300 text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+                    onClick={handleFlip}
+                  >
+                    Mostrar Respuesta
+                  </button>
+                </div>
+              </div>
 
-                <button
-                  className="w-50 mt-5 border-t-1 border-gray-300 text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
-                  onClick={handleFlip}
-                >
-                  Mostrar Respuesta
-                </button>
-              </div>
-            </div>
-
-            <div className="flip-card-back flex flex-col flip-card-front w-[400px] h-[300px] bg-white rounded-lg shadow-lg">
-              <div className="w-full flex relative items-center text-center text-text mb-4 bg-card p-3 border-b-1 border-gray-300 rounded-md">
-                <div className="absolute left-1/2 transform -translate-x-1/2">
-                  Respuesta
+              <div className="flip-card-back flex flex-col flip-card-front w-[400px] h-[300px] bg-white rounded-lg shadow-lg">
+                <div className="w-full flex relative items-center text-center text-text mb-4 bg-card p-3 border-b-1 border-gray-300 rounded-md">
+                  <div className="absolute left-1/2 transform -translate-x-1/2">
+                    Respuesta
+                  </div>
+                  <button
+                    onClick={handleGoBack}
+                    className="ml-auto text-red-500 hover:text-red-700 transition-colors"
+                  >
+                    <FaTimes size={20} />
+                  </button>
+                </div>
+                <div className="text-xl font-bold text-text w-full my-auto flex flex-col justify-center items-center mt-10 rounded-lg gap-3">
+                  <p>{resIA}</p>
                 </div>
                 <button
-                  onClick={handleGoBack}
-                  className="ml-auto text-red-500 hover:text-red-700 transition-colors"
+                  className="px-4 py-2 bg-accent text-white rounded"
+                  onClick={() => handleAnswer()}
                 >
-                  <FaTimes size={20} />
+                  Siguiente
                 </button>
               </div>
-              <div className="flex items-center justify-center p-4 text-gray-700">
-                {chatResponse || "Cargando respuesta..."}{" "}
-              </div>
-              <button
-                className="px-4 py-2 bg-accent text-white rounded"
-                onClick={() => handleAnswer()}
-              >
-                Siguiente
-              </button>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

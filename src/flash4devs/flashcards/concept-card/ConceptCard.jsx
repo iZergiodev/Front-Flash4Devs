@@ -23,6 +23,22 @@ export const ConceptCard = () => {
 
   const navigate = useNavigate();
 
+  function parsearRespuesta(texto) {
+    const contieneBien = texto.includes("BIEN¬");
+    const contieneMal = texto.includes("MAL¬");
+
+    const palabraClave = contieneBien ? "BIEN¬" : contieneMal ? "MAL¬" : null;
+
+    const textoLimpio = palabraClave
+      ? texto.replace(palabraClave, "").trim()
+      : texto;
+
+    return {
+      palabraClave,
+      textoLimpio,
+    };
+  }
+
   useEffect(() => {
     const fetchQuestions = async () => {
       if (selectedDifficulty !== null) {
@@ -59,28 +75,6 @@ export const ConceptCard = () => {
     }
   }, [currentQuestionIndex, navigate, questions.length, score]);
 
-  const handleAnswer = (answer) => {
-    console.log("Respuesta seleccionada:", answer);
-    setScore((prevScore) => ({
-      ...prevScore,
-      [answer]: prevScore[answer] + 1,
-    }));
-
-    if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-      setIsFlipped(false);
-      setShowSolution(false);
-    } else {
-      alert(
-        `Cuestionario completado!\nBuenas: ${
-          score.good + (answer === "good" ? 1 : 0)
-        }\nRegulares: ${
-          score.regular + (answer === "regular" ? 1 : 0)
-        }\nMalas: ${score.bad + (answer === "bad" ? 1 : 0)}`
-      );
-      navigate("/");
-    }
-  };
 
   const handleGoBack = () => {
     window.history.back();
@@ -89,7 +83,7 @@ export const ConceptCard = () => {
   const handleFlip = async () => {
     const url = "https://back-flash4devs-production.up.railway.app/chat/";
     const data = {
-      system_prompt: `Eres un profesor y estás evaluando una respuesta a una pregunta sobre programación, en este momento se trata de la tecnología ${tech}. Debes de responder el primer mensaje con un BIEN o MAL en mayúscula, acto seguido debes de dar un breve resumen de porque está mal la pregunta, en caso de que esté bien, simplemente felicitalo. La pregunta es: ${currentQuestion.question}`,
+      system_prompt: `Eres un profesor y estás evaluando una respuesta a una pregunta sobre programación, en este momento se trata de la tecnología ${tech}. Debes de responder el primer mensaje con un BIEN o MAL en mayúscula seguida de ¬, acto seguido debes de dar un breve resumen de porque está mal la pregunta, en caso de que esté bien, simplemente felicitalo. La pregunta es: ${currentQuestion.question}`,
       user_message: message,
     };
 
@@ -107,9 +101,18 @@ export const ConceptCard = () => {
       }
 
       const result = await response.json();
-      setResIA(result.generated_text);
+      const { palabraClave, textoLimpio } = parsearRespuesta(
+        result.generated_text
+      );
+      setResIA(textoLimpio);
       setIsFlipped(true);
       setShowSolution(true);
+
+      if (palabraClave === "BIEN¬") {
+        await updateUserAnswers("good");
+      } else if (palabraClave === "MAL¬") {
+        await updateUserAnswers("bad");
+      }
     } catch (error) {
       console.error("Error posting data:", error);
     }
@@ -144,6 +147,40 @@ export const ConceptCard = () => {
       </div>
     );
   }
+
+  const updateUserAnswers = async (type) => {
+    const token = localStorage.getItem("accessToken"); // Obtener el token de acceso
+    if (!token) {
+      console.error("No se encontró el token de acceso.");
+      return;
+    }
+
+    const url =
+      "https://back-flash4devs-production.up.railway.app/card/update-user-answers";
+    const data = {
+      type: type,
+    };
+
+    try {
+      const response = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("Respuesta actualizada:", result);
+    } catch (error) {
+      console.error("Error al actualizar las respuestas:", error);
+    }
+  };
 
   return (
     <div className="relative w-full h-screen overflow-hidden z-10">
@@ -218,7 +255,18 @@ export const ConceptCard = () => {
                 </div>
                 <button
                   className="px-4 py-2 bg-accent text-white rounded"
-                  onClick={() => handleAnswer()}
+                  onClick={() => {
+                    if (currentQuestionIndex < questions.length - 1) {
+                      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+                      setIsFlipped(false);
+                      setShowSolution(false);
+                    } else {
+                      alert(
+                        `Cuestionario completado!\nBuenas: ${score.good}\nMalas: ${score.bad}`
+                      );
+                      navigate("/");
+                    }
+                  }}
                 >
                   Siguiente
                 </button>
