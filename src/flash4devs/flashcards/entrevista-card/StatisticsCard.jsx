@@ -1,9 +1,13 @@
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { useEffect } from "react";
+import { useState } from "react";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export const StatisticsCard = ({ correctAnswers, wrongAnswers }) => {
+export const StatisticsCard = ({ correctAnswers, wrongAnswers, answers }) => {
+  const [respuestaIA, setRespuestaIA] = useState();
+
   const data = {
     labels: ["Correctas", "Incorrectas"],
     datasets: [
@@ -14,6 +18,38 @@ export const StatisticsCard = ({ correctAnswers, wrongAnswers }) => {
       },
     ],
   };
+
+  useEffect(() => {
+    const fetchChatGPT = async () => {
+      try {
+        const response = await fetch(
+          "https://back-flash4devs-production.up.railway.app/chat/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              system_prompt:
+                "El usuario está haciendo un simulacro de entrevista de ciertas tecnologías para un puesto de desarrollador web, deberás mirar el conjunto de preguntas y respuestas del usuario y dar un informe sobre el resultado global del mismo y qué respuestas podría mejorar para ser contratado en la próxima entrevista.",
+              user_message: answers,
+            }),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Error en la respuesta del servidor");
+        }
+
+        const data = await response.json();
+        setRespuestaIA(data.generated_text);
+      } catch (error) {
+        console.error("Error obteniendo la respuesta de ChatGPT:", error);
+      }
+    };
+
+    fetchChatGPT();
+  }, [answers]);
 
   return (
     <div className="flex flex-row justify-center w-[700px] gap-6">
@@ -46,9 +82,7 @@ export const StatisticsCard = ({ correctAnswers, wrongAnswers }) => {
           Informe
         </div>
         <div className="flex justify-center items-center ">
-          <p className="text-text text-sm">
-            Aqui viene la respuesta/correciones para tus preguntas
-          </p>
+          <p className="text-text text-sm">{respuestaIA}</p>
         </div>
       </div>
     </div>

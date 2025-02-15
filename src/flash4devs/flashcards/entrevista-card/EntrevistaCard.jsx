@@ -7,6 +7,7 @@ import { MenuRight } from "../../../components/MenuRight";
 import { ThreeDots } from "react-loader-spinner";
 import { FaClock } from "react-icons/fa";
 import { StatisticsCard } from "./StatisticsCard";
+import { useLocation } from "react-router";
 
 export const EntrevistaCard = () => {
   const { emailState, nameState, avatar } = useExtractInfo();
@@ -22,7 +23,11 @@ export const EntrevistaCard = () => {
   const [showStatistics, setShowStatistics] = useState(false);
   const [answers, setAnswers] = useState([]);
 
-  
+  const location = useLocation()
+
+  const pathSegments = location.pathname.split("/");
+  const lastSegment = pathSegments[pathSegments.length - 1];
+
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -31,7 +36,6 @@ export const EntrevistaCard = () => {
     }${secs}`;
   };
 
-  
   useEffect(() => {
     if (timeLeft === 0) {
       setIsTimeUp(true);
@@ -45,13 +49,11 @@ export const EntrevistaCard = () => {
     return () => clearInterval(timer);
   }, [timeLeft]);
 
-  
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
         const response = await fetch(
-          "https://back-flash4devs-production.up.railway.app/card/questions?tech=react&limit=30"
-        );
+          `https://back-flash4devs-production.up.railway.app/card/${lastSegment}?limit=30`);
         const data = await response.json();
         setQuestions(data);
         setIsLoading(false);
@@ -62,9 +64,8 @@ export const EntrevistaCard = () => {
     };
 
     fetchQuestions();
-  }, []);
+  }, [lastSegment]);
 
-  
   const handleNextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -74,14 +75,12 @@ export const EntrevistaCard = () => {
     }
   };
 
-  
   const handleSaveAnswer = () => {
     if (answer.trim() === "") {
       alert("Por favor, ingresa una respuesta.");
       return;
     }
 
-    
     setAnswers((prevAnswers) => [
       ...prevAnswers,
       {
@@ -94,7 +93,6 @@ export const EntrevistaCard = () => {
     handleNextQuestion();
   };
 
-  
   const handleShowStatistics = () => {
     setIsFlipping(true);
     setTimeout(() => {
@@ -102,7 +100,6 @@ export const EntrevistaCard = () => {
     }, 800);
   };
 
-  
   const correctAnswers = answers.filter((ans) => ans.isCorrect).length;
   const wrongAnswers = answers.length - correctAnswers;
 
@@ -190,6 +187,7 @@ export const EntrevistaCard = () => {
           <StatisticsCard
             correctAnswers={correctAnswers}
             wrongAnswers={wrongAnswers}
+            answers={answers}
           />
         )}
       </div>
@@ -199,7 +197,6 @@ export const EntrevistaCard = () => {
           <div className="bg-card p-4 rounded-lg shadow-md">
             <p className="text-lg text-text mb-4">
               {" "}
-              
               {isTimeUp
                 ? "¡El tiempo ha terminado!"
                 : "¡Has respondido todas las preguntas!"}
@@ -208,7 +205,7 @@ export const EntrevistaCard = () => {
               onClick={handleShowStatistics}
               className="w-[60%] mx-auto mt-5 border-t-1 shadow-lg border-gray-300 text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
             >
-              Avanzar a estadísticas
+              Mostrar Informe
             </button>
           </div>
         </div>
