@@ -29,6 +29,7 @@
     "react-loader-spinner": "^6.1.6",
     "react-pro-sidebar": "^1.1.0",
     "react-router": "^7.1.5",
+    "react-router-dom": "^7.1.5",
     "react-sidebar": "^3.0.2",
     "zustand": "^5.0.3"
   },
