@@ -22,6 +22,7 @@ export const StatisticsCard = ({ correctAnswers, wrongAnswers, answers }) => {
   useEffect(() => {
     const fetchChatGPT = async () => {
       try {
+        console.log(answers)
         const response = await fetch(
           "https://back-flash4devs-production.up.railway.app/chat/",
           {
@@ -31,8 +32,8 @@ export const StatisticsCard = ({ correctAnswers, wrongAnswers, answers }) => {
             },
             body: JSON.stringify({
               system_prompt:
-                "El usuario está haciendo un simulacro de entrevista de ciertas tecnologías para un puesto de desarrollador web, deberás mirar el conjunto de preguntas y respuestas del usuario y dar un informe sobre el resultado global del mismo y qué respuestas podría mejorar para ser contratado en la próxima entrevista.",
-              user_message: answers,
+                "El usuario está haciendo un simulacro de entrevista de ciertas tecnologías para un puesto de desarrollador web, deberás mirar el conjunto de preguntas y respuestas del usuario y dar un informe sobre el resultado global del mismo y qué respuestas podría mejorar para ser contratado en la próxima entrevista. Dame unas respuesta de no más de 1000 carácteres. Devuelveme el texto limpio, sin caracteres ni *. Intenta pensar y responder como si fueses un entrevistador de un proceso de selección. Da una respuesta extensa y detallada.",
+              user_message: JSON.stringify(answers),
             }),
           }
         );
@@ -82,7 +83,7 @@ export const StatisticsCard = ({ correctAnswers, wrongAnswers, answers }) => {
           Informe
         </div>
         <div className="flex justify-center items-center ">
-          <p className="text-text text-sm">{respuestaIA}</p>
+          <p className="text-text text-sm">{respuestaIA || <h1>Cargando...</h1> }</p>
         </div>
       </div>
     </div>
