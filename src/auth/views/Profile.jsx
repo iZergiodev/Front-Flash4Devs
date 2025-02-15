@@ -10,6 +10,7 @@ import {
   FaUser,
   FaClock,
   FaInfoCircle,
+  FaBrain,
 } from "react-icons/fa";
 import Squares from "../../components/effectcomponents/Squares";
 import { Navbar } from "../../components/Navbar";
@@ -19,22 +20,19 @@ import { decodeToken } from "../../utils/decodeToken";
 import { useEffect } from "react";
 
 export const Profile = () => {
-
   const [avatar, setAvatar] = useState("/avatarejemplo.jpg");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
 
-
-  const [description, setDescription] = useState(
-    ""
-  );
-  const [porcentage, setPorcentage] = useState(85);
-  const [studyTime, setStudyTime] = useState("120 horas");
-  const [medals, setMedals] = useState(["Curso HTML", "Curso React"]);
+  const [description, setDescription] = useState("");
+  const [porcentage, setPorcentage] = useState(0);
+  const [rank, setRank] = useState("Beginner");
   const [github, setGithub] = useState("");
   const [linkedin, setLinkedin] = useState("");
   const [twitter, setTwitter] = useState("");
+  const [frontEndRating, setFrontEndRating] = useState("");
+  const [backEndRating, setBackEndRating] = useState("");
 
   const { isLoading, startLoading, stopLoading } = useLoading();
 
@@ -45,15 +43,15 @@ export const Profile = () => {
     const decodedToken = token ? decodeToken(token) : null;
     const idFromToken = decodedToken ? decodedToken.id : null;
 
-    startLoading()
+    startLoading();
     const resp = await fetch(
       `https://back-flash4devs-production.up.railway.app/api/user/${idFromToken}`,
       {
-        method: "GET", 
+        method: "GET",
         headers: {
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
-        }
+        },
       }
     );
 
@@ -64,7 +62,7 @@ export const Profile = () => {
     setLastName(last_name);
     setEmail(email);
 
-    stopLoading()
+    stopLoading();
   };
 
   useEffect(() => {
@@ -112,6 +110,44 @@ export const Profile = () => {
     navigate("/");
     //Falta lógica
   };
+
+  useEffect(() => {
+    const userStats = async () => {
+      const token = localStorage.getItem("token");
+
+      const response = await fetch(
+        "https://back-flash4devs-production.up.railway.app/card/user-stats",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const {
+        good_answers,
+        bad_answer,
+        level,
+        rating_interview_front_react,
+        rating_interview_backend_python,
+      } = await response.json();
+
+      let calculatedPorcentage = 0;
+
+      if (good_answers === 0 && bad_answer === 0) {
+        calculatedPorcentage = 0;
+        calculatedPorcentage =
+          (good_answers / (good_answers + bad_answer)) * 100;
+      }
+
+      setPorcentage(calculatedPorcentage);
+      setRank(level);
+      setFrontEndRating(rating_interview_front_react);
+      setBackEndRating(rating_interview_backend_python);
+    };
+
+    userStats();
+  }, []);
 
   return (
     <div className="min-h-screen relative overflow-hidden">
@@ -236,12 +272,12 @@ export const Profile = () => {
               </div>
               <div>
                 <label className="text-xs font-medium text-text flex items-center space-x-2">
-                  <FaClock />
-                  <span>Tempo de Estudos</span>
+                  <FaBrain />
+                  <span>Rango actual</span>
                 </label>
                 <input
                   type="text"
-                  value={studyTime}
+                  value={rank}
                   readOnly
                   className="flex-1 p-1 bg-muted/20 border border-muted rounded-lg w-full text-sm mt-1"
                 />
@@ -253,14 +289,13 @@ export const Profile = () => {
                   <span>Medallas</span>
                 </label>
                 <div className="space-y-1 mt-1">
-                  {medals.map((medal, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between p-1 border border-muted rounded-lg text-sm"
-                    >
-                      <span>{medal}</span>
-                    </div>
-                  ))}
+                  <div className="flex items-center justify-between p-1 border border-muted rounded-lg text-sm">
+                    <span>{`Rating FrontEnd = ${frontEndRating}`}</span>
+                  </div>
+
+                  <div className="flex items-center justify-between p-1 border border-muted rounded-lg text-sm">
+                    <span>{`Rating BackEnd = ${backEndRating}`}</span>
+                  </div>
                 </div>
               </div>
 
