@@ -5,6 +5,8 @@ import Squares from "../../../components/effectcomponents/Squares";
 import { Navbar } from "../../../components/Navbar";
 import { MenuRight } from "../../../components/MenuRight";
 import { ThreeDots } from "react-loader-spinner";
+import { FaClock } from "react-icons/fa";
+import { StatisticsCard } from "./StatisticsCard";
 
 export const EntrevistaCard = () => {
   const { emailState, nameState, avatar } = useExtractInfo();
@@ -13,12 +15,42 @@ export const EntrevistaCard = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answer, setAnswer] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [timeLeft, setTimeLeft] = useState(600);
+  const [isTimeUp, setIsTimeUp] = useState(false);
+  const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(false);
+  const [isFlipping, setIsFlipping] = useState(false);
+  const [showStatistics, setShowStatistics] = useState(false);
+  const [answers, setAnswers] = useState([]);
 
+  
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${minutes < 10 ? "0" : ""}${minutes}:${
+      secs < 10 ? "0" : ""
+    }${secs}`;
+  };
+
+  
+  useEffect(() => {
+    if (timeLeft === 0) {
+      setIsTimeUp(true);
+      return;
+    }
+
+    const timer = setInterval(() => {
+      setTimeLeft((prevTime) => prevTime - 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [timeLeft]);
+
+  
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
         const response = await fetch(
-          "https://back-flash4devs-production.up.railway.app/card/questions?tech=react&limit=10"
+          "https://back-flash4devs-production.up.railway.app/card/questions?tech=react&limit=30"
         );
         const data = await response.json();
         setQuestions(data);
@@ -32,30 +64,47 @@ export const EntrevistaCard = () => {
     fetchQuestions();
   }, []);
 
-  // Función para avanzar a la siguiente pregunta
+  
   const handleNextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setAnswer(""); // Limpiar la respuesta al avanzar
+      setAnswer("");
     } else {
-      console.log(questions);
-      alert("No hay más preguntas.");
+      setAllQuestionsAnswered(true);
     }
   };
 
+  
   const handleSaveAnswer = () => {
     if (answer.trim() === "") {
       alert("Por favor, ingresa una respuesta.");
       return;
     }
 
-    console.log("Respuesta guardada:", {
-      question: questions[currentQuestionIndex].question,
-      answer,
-    });
+    
+    setAnswers((prevAnswers) => [
+      ...prevAnswers,
+      {
+        question: questions[currentQuestionIndex].question,
+        answer,
+        isCorrect: false,
+      },
+    ]);
 
     handleNextQuestion();
   };
+
+  
+  const handleShowStatistics = () => {
+    setIsFlipping(true);
+    setTimeout(() => {
+      setShowStatistics(true);
+    }, 800);
+  };
+
+  
+  const correctAnswers = answers.filter((ans) => ans.isCorrect).length;
+  const wrongAnswers = answers.length - correctAnswers;
 
   if (isLoading) {
     return (
@@ -98,33 +147,72 @@ export const EntrevistaCard = () => {
       </div>
       <Navbar />
       <MenuRight name={nameState} email={emailState} profileImage={avatar} />
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <div className="flex flex-col w-96 bg-white rounded-lg shadow-lg p-6">
-          <div className="w-full text-center text-xl font-semibold text-gray-700 mb-4 p-3 bg-gray-100 rounded-lg">
-            Pregunta {currentQuestionIndex + 1} de {questions.length}
+
+      {!showStatistics && (
+        <div className="absolute top-32 left-1/2 transform -translate-x-1/2">
+          <div className="countdown-container bg-card/60 p-3 rounded-lg shadow-md flex items-center justify-center gap-3">
+            <FaClock className="countdown-icon text-primary text-xl" />
+            <span className="countdown-time text-red-500 font-mono text-2xl font-bold">
+              {formatTime(timeLeft)}
+            </span>
           </div>
-          <div className="w-full flex flex-col gap-4">
-            <div className="w-full p-3 border border-gray-300 rounded-lg bg-gray-50">
-              <p className="text-lg font-medium text-gray-700">
-                {questions[currentQuestionIndex].question}{" "}
-              </p>
+        </div>
+      )}
+
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        {!showStatistics ? (
+          <div className="flex flex-col w-96 bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+            <div className="w-full text-center text-xl font-semibold text-text mb-4 p-3 bg-gray-100 rounded-lg shadow-md">
+              Pregunta {currentQuestionIndex + 1} de {questions.length}
             </div>
-            <textarea
-              value={answer}
-              onChange={(e) => setAnswer(e.target.value)}
-              placeholder="Ingresa tu respuesta"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-              rows={4}
-            />
+            <div className="w-full flex flex-col gap-4">
+              <div className="w-full text-center p-3 border border-gray-300 rounded-lg bg-gray-50">
+                <p className="text-lg font-medium text-text">
+                  {questions[currentQuestionIndex].question}
+                </p>
+              </div>
+              <textarea
+                value={answer}
+                onChange={(e) => setAnswer(e.target.value)}
+                placeholder="Ingresa tu respuesta"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                rows={4}
+              />
+              <button
+                onClick={handleSaveAnswer}
+                className="w-[60%] mx-auto text-sm mt-5 border-t-1 shadow-lg border-gray-300 text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+              >
+                Siguiente
+              </button>
+            </div>
+          </div>
+        ) : (
+          <StatisticsCard
+            correctAnswers={correctAnswers}
+            wrongAnswers={wrongAnswers}
+          />
+        )}
+      </div>
+
+      {(isTimeUp || allQuestionsAnswered) && !showStatistics && (
+        <div className="absolute bottom-25 left-1/2 transform -translate-x-1/2 text-center">
+          <div className="bg-card p-4 rounded-lg shadow-md">
+            <p className="text-lg text-text mb-4">
+              {" "}
+              
+              {isTimeUp
+                ? "¡El tiempo ha terminado!"
+                : "¡Has respondido todas las preguntas!"}
+            </p>
             <button
-              onClick={handleSaveAnswer}
-              className="w-full mt-4 bg-blue-500 text-white py-3 px-4 rounded-lg hover:bg-blue-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onClick={handleShowStatistics}
+              className="w-[60%] mx-auto mt-5 border-t-1 shadow-lg border-gray-300 text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
             >
-              Siguiente
+              Avanzar a estadísticas
             </button>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
