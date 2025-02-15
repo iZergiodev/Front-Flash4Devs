@@ -18,6 +18,7 @@ export const Home = () => {
   const [isHoveredCard3, setIsHoveredCard3] = useState(false);
   const [isHoveredCard4, setIsHoveredCard4] = useState(false);
 
+
   return (
     <>
       <div className="relative w-full h-screen overflow-hidden">
@@ -117,12 +118,13 @@ export const Home = () => {
                   <div className="flex flex-col h-full">
                     <div className="p-4 bg-secondary text-white rounded-t-lg border-b font-semibold border-gray-300">
                       <h2 className="text-xl md:text-2xl font-bold text-center">
-                      Concept Flashcards
+                        Concept Flashcards
                       </h2>
                     </div>
                     <div className="flex-1 p-8 overflow-y-auto bg-card text-text text-center items-center">
                       <p className="text-sm">
-                        ¡Aprende la teoría de las tecnologías más demandadas del sector!
+                        ¡Aprende la teoría de las tecnologías más demandadas del
+                        sector!
                       </p>
                     </div>
                     <div className="p-4 bg-card rounded-b-lg border-t border-gray-300 text-center">
