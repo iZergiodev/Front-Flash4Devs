@@ -210,7 +210,7 @@ export const CodingCard = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <div className={`flip-card ${isFlipped ? "flipped" : ""}`}>
             <div className="flip-card-inner">
-              <div className="flex flex-col flip-card-front w-[400px] h-[500px] bg-white border-1 border-gray-200 rounded-lg shadow-lg">
+              <div className="flex flex-col flip-card-front w-[800px] h-[500px] bg-white border-1 border-gray-200 rounded-lg shadow-lg">
                 <div className="w-full flex relative items-center text-center text-text mb-4 bg-card p-3 border-b-1 border-gray-300 rounded-md">
                   <div className="absolute left-1/2 transform -translate-x-1/2">
                     {tech.toUpperCase()}
@@ -231,7 +231,7 @@ export const CodingCard = () => {
                     Respuesta
                   </label>
                   <Editor
-                    height="350px"
+                    height="300px"
                     width="100%"
                     language="javascript"
                     theme="vs-dark"

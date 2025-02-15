@@ -236,7 +236,7 @@ export function Estadistica() {
       <Navbar />
       <MenuRight name={nameState} email={emailState} profileImage={avatar} />
       <div className="relative z-20 inset-0 flex flex-col items-center mt-16">
-        <h1 className="text-3xl font-bold text-primary mb-2 mt-6 text-center">
+        <h1 className="text-2xl font-bold text-primary mb-2 mt-8 text-center">
           Estadísticas
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">

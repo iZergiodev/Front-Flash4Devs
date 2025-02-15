@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router";
 import { useState } from "react";
 import useExtractInfo from "./src/hooks/useExtractInfo";
+import { FaUsers } from "react-icons/fa";
 
 export const Home = () => {
   const { isLogged } = useUserStore();
@@ -43,6 +44,22 @@ export const Home = () => {
 
           <Navbar />
         </AnimatedContent>
+        <motion.div
+          className="fixed right-10 top-1/2 transform -translate-y-1/2 w-64 p-6 bg-card rounded-lg shadow-lg border-1 border-accent/60 z-30"
+          initial={{ opacity: 0, x: 100 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="text-center">
+            <FaUsers className="text-4xl text-accent mx-auto mb-4 animate-bounce" />
+            <h2 className="text-xl font-bold text-primary mb-2">
+              1000+ Usuarios
+            </h2>
+            <p className="text-sm text-muted">
+              ¡Ya han mejorado sus habilidades con nuestras flashcards!
+            </p>
+          </div>
+        </motion.div>
         <Squares
           speed={0.1}
           squareSize={40}
@@ -50,13 +67,14 @@ export const Home = () => {
           borderColor="rgba(241, 115, 0, 0.4)"
           hoverFillColor="#81A4CD"
         />
+
         <div className="absolute inset-0 flex items-center justify-center p-4 z-10 sm:mt-0 mt-30 pointer-events-none">
           <div className="flex flex-wrap gap-14 w-[700px] h-[600px] max-w-4xl justify-center mt-10">
             <Link to="/eligecategoria/coding">
               <motion.div
                 className={`w-64 h-70 rounded-lg flex flex-col ${
                   isHoveredCard1 ? "bg-accent text-white" : "bg-card text-text"
-                } shadow-lg pointer-events-auto relative overflow-hidden cursor-pointer`}
+                } shadow-lg pointer-events-auto relative overflow-hidden  cursor-pointer`}
                 onHoverStart={() => setIsHoveredCard1(true)}
                 onHoverEnd={() => setIsHoveredCard1(false)}
                 initial="hidden"
@@ -67,7 +85,7 @@ export const Home = () => {
                 }}
               >
                 {!isHoveredCard1 ? (
-                  <div className="flex items-center justify-center h-full p-6 text-center">
+                  <div className="flex items-center justify-center h-full p-6 text-center border-1 border-accent/60">
                     <h2 className="text-xl md:text-2xl font-bold font-mono">
                       Coding Flashcards
                     </h2>
@@ -96,8 +114,8 @@ export const Home = () => {
             <Link to="/eligecategoria/concept">
               <motion.div
                 className={`w-64 h-70 rounded-lg flex flex-col ${
-                  isHoveredCard2 ? "bg-accent text-white" : "bg-card text-text"
-                } shadow-lg pointer-events-auto relative overflow-hidden cursor-pointer`}
+                  isHoveredCard2 ? "bg-accent text-white" : "bg-card  text-text"
+                } shadow-lg pointer-events-auto relative overflow-hidden cursor-pointer border-1 border-accent/60`}
                 onHoverStart={() => setIsHoveredCard2(true)}
                 onHoverEnd={() => setIsHoveredCard2(false)}
                 initial="hidden"
@@ -108,7 +126,7 @@ export const Home = () => {
                 }}
               >
                 {!isHoveredCard2 ? (
-                  <div className="flex items-center justify-center h-full p-6 text-center">
+                  <div className="flex items-center justify-center h-full p-6 text-center ">
                     <h2 className="text-xl md:text-2xl font-bold font-mono">
                       Concept Flashcards
                     </h2>
@@ -117,12 +135,13 @@ export const Home = () => {
                   <div className="flex flex-col h-full">
                     <div className="p-4 bg-secondary text-white rounded-t-lg border-b font-semibold border-gray-300">
                       <h2 className="text-xl md:text-2xl font-bold text-center">
-                      Concept Flashcards
+                        Concept Flashcards
                       </h2>
                     </div>
                     <div className="flex-1 p-8 overflow-y-auto bg-card text-text text-center items-center">
                       <p className="text-sm">
-                        ¡Aprende la teoría de las tecnologías más demandadas del sector!
+                        ¡Aprende la teoría de las tecnologías más demandadas del
+                        sector!
                       </p>
                     </div>
                     <div className="p-4 bg-card rounded-b-lg border-t border-gray-300 text-center">
@@ -138,7 +157,7 @@ export const Home = () => {
               <motion.div
                 className={`w-64 h-70 rounded-lg flex flex-col ${
                   isHoveredCard3 ? "bg-accent text-white" : "bg-card text-text"
-                } shadow-lg pointer-events-auto relative overflow-hidden cursor-pointer`}
+                } shadow-lg pointer-events-auto relative border-1 border-accent/60 overflow-hidden cursor-pointer`}
                 onHoverStart={() => setIsHoveredCard3(true)}
                 onHoverEnd={() => setIsHoveredCard3(false)}
                 initial="hidden"
@@ -179,7 +198,7 @@ export const Home = () => {
               <motion.div
                 className={`w-64 h-70 rounded-lg flex flex-col ${
                   isHoveredCard4 ? "bg-accent text-white" : "bg-card text-text"
-                } shadow-lg pointer-events-auto relative overflow-hidden cursor-pointer`}
+                } shadow-lg pointer-events-auto border-1 border-accent/60 relative overflow-hidden cursor-pointer`}
                 onHoverStart={() => setIsHoveredCard4(true)}
                 onHoverEnd={() => setIsHoveredCard4(false)}
                 initial="hidden"
