@@ -95,8 +95,8 @@ export const FormCustom = () => {
         <Navbar />
         <MenuRight name={nameState} email={emailState} profileImage={avatar} />
         <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-          <div className="bg-card p-8 rounded-lg shadow-lg max-w-md w-full">
-            <h1 className="text-2xl font-bold mb-6 text-text">Custom Card</h1>
+          <div className="bg-white border-1 border-gray-200 p-8 rounded-lg shadow-lg max-w-md w-full">
+            <h1 className="text-2xl text-center font-bold mb-6 text-text">Custom Card</h1>
             <form className="space-y-4 pointer-events-auto">
               <div className="flex items-center space-x-2">
                 <FaQuestionCircle className="text-accent" size={20} />
@@ -107,10 +107,10 @@ export const FormCustom = () => {
               <input
                 onChange={handleState}
                 type="text"
-                value = {question}
+                value={question}
                 id="question"
                 name="question"
-                className="w-full p-2 border border-muted rounded-md focus:outline-none focus:border-accent"
+                className="w-full p-2 border bg-gray-50 border-muted rounded-md focus:outline-none focus:border-accent"
                 placeholder="Introduce la pregunta"
               />
 
@@ -125,7 +125,7 @@ export const FormCustom = () => {
                 id="solution"
                 name="solution"
                 value={solution}
-                className="w-full p-2 border border-muted rounded-md focus:outline-none focus:border-accent"
+                className="w-full p-2 border bg-gray-50 border-muted rounded-md focus:outline-none focus:border-accent"
                 placeholder="Introduzca la respuesta"
                 rows={3}
               ></textarea>
@@ -141,14 +141,14 @@ export const FormCustom = () => {
                 value={category}
                 id="category"
                 name="category"
-                className="w-full p-2 border border-muted rounded-md focus:outline-none focus:border-accent"
+                className="w-full p-2 border bg-gray-50 border-muted rounded-md focus:outline-none focus:border-accent"
                 placeholder="Ingresar categoría"
               />
 
               <div className="flex items-center space-x-2">
                 <FaChartLine className="text-accent" size={20} />
                 <label htmlFor="difficult" className="text-text">
-                difficult
+                  Difficult
                 </label>
               </div>
               <textarea
@@ -156,7 +156,7 @@ export const FormCustom = () => {
                 id="difficult"
                 value={difficult}
                 name="difficult"
-                className="w-full p-2 border border-muted rounded-md focus:outline-none focus:border-accent"
+                className="w-full p-2 border bg-gray-50 border-muted rounded-md focus:outline-none focus:border-accent"
                 placeholder="Introduzca la dificultad"
                 rows={1}
               ></textarea>
@@ -165,7 +165,7 @@ export const FormCustom = () => {
                 <button
                   onClick={handleSubmit}
                   type="button"
-                  className=" w-50 text-white bg-accent py-2 md:py-3 text-center rounded hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+                  className=" w-50 text-white bg-accent py-2 md:py-3 text-center rounded hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-1 focus:ring-primary"
                 >
                   Enviar
                 </button>
