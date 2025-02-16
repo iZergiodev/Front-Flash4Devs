@@ -11,7 +11,7 @@ export const Navbar = () => {
   const { isLogged } = useUserStore();
   return (
     <>
-      <div className="fixed bg-card border-1 border-accent/60 flex justify-between items-center gap-16 py-3 px-8 left-1/2 translate-x-[-50%] top-[20px] rounded-full backdrop-blur-md text-text shadow-lg z-10 font-semibold">
+      <div className="fixed bg-card flex justify-between items-center gap-16 py-3 px-8 left-1/2 translate-x-[-50%] top-[20px] rounded-full backdrop-blur-md text-text shadow-lg z-10 font-semibold">
         <ul className="flex items-center gap-6 font-bold">
           <div className="flex items-center gap-1 ">
             <img src="/flash-favicon1.png" alt="Logo" className="w-10" />

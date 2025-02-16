@@ -138,7 +138,7 @@ export const EntrevistaCard = () => {
           speed={0.1}
           squareSize={40}
           direction="diagonal"
-          borderColor="rgba(241, 115, 0, 0.4)"
+          borderColor="rgba(241, 115, 0, 0.2)"
           hoverFillColor="#81A4CD"
         />
       </div>
@@ -146,7 +146,7 @@ export const EntrevistaCard = () => {
       <MenuRight name={nameState} email={emailState} profileImage={avatar} />
 
       {!showStatistics && (
-        <div className="absolute top-32 left-1/2 transform -translate-x-1/2">
+        <div className="absolute top-29 left-1/2 transform -translate-x-1/2">
           <div className="countdown-container bg-card/60 p-3 rounded-lg shadow-md flex items-center justify-center gap-3">
             <FaClock className="countdown-icon text-primary text-xl" />
             <span className="countdown-time text-red-500 font-mono text-2xl font-bold">
@@ -193,9 +193,9 @@ export const EntrevistaCard = () => {
       </div>
 
       {(isTimeUp || allQuestionsAnswered) && !showStatistics && (
-        <div className="absolute bottom-25 left-1/2 transform -translate-x-1/2 text-center">
-          <div className="bg-card p-4 rounded-lg shadow-md">
-            <p className="text-lg text-text mb-4">
+        <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 text-center">
+          <div className="bg-card w-[300px] h-[130px] p-2 rounded-lg shadow-lg">
+            <p className="text-md text-text border-b-1 border-gray-300 p-2">
               {" "}
               {isTimeUp
                 ? "¡El tiempo ha terminado!"
@@ -203,7 +203,7 @@ export const EntrevistaCard = () => {
             </p>
             <button
               onClick={handleShowStatistics}
-              className="w-[60%] mx-auto mt-5 border-t-1 shadow-lg border-gray-300 text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+              className="w-[60%] mx-auto mt-3 border-t-1 shadow-lg border-gray-300 text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
             >
               Mostrar Informe
             </button>

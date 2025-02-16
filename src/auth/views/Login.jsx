@@ -102,7 +102,7 @@ export const Login = () => {
             speed={0.1}
             squareSize={40}
             direction="diagonal"
-            borderColor="rgba(241, 115, 0, 0.4)"
+            borderColor="rgba(241, 115, 0, 0.2)"
             hoverFillColor="#81A4CD"
           />
         </div>
