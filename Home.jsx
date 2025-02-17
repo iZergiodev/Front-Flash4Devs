@@ -2,6 +2,7 @@ import Squares from "./src/components/effectcomponents/Squares";
 import { Navbar } from "./src/components/Navbar";
 import { MenuRight } from "./src/components/MenuRight";
 import { SideBar } from "./src/components/SideBar";
+import { HeroSection } from "./src/components/HeroSection";
 import AnimatedContent from "./src/components/effectcomponents/AnimatedContent";
 import { useUserStore } from "./src/store/userStore";
 import { motion } from "framer-motion";
@@ -42,32 +43,10 @@ export const Home = () => {
           ) : (
             ""
           )}
-
+          <HeroSection />
           <Navbar />
           <SideBar />
         </AnimatedContent>
-        <motion.div
-          className="fixed right-10 top-1/2 transform -translate-y-1/2 w-64 p-6 bg-card rounded-lg shadow-lg border-1 border-accent/40 z-30"
-          initial={{ opacity: 0, x: 100 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.div
-            className="text-center"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            r
-          >
-            <FaUsers className="text-4xl text-accent mx-auto mb-4 animate-bounce" />
-            <h2 className="text-xl font-bold text-primary mb-2">
-              1000+ Usuarios
-            </h2>
-            <p className="text-sm text-muted">
-              ¡Ya han mejorado sus habilidades con nuestras flashcards!
-            </p>
-          </motion.div>
-        </motion.div>
-
         <Squares
           speed={0.1}
           squareSize={40}
@@ -75,8 +54,8 @@ export const Home = () => {
           borderColor="rgba(241, 115, 0, 0.2)"
           hoverFillColor="#81A4CD"
         />
-        <div className="absolute inset-0 flex items-center justify-center p-4 z-10 sm:mt-0 mt-30 pointer-events-none">
-          <div className="flex flex-wrap gap-14 w-[700px] h-[600px] max-w-4xl justify-center mt-10">
+        <div className="absolute inset-0 flex items-center justify-center left-240 p-4 z-10 sm:mt-0 mt-20 pointer-events-none">
+          <div className="flex flex-wrap gap-14 w-[700px] h-[600px] max-w-4xl justify-center">
             <Link to="/eligecategoria/coding">
               <motion.div
                 className={`w-64 h-70 rounded-lg flex flex-col ${
@@ -242,21 +221,6 @@ export const Home = () => {
                 )}
               </motion.div>
             </Link>
-            {!isLogged ? (
-              <div className="flex flex-col justify-center items-center gap-4 fixed bottom-10 right-10">
-                <p className="bg-card rounded-full p-4 shadow-lg text-text font-semibold font-mono">
-                  No Tienes una Conta?
-                </p>
-                <Link
-                  to="/auth/register"
-                  className="w-48 flex items-center justify-center text-white bg-accent py-2 px-4 rounded-full shadow-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer pointer-events-auto font-semibold text-md"
-                >
-                  Registrate
-                </Link>
-              </div>
-            ) : (
-              ""
-            )}
           </div>
         </div>
       </div>
