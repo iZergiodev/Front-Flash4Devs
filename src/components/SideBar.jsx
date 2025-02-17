@@ -4,16 +4,15 @@ import { FaRocket, FaChartLine, FaBook } from "react-icons/fa";
 import { FaUsersViewfinder } from "react-icons/fa6";
 import { MdOutlineBookOnline } from "react-icons/md";
 import { GiProgression } from "react-icons/gi";
-import {
-  TbCircleNumber1Filled,
-  TbCircleNumber2Filled,
-  TbCircleNumber3Filled,
-} from "react-icons/tb";
+import { FaUsers } from "react-icons/fa";
+import { useUserStore } from "../store/userStore";
 
 export const SideBar = () => {
+  const { isLogged } = useUserStore();
+
   return (
     <motion.div
-      className="fixed left-0 top-0 h-screen w-60 bg-card shadow-lg flex flex-col items-center p-4 z-20 pt-0"
+      className="fixed left-0 top-0 h-screen w-60 bg-card shadow-lg flex flex-col items-center p-4 z-20 pt-0 rounded-r-2xl  [filter:drop-shadow(10px_0_15px_rgba(0,0,0,0.1))]"
       initial={{ x: -100, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -25,10 +24,6 @@ export const SideBar = () => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       />
-
-      <h3 className="text-md font-bold text-text mb-4">
-        ¡Bienvenido, Usuario!
-      </h3>
 
       <div className=" my-1"></div>
 
@@ -103,22 +98,23 @@ export const SideBar = () => {
       <div className=" my-1"></div>
 
       <div className="space-y-2 border-t border-gray-400 p-2 flex flex-col items-center">
-        <h3 className="flex items-center p-1 text-text font-semibold">
-          <FaBook className="mr-2" />
-          Tutorial
-        </h3>
-        <p className="p-2 text-text flex items-center text-sm">
-          <TbCircleNumber1Filled className="mr-2 text-2xl text-accent" />
-          Elija una categoría
+        <FaUsers className="text-4xl text-accent mx-auto mb-4 mt-4 animate-bounce" />
+        <h2 className="text-md font-bold text-primary mb-2">1000+ Usuarios</h2>
+        <p className="text-md text-center mt-2 text-muted">
+          ¡Ya han mejorado sus habilidades con nuestras flashcards!
         </p>
-        <p className="p-2 text-text flex items-center text-sm">
-          <TbCircleNumber2Filled className="mr-2 text-2xl text-accent" />
-          Estudia las Flashcards
-        </p>
-        <p className="p-2 text-text flex items-center text-sm">
-          <TbCircleNumber3Filled className="mr-2 text-3xl text-accent" />
-          Seguimiento de su progreso
-        </p>
+        <div className=" my-3"></div>
+
+        {isLogged ? (
+          ""
+        ) : (
+          <Link
+            to="/auth/register"
+            className="w-35 flex items-center justify-center text-white bg-accent py-2 px-4 rounded-full shadow-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer pointer-events-auto font-semibold text-md"
+          >
+            Registrate
+          </Link>
+        )}
       </div>
     </motion.div>
   );

@@ -25,8 +25,12 @@ export const MenuRight = ({ name, email, profileImage }) => {
 
   return (
     <>
-      <nav className="fixed top-3 right-3 p-4 bg-card py-1 px-4 rounded-full backdrop-blur-md text-text shadow-lg z-50 font-semibold">
-        <div className="flex flex-row space-x-4 items-center gap-4">
+      <motion.nav className="fixed right-5 p-4 bg-card py-1 px-4 top-[20px] rounded-full text-text shadow-lg z-50 font-semibold">
+        <motion.div
+          className="flex flex-row space-x-4 items-center gap-4 transform-gpu"
+          whileHover={{ scale: 1.05 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
           <GradientText
             colors={["#054A91", "#F17300", "#054A91", "#F17300", "#054A91"]}
             animationSpeed={3}
@@ -105,8 +109,8 @@ export const MenuRight = ({ name, email, profileImage }) => {
               )}
             </AnimatePresence>
           </div>
-        </div>
-      </nav>
+        </motion.div>
+      </motion.nav>
     </>
   );
 };

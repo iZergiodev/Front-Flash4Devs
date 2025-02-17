@@ -20,7 +20,7 @@ export const Navbar = () => {
   const { isLogged } = useUserStore();
   return (
     <>
-      <div className="fixed bg-card flex justify-between items-center gap-6 py-5 px-8 left-1/2 translate-x-[-50%] top-[20px] rounded-full backdrop-blur-md text-text shadow-lg z-10 font-semibold">
+      <div className="fixed bg-card flex justify-between items-center gap-6 py-5 px-8 left-1/2 translate-x-[-50%] top-[20px] rounded-full backdrop-blur-md text-text shadow-lg z-20 font-semibold">
         <ul className="flex items-center gap-7 font-bold">
           
           {listItems.map((item) => (
