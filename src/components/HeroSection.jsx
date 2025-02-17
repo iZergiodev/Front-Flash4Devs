@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 export const HeroSection = () => {
   return (
     <motion.div
-      className="absolute flex inset-0 items-center justify-center w-[680px] h-[700px] top-33 left-95 rounded-lg shadow-lg overflow-hidden border border-primary/40 z-20"
+      className="absolute flex inset-0 items-center justify-center w-[680px] h-[700px] top-33 left-155 rounded-lg shadow-lg overflow-hidden border border-primary/40 z-20"
       initial={{ opacity: 0, x: 100 }}
       whileInView={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.8 }}
