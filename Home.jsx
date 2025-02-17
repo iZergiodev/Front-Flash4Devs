@@ -1,6 +1,7 @@
 import Squares from "./src/components/effectcomponents/Squares";
 import { Navbar } from "./src/components/Navbar";
 import { MenuRight } from "./src/components/MenuRight";
+import { SideBar } from "./src/components/SideBar";
 import AnimatedContent from "./src/components/effectcomponents/AnimatedContent";
 import { useUserStore } from "./src/store/userStore";
 import { motion } from "framer-motion";
@@ -43,6 +44,7 @@ export const Home = () => {
           )}
 
           <Navbar />
+          <SideBar />
         </AnimatedContent>
         <motion.div
           className="fixed right-10 top-1/2 transform -translate-y-1/2 w-64 p-6 bg-card rounded-lg shadow-lg border-1 border-accent/40 z-30"
@@ -50,7 +52,12 @@ export const Home = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <div className="text-center">
+          <motion.div
+            className="text-center"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            r
+          >
             <FaUsers className="text-4xl text-accent mx-auto mb-4 animate-bounce" />
             <h2 className="text-xl font-bold text-primary mb-2">
               1000+ Usuarios
@@ -58,8 +65,9 @@ export const Home = () => {
             <p className="text-sm text-muted">
               ¡Ya han mejorado sus habilidades con nuestras flashcards!
             </p>
-          </div>
+          </motion.div>
         </motion.div>
+
         <Squares
           speed={0.1}
           squareSize={40}
@@ -67,7 +75,6 @@ export const Home = () => {
           borderColor="rgba(241, 115, 0, 0.2)"
           hoverFillColor="#81A4CD"
         />
-
         <div className="absolute inset-0 flex items-center justify-center p-4 z-10 sm:mt-0 mt-30 pointer-events-none">
           <div className="flex flex-wrap gap-14 w-[700px] h-[600px] max-w-4xl justify-center mt-10">
             <Link to="/eligecategoria/coding">
