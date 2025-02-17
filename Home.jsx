@@ -3,13 +3,13 @@ import { Navbar } from "./src/components/Navbar";
 import { MenuRight } from "./src/components/MenuRight";
 import { SideBar } from "./src/components/SideBar";
 import { HeroSection } from "./src/components/HeroSection";
+import { Footer } from "./src/components/Footer";
 import AnimatedContent from "./src/components/effectcomponents/AnimatedContent";
 import { useUserStore } from "./src/store/userStore";
 import { motion } from "framer-motion";
 import { Link } from "react-router";
 import { useState } from "react";
 import useExtractInfo from "./src/hooks/useExtractInfo";
-import { FaUsers } from "react-icons/fa";
 
 export const Home = () => {
   const { isLogged } = useUserStore();
@@ -23,7 +23,7 @@ export const Home = () => {
 
   return (
     <>
-      <div className="relative w-full h-screen overflow-hidden">
+      <div className="relative w-full h-full">
         <AnimatedContent
           distance={150}
           direction="vertical"
@@ -43,9 +43,6 @@ export const Home = () => {
           ) : (
             ""
           )}
-          <HeroSection />
-          <Navbar />
-          <SideBar />
         </AnimatedContent>
         <Squares
           speed={0.1}
@@ -54,8 +51,12 @@ export const Home = () => {
           borderColor="rgba(241, 115, 0, 0.2)"
           hoverFillColor="#81A4CD"
         />
-        <div className="absolute inset-0 flex items-center justify-center left-240 p-4 z-10 sm:mt-0 mt-20 pointer-events-none">
-          <div className="flex flex-wrap gap-14 w-[700px] h-[600px] max-w-4xl justify-center">
+        <Footer />
+        <Navbar />
+        <SideBar />
+        <div className="flex flex-col items-center justify-center w-full h-full">
+          <HeroSection />
+          <div className="absolute flex items-center flex-wrap gap-14 w-[700px] justify-center  z-30 bottom-3 mb-35">
             <Link to="/eligecategoria/coding">
               <motion.div
                 className={`w-64 h-70 rounded-lg flex flex-col ${
