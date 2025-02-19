@@ -4,6 +4,7 @@ import { MenuRight } from "../../../components/MenuRight";
 import { Navbar } from "../../../components/Navbar";
 import useExtractInfo from "../../../hooks/useExtractInfo";
 import { EligirDificultad } from "../../EligirDificultad";
+import { Footer } from "../../../components/Footer";
 import "./Card.css";
 import { useState, useEffect } from "react";
 import { ThreeDots } from "react-loader-spinner";
@@ -203,6 +204,7 @@ export const CodingCard = () => {
         />
       </div>
       <Navbar />
+      <Footer />
       <MenuRight name={nameState} email={emailState} profileImage={avatar} />
       {!selectedDifficulty ? (
         <EligirDificultad onSelectDifficulty={handleDifficultySelect} />

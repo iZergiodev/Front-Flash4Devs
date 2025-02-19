@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import useExtractInfo from "../../../hooks/useExtractInfo";
 import Squares from "../../../components/effectcomponents/Squares";
 import { Navbar } from "../../../components/Navbar";
+import { Footer } from "../../../components/Footer";
 import { MenuRight } from "../../../components/MenuRight";
 import { ThreeDots } from "react-loader-spinner";
 import { FaClock } from "react-icons/fa";
@@ -143,6 +144,7 @@ export const EntrevistaCard = () => {
         />
       </div>
       <Navbar />
+      <Footer />
       <MenuRight name={nameState} email={emailState} profileImage={avatar} />
 
       {!showStatistics && (

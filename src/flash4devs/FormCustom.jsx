@@ -1,5 +1,6 @@
 import Squares from "../components/effectcomponents/Squares";
 import { Navbar } from "../components/Navbar";
+import { Footer } from "../components/Footer";
 import { MenuRight } from "../components/MenuRight";
 import useExtractInfo from "../hooks/useExtractInfo";
 
@@ -93,6 +94,7 @@ export const FormCustom = () => {
           />
         </div>
         <Navbar />
+        <Footer />
         <MenuRight name={nameState} email={emailState} profileImage={avatar} />
         <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
           <div className="bg-white border-1 border-gray-200 p-8 rounded-lg shadow-lg max-w-md w-full">

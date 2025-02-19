@@ -1,5 +1,6 @@
 import Squares from "../../components/effectcomponents/Squares";
 import { Navbar } from "../../components/Navbar";
+import { Footer } from "../../components/Footer";
 import { MenuRight } from "../../components/MenuRight";
 import useExtractInfo from "../../hooks/useExtractInfo";
 import { CodingCategorias } from "./CodingCategorias";
@@ -38,11 +39,12 @@ export const LayoutCategorias = () => {
             speed={0.1}
             squareSize={40}
             direction="diagonal"
-            borderColor="rgba(241, 115, 0, 0.4)"
+            borderColor="rgba(241, 115, 0, 0.2)"
             hoverFillColor="#81A4CD"
           />
         </div>
         <Navbar />
+        <Footer />
         <MenuRight name={nameState} email={emailState} profileImage={avatar} />
 
         {renderComponent()}

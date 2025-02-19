@@ -14,6 +14,7 @@ import {
 } from "react-icons/fa";
 import Squares from "../../components/effectcomponents/Squares";
 import { Navbar } from "../../components/Navbar";
+import { Footer } from "../../components/Footer";
 import { useLoading } from "../../hooks/useLoading";
 import { ThreeDots } from "react-loader-spinner";
 import { decodeToken } from "../../utils/decodeToken";
@@ -161,6 +162,7 @@ export const Profile = () => {
         />
       </div>
       <Navbar />
+      <Footer />
       <div className="relative z-10 flex items-center justify-center min-h-screen p-4 pointer-events-none">
         <div className="bg-card p-4 rounded-lg shadow-lg w-full max-w-5xl pointer-events-auto">
           <h1 className="text-3xl font-semibold text-center mb-4 text-text">

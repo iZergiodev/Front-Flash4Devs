@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { Navbar } from "../../components/Navbar";
+import { Footer } from "../../components/Footer";
 import GradientText from "../../components/effectcomponents/GradientText";
 import Squares from "../../components/effectcomponents/Squares";
 
@@ -23,6 +24,7 @@ export const AboutUs = () => {
         </div>
         <div className="relative z-20">
           <Navbar />
+          <Footer />
         </div>
         <div className="relative z-10 min-h-screen flex flex-col items-center justify-center p-4 pointer-events-none">
           <motion.h1

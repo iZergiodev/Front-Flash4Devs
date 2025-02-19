@@ -4,6 +4,7 @@ import { useUserStore } from "../../store/userStore";
 import toast, { Toaster } from "react-hot-toast";
 
 import { Navbar } from "../../components/Navbar";
+import { Footer } from "../../components/Footer";
 import { useLoading } from "../../hooks/useLoading";
 import { ThreeDots } from "react-loader-spinner";
 import SplitText from "../../components/effectcomponents/SplitText";
@@ -109,6 +110,7 @@ export const Register = () => {
           >
             <Navbar />
           </AnimatedContent>
+          <Footer />
         </div>
         <div className="relative z-10 flex items-center justify-center min-h-screen pointer-events-none">
           <div className="container mx-auto px-4">

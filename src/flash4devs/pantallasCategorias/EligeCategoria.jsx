@@ -1,5 +1,6 @@
 import Squares from "../../components/effectcomponents/Squares";
 import { Navbar } from "../../components/Navbar";
+import { Footer } from "../../components/Footer";
 import { MenuRight } from "../../components/MenuRight";
 import { Link } from "react-router";
 import useExtractInfo from "../../hooks/useExtractInfo";
@@ -55,6 +56,7 @@ export const EligeCategoria = () => {
           />
         </div>
         <Navbar />
+        <Footer />
         <MenuRight name={nameState} email={emailState} profileImage={avatar} />
 
         <div className="max-w-[900px] mx-auto p-4 mt-30">
