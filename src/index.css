@@ -25,7 +25,7 @@
 
 .orbitron {
   font-family: 'Orbitron', sans-serif;
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 700;
   text-transform: uppercase;
   text-align: center;
@@ -39,7 +39,7 @@
 
 @media (max-width: 768px) {
   .orbitron {
-    font-size: 2rem;
+    font-size: 1rem;
   }
 }
 

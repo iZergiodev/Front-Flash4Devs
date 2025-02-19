@@ -52,7 +52,7 @@ export const SideBar = () => {
       <AnimatePresence>
         {(isSidebarOpen || window.innerWidth >= 768) && (
           <motion.div
-            className="fixed left-0 top-0 h-screen w-60 bg-card shadow-lg flex flex-col items-center p-4 z-20 pt-0 rounded-r-2xl [filter:drop-shadow(10px_0_15px_rgba(0,0,0,0.1))]"
+            className="fixed left-0 top-0 h-screen w-60 bg-card shadow-lg flex flex-col items-center p-4 z-40 pt-0 rounded-r-2xl [filter:drop-shadow(10px_0_15px_rgba(0,0,0,0.1))]"
             initial={{ x: -100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -100, opacity: 0 }}
