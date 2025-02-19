@@ -1,51 +1,43 @@
-import { FaGithubSquare, FaInstagram, FaLinkedin } from "react-icons/fa";
-import { FaSquareXTwitter } from "react-icons/fa6";
+import { FaGithubSquare, FaInstagram } from "react-icons/fa";
+import GradientText from "./effectcomponents/GradientText";
 
 export function Footer() {
   return (
-    <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[60px] bg-card text-text flex justify-center items-center z-40 rounded-full shadow-lg">
-      <ul className="flex justify-center list-none">
-        <li className="mx-2">
+    <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-[300px] sm:w-[380px] h-[50px] sm:h-[60px] bg-card text-text flex justify-center items-center z-40 rounded-full shadow-lg text-sm sm:text-base">
+      <ul className="flex justify-center gap-1 list-none mr-2 sm:mr-4">
+        <li className="mx-1 sm:mx-2">
           <a
-            href="https://github.com/YagoCastelao"
+            href="#"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-text no-underline hover:text-[#ffbb33]"
+            className="text-text no-underline hover:text-accent"
           >
-            <FaGithubSquare className="text-lg cursor-pointer" />
+            <FaGithubSquare className="text-base sm:text-lg cursor-pointer" />
           </a>
         </li>
-        <li className="mx-2">
+        <li className="mx-1 sm:mx-2">
           <a
-            href="https://www.instagram.com/yagocastelao/"
+            href="#"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-text no-underline hover:text-[#ffbb33]"
+            className="text-text no-underline hover:text-accent"
           >
-            <FaInstagram className="text-lg cursor-pointer" />
-          </a>
-        </li>
-        <li className="mx-2">
-          <a
-            href="https://www.linkedin.com/in/yagocimacastelao/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-text no-underline hover:text-[#ffbb33]"
-          >
-            <FaLinkedin className="text-lg cursor-pointer" />
-          </a>
-        </li>
-        <li className="mx-2">
-          <a
-            href="https://x.com/yagocastelau"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-text no-underline hover:text-[#ffbb33]"
-          >
-            <FaSquareXTwitter className="text-lg cursor-pointer" />
+            <FaInstagram className="text-base sm:text-lg cursor-pointer" />
           </a>
         </li>
       </ul>
+      <p className="mt-0 sm:mt-1 ml-2 sm:ml-3">
+        <GradientText
+          colors={["#054A91", "#F17300", "#054A91", "#F17300", "#054A91"]}
+          animationSpeed={3}
+          showBorder={false}
+          className="custom-class"
+        >
+          Flash4Devs
+        </GradientText>
+      </p>
+      <span className="mr-1 sm:mr-2"></span>
+      &copy; 2025
     </div>
   );
 }

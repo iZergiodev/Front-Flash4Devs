@@ -25,14 +25,25 @@
 
 .orbitron {
   font-family: 'Orbitron', sans-serif;
-font-size: 3rem;
-font-weight: 700;
-text-transform: uppercase;
-text-align: center;
-background: linear-gradient(90deg, #f17300, #feb47b);
-background-clip: text;
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+  font-size: 3rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  background: linear-gradient(90deg, #f17300, #feb47b);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
 }
 
+@media (max-width: 768px) {
+  .orbitron {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .orbitron {
+    font-size: 1.5rem;
+  }
+}
