@@ -4,7 +4,8 @@ import { motion } from "framer-motion";
 export const HeroSection = () => {
   return (
     <motion.div
-      className="absolute flex inset-0 items-center justify-center w-[90%] sm:w-[400px] md:w-[500px] lg:w-[780px] h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] top-20 sm:top-25 md:top-30 lg:top-30 left-1/2 transform -translate-x-1/2 rounded-lg shadow-lg overflow-hidden border border-primary/40 z-20"
+      className="relative flex items-center justify-center w-full max-w-[680px] h-[400px] sm:h-[500px] md:h-[600px] lg:h-[600px] 
+                  rounded-lg shadow-lg overflow-hidden border border-primary/40 z-20"
       initial={{ opacity: 0, x: 100 }}
       whileInView={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.8 }}
@@ -14,9 +15,10 @@ export const HeroSection = () => {
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage: "url('/Programadorsorriendo.webp')",
-          backgroundSize: "contain",
+          backgroundSize: "cover",
         }}
       />
+
       <div
         className="absolute inset-0 rounded-lg overflow-hidden"
         style={{
