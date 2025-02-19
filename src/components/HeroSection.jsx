@@ -17,6 +17,12 @@ export const HeroSection = () => {
           backgroundSize: "contain",
         }}
       />
+      <div
+        className="absolute inset-0 rounded-lg overflow-hidden"
+        style={{
+          boxShadow: `inset 0 0 50px 20px rgba(5, 74, 145, 0.5), inset 0 0 80px 40px rgba(62, 124, 177, 0.3)`,
+        }}
+      />
 
       <div className="absolute inset-0 bg-black/50" />
 

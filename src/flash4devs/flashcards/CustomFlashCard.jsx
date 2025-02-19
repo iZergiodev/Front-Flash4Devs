@@ -3,6 +3,7 @@ import useExtractInfo from "../../hooks/useExtractInfo";
 import './Card.css'
 
 import { Navbar } from "../../components/Navbar";
+import { Footer } from "../../components/Footer";
 import { MenuRight } from "../../components/MenuRight";
 
 import { useState } from "react";
@@ -23,11 +24,12 @@ export const CustomFlashCard = () => {
           speed={0.1}
           squareSize={40}
           direction="diagonal"
-          borderColor="rgba(241, 115, 0, 0.4)"
+          borderColor="rgba(241, 115, 0, 0.2)"
           hoverFillColor="#81A4CD"
         />
       </div>
       <Navbar />
+      <Footer />
       <MenuRight name={nameState} email={emailState} profileImage={avatar} />
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div

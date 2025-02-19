@@ -59,11 +59,11 @@ export const CustomCategorias = () => {
           </Link>
         ))}
       </div>
-      <div className="flex flex-row justify-center items-center mt-12">
+      <div className="flex flex-row justify-center items-center mt-7 ml-155">
         <img src="/flash-favicon1.png" alt="Logo" className="w-20" />
         <Link
           to="/customform"
-          className="bg-card rounded-full text-semibold text-sm py-2 px-5 h-15 shadow-lg flex items-center text-text"
+          className="bg-card rounded-full text-semibold text-xs py-2 px-5 h-15 shadow-lg flex items-center text-text"
         >
           Crea Tu Flashcard
         </Link>

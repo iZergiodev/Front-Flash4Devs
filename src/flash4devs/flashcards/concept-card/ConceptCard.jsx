@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router";
 import Squares from "../../../components/effectcomponents/Squares";
 import { MenuRight } from "../../../components/MenuRight";
 import { Navbar } from "../../../components/Navbar";
+import { Footer } from "../../../components/Footer";
 import useExtractInfo from "../../../hooks/useExtractInfo";
 import { EligirDificultad } from "../../EligirDificultad";
 import "./Card.css";
@@ -196,6 +197,7 @@ export const ConceptCard = () => {
         />
       </div>
       <Navbar />
+      <Footer />
       <MenuRight name={nameState} email={emailState} profileImage={avatar} />
       {!selectedDifficulty ? (
         <EligirDificultad onSelectDifficulty={handleDifficultySelect} />

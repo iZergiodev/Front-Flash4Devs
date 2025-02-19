@@ -4,6 +4,7 @@ import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import Squares from "../components/effectcomponents/Squares";
 import { Navbar } from "../components/Navbar";
+import { Footer } from "../components/Footer";
 import { MenuRight } from "../components/MenuRight";
 import useExtractInfo from "../hooks/useExtractInfo";
 
@@ -234,11 +235,9 @@ export function Estadistica() {
         />
       </div>
       <Navbar />
+      <Footer />
       <MenuRight name={nameState} email={emailState} profileImage={avatar} />
-      <div className="relative z-20 inset-0 flex flex-col items-center mt-16">
-        <h1 className="text-2xl font-bold text-primary mb-2 mt-8 text-center">
-          Estadísticas
-        </h1>
+      <div className="relative z-20 inset-0 flex flex-col items-center mt-21">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
           <div className="bg-card p-6 rounded-lg shadow-md pointer-events: auto">
             <Chart

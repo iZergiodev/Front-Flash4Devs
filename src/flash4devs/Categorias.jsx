@@ -1,6 +1,7 @@
 import Squares from "../components/effectcomponents/Squares";
 import { Navbar } from "../components/Navbar";
 import { MenuRight } from "../components/MenuRight";
+import { Footer } from "../components/Footer";
 import useExtractInfo from "../hooks/useExtractInfo";
 
 export const Categorias = () => {
@@ -59,7 +60,8 @@ export const Categorias = () => {
         </div>
         <Navbar />
         <MenuRight name={nameState} email={emailState} profileImage={avatar} />
-        <div className="max-w-[1100px] mx-auto p-4 mt-30">
+        <Footer />
+        <div className="max-w-[1100px] mx-auto p-4 mt-23">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {tecnologias.map((tech, index) => (
               <div
