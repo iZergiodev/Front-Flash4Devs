@@ -4,31 +4,33 @@ import { motion } from "framer-motion";
 export const HeroSection = () => {
   return (
     <motion.div
-      className="absolute flex inset-0 items-center justify-center w-[680px] h-[700px] top-33 left-155 rounded-lg shadow-lg overflow-hidden border border-primary/40 z-20"
+      className="absolute flex inset-0 items-center justify-center w-[90%] sm:w-[400px] md:w-[500px] lg:w-[780px] h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] top-20 sm:top-25 md:top-30 lg:top-30 left-1/2 transform -translate-x-1/2 rounded-lg shadow-lg overflow-hidden border border-primary/40 z-20"
       initial={{ opacity: 0, x: 100 }}
       whileInView={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
     >
-      {/* Imagem de fundo */}
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/Programadorsorriendo.webp')" }}
+        style={{
+          backgroundImage: "url('/Programadorsorriendo.webp')",
+          backgroundSize: "contain",
+        }}
       />
 
       <div className="absolute inset-0 bg-black/50" />
 
-      <div className="relative z-10 p-6 flex flex-col justify-between h-full text-white">
-        <h1 className="text-4xl p-3 text-center font-bold mb-4 text-white bg-clip-text">
+      <div className="relative z-10 p-4 sm:p-6 flex flex-col justify-between h-full text-white text-xs sm:text-base">
+        <h1 className="text-lg sm:text-4xl p-2 sm:p-3 text-center font-bold mb-2 sm:mb-4 text-white bg-clip-text">
           ¡Bienvenido a{" "}
-          <span className="orbitron p-2">
+          <span className="orbitron p-1 sm:p-2 text-sm sm:text-base">
             Flash4Devs
           </span>
           !
         </h1>
 
-        <div className="mt-4 p-4 bg-black/30 backdrop-blur-sm rounded-lg border border-white/10">
-          <p className="text-xl font-semibold text-center">
+        <div className="mt-2 sm:mt-4 p-2 sm:p-4 bg-black/30 backdrop-blur-sm rounded-lg border border-white/10">
+          <p className="text-sm sm:text-xl font-semibold text-center">
             <Typewriter
               options={{
                 strings: [

@@ -56,172 +56,185 @@ export const Home = () => {
         <SideBar />
         <div className="flex flex-col items-center justify-center w-full h-full">
           <HeroSection />
-          <div className="absolute flex items-center flex-wrap gap-14 w-[700px] justify-center  z-30 bottom-3 mb-35">
-            <Link to="/eligecategoria/coding">
-              <motion.div
-                className={`w-64 h-70 rounded-lg flex flex-col ${
-                  isHoveredCard1 ? "bg-accent text-white" : "bg-card text-text"
-                } shadow-lg pointer-events-auto relative overflow-hidden  cursor-pointer`}
-                onHoverStart={() => setIsHoveredCard1(true)}
-                onHoverEnd={() => setIsHoveredCard1(false)}
-                initial="hidden"
-                animate="visible"
-                whileHover={{
-                  scale: 1.1,
-                  transition: { duration: 0.4 },
-                }}
-              >
-                {!isHoveredCard1 ? (
-                  <div className="flex items-center justify-center h-full p-6 text-center border-1 border-accent/40">
-                    <h2 className="text-xl md:text-2xl font-bold font-mono">
-                      Coding Flashcards
-                    </h2>
-                  </div>
-                ) : (
-                  <div className="flex flex-col h-full">
-                    <div className="p-4 bg-accent text-white rounded-t-lg border-b font-semibold border-gray-300">
-                      <h2 className="text-xl md:text-2xl font-bold text-center">
+          <div className="absolute flex flex-wrap gap-6 justify-center w-full md:w-[700px] bottom-3 mb-15 ml-15 z-30">
+            <p className="orbitron flex items-center mr-20 mb-5 text-center hidden md:hidden sm:hidden lg:block xl:block">
+              ¿Qué vamos a estudiar primero?
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+              <Link to="/eligecategoria/coding">
+                <motion.div
+                  className={`w-58 ml-25 md:ml-0 md:top-0 top-30 justify-center items-center md:w-64 h-70 rounded-lg flex flex-col ${
+                    isHoveredCard1
+                      ? "bg-accent text-white"
+                      : "bg-card text-text"
+                  } shadow-lg pointer-events-auto relative overflow-hidden  cursor-pointer`}
+                  onHoverStart={() => setIsHoveredCard1(true)}
+                  onHoverEnd={() => setIsHoveredCard1(false)}
+                  initial="hidden"
+                  animate="visible"
+                  whileHover={{
+                    scale: 1.1,
+                    transition: { duration: 0.4 },
+                  }}
+                >
+                  {!isHoveredCard1 ? (
+                    <div className="flex items-center justify-center h-full p-6 text-center border-1 border-accent/40">
+                      <h2 className="text-lg md:text-xl font-bold font-mono">
                         Coding Flashcards
                       </h2>
                     </div>
-                    <div className="flex-1 p-8 overflow-y-auto bg-card text-text text-center items-center">
-                      <p className="text-sm">
-                        ¿Quieres mejorar tu habilidad como programador?
-                      </p>
+                  ) : (
+                    <div className="flex flex-col h-full">
+                      <div className="p-3 md:p-4 bg-accent text-white rounded-t-lg border-b font-semibold border-gray-300">
+                        <h2 className="text-lg md:text-xl font-bold text-center">
+                          Coding Flashcards
+                        </h2>
+                      </div>
+                      <div className="flex-1 p-4 md:p-6 overflow-y-auto bg-card text-text text-center">
+                        <p className="text-sm md:text-base">
+                          ¿Quieres mejorar tu habilidad como programador?
+                        </p>
+                      </div>
+                      <div className="p-3 md:p-4 bg-card rounded-b-lg border-t border-gray-300 text-center">
+                        <p className="text-xs md:text-sm text-text">
+                          ¡Haga clic para comenzar!
+                        </p>
+                      </div>
                     </div>
-                    <div className="p-4 bg-card rounded-b-lg border-t border-gray-300 text-center">
-                      <p className="text-xs text-text ">
-                        ¡Haga clic para comenzar!
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </motion.div>
-            </Link>
-            <Link to="/eligecategoria/concept">
-              <motion.div
-                className={`w-64 h-70 rounded-lg flex flex-col ${
-                  isHoveredCard2 ? "bg-accent text-white" : "bg-card  text-text"
-                } shadow-lg pointer-events-auto relative overflow-hidden cursor-pointer border-1 border-primary/40`}
-                onHoverStart={() => setIsHoveredCard2(true)}
-                onHoverEnd={() => setIsHoveredCard2(false)}
-                initial="hidden"
-                animate="visible"
-                whileHover={{
-                  scale: 1.1,
-                  transition: { duration: 0.4 },
-                }}
-              >
-                {!isHoveredCard2 ? (
-                  <div className="flex items-center justify-center h-full p-6 text-center ">
-                    <h2 className="text-xl md:text-2xl font-bold font-mono">
-                      Concept Flashcards
-                    </h2>
-                  </div>
-                ) : (
-                  <div className="flex flex-col h-full">
-                    <div className="p-4 bg-secondary text-white rounded-t-lg border-b font-semibold border-gray-300">
-                      <h2 className="text-xl md:text-2xl font-bold text-center">
+                  )}
+                </motion.div>
+              </Link>
+              <Link to="/eligecategoria/concept">
+                <motion.div
+                  className={`w-58 ml-25 md:ml-0 md:top-0 top-30 justify-center items-center md:w-64 h-70 rounded-lg flex flex-col ${
+                    isHoveredCard2
+                      ? "bg-accent text-white"
+                      : "bg-card  text-text"
+                  } shadow-lg pointer-events-auto relative overflow-hidden cursor-pointer border-1 border-primary/40`}
+                  onHoverStart={() => setIsHoveredCard2(true)}
+                  onHoverEnd={() => setIsHoveredCard2(false)}
+                  initial="hidden"
+                  animate="visible"
+                  whileHover={{
+                    scale: 1.1,
+                    transition: { duration: 0.4 },
+                  }}
+                >
+                  {!isHoveredCard2 ? (
+                    <div className="flex items-center justify-center h-full p-6 text-center ">
+                      <h2 className="text-lg md:text-xl font-bold font-mono">
                         Concept Flashcards
                       </h2>
                     </div>
-                    <div className="flex-1 p-8 overflow-y-auto bg-card text-text text-center items-center">
-                      <p className="text-sm">
-                        ¡Aprende la teoría de las tecnologías más demandadas del
-                        sector!
-                      </p>
+                  ) : (
+                    <div className="flex flex-col h-full">
+                      <div className="p-3 md:p-4 bg-accent text-white rounded-t-lg border-b font-semibold border-gray-300">
+                        <h2 className="text-lg md:text-xl font-bold text-center">
+                          Concept Flashcards
+                        </h2>
+                      </div>
+                      <div className="flex-1 p-4 md:p-6 overflow-y-auto bg-card text-text text-center">
+                        <p className="text-sm md:text-base">
+                          ¡Aprende la teoría de las tecnologías más demandadas
+                          del sector!
+                        </p>
+                      </div>
+                      <div className="p-3 md:p-4 bg-card rounded-b-lg border-t border-gray-300 text-center">
+                        <p className="text-xs md:text-sm text-text">
+                          ¡Haga clic para comenzar!
+                        </p>
+                      </div>
                     </div>
-                    <div className="p-4 bg-card rounded-b-lg border-t border-gray-300 text-center">
-                      <p className="text-xs text-text ">
-                        ¡Haga clic para comenzar!
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </motion.div>
-            </Link>
-            <Link to="/eligecategoria/entrevista">
-              <motion.div
-                className={`w-64 h-70 rounded-lg flex flex-col ${
-                  isHoveredCard3 ? "bg-accent text-white" : "bg-card text-text"
-                } shadow-lg pointer-events-auto relative border-1 border-accent/40 overflow-hidden cursor-pointer`}
-                onHoverStart={() => setIsHoveredCard3(true)}
-                onHoverEnd={() => setIsHoveredCard3(false)}
-                initial="hidden"
-                animate="visible"
-                whileHover={{
-                  scale: 1.1,
-                  transition: { duration: 0.4 },
-                }}
-              >
-                {!isHoveredCard3 ? (
-                  <div className="flex items-center justify-center h-full p-6 text-center">
-                    <h2 className="text-xl md:text-2xl font-bold font-mono">
-                      Preguntas de Entrevistas
-                    </h2>
-                  </div>
-                ) : (
-                  <div className="flex flex-col h-full">
-                    <div className="p-4 bg-accent text-white rounded-t-lg border-b font-semibold border-gray-300">
-                      <h2 className="text-xl md:text-2xl font-bold text-center">
+                  )}
+                </motion.div>
+              </Link>
+              <Link to="/eligecategoria/entrevista">
+                <motion.div
+                  className={`w-58 ml-25 md:ml-0 md:top-0 top-30 justify-center items-center md:w-64 h-70 rounded-lg flex flex-col  ${
+                    isHoveredCard3
+                      ? "bg-accent text-white"
+                      : "bg-card text-text"
+                  } shadow-lg pointer-events-auto relative border-1 border-accent/40 overflow-hidden cursor-pointer`}
+                  onHoverStart={() => setIsHoveredCard3(true)}
+                  onHoverEnd={() => setIsHoveredCard3(false)}
+                  initial="hidden"
+                  animate="visible"
+                  whileHover={{
+                    scale: 1.1,
+                    transition: { duration: 0.4 },
+                  }}
+                >
+                  {!isHoveredCard3 ? (
+                    <div className="flex items-center justify-center h-full p-6 text-center">
+                      <h2 className="text-xl md:text-2xl font-bold font-mono">
                         Preguntas de Entrevistas
                       </h2>
                     </div>
-                    <div className="flex-1 p-8 overflow-y-auto bg-card text-text text-center items-center">
-                      <p className="text-sm">
-                        ¡Preparate para una entrevista laboral!
-                      </p>
+                  ) : (
+                    <div className="flex flex-col h-full">
+                      <div className="p-4 bg-accent text-white rounded-t-lg border-b font-semibold border-gray-300">
+                        <h2 className="text-xl md:text-2xl font-bold text-center">
+                          Preguntas de Entrevistas
+                        </h2>
+                      </div>
+                      <div className="flex-1 p-8 overflow-y-auto bg-card text-text text-center items-center">
+                        <p className="text-sm">
+                          ¡Preparate para una entrevista laboral!
+                        </p>
+                      </div>
+                      <div className="p-4 bg-card rounded-b-lg border-t border-gray-300 text-center">
+                        <p className="text-xs text-text ">
+                          ¡Haga clic para comenzar!
+                        </p>
+                      </div>
                     </div>
-                    <div className="p-4 bg-card rounded-b-lg border-t border-gray-300 text-center">
-                      <p className="text-xs text-text ">
-                        ¡Haga clic para comenzar!
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </motion.div>
-            </Link>
-            <Link to="/eligecategoria/custom">
-              <motion.div
-                className={`w-64 h-70 rounded-lg flex flex-col ${
-                  isHoveredCard4 ? "bg-accent text-white" : "bg-card text-text"
-                } shadow-lg pointer-events-auto border-1 border-primary/40 relative overflow-hidden cursor-pointer`}
-                onHoverStart={() => setIsHoveredCard4(true)}
-                onHoverEnd={() => setIsHoveredCard4(false)}
-                initial="hidden"
-                animate="visible"
-                whileHover={{
-                  scale: 1.1,
-                  transition: { duration: 0.4 },
-                }}
-              >
-                {!isHoveredCard4 ? (
-                  <div className="flex items-center justify-center h-full p-6 text-center">
-                    <h2 className="text-xl md:text-2xl font-bold font-mono">
-                      Custom FlashCards
-                    </h2>
-                  </div>
-                ) : (
-                  <div className="flex flex-col h-full">
-                    <div className="p-4 bg-secondary text-white rounded-t-lg border-b font-semibold border-gray-300">
-                      <h2 className="text-xl md:text-2xl font-bold text-center">
+                  )}
+                </motion.div>
+              </Link>
+              <Link to="/eligecategoria/custom">
+                <motion.div
+                  className={`w-58 ml-25 md:ml-0 md:top-0 top-30 justify-center items-center md:w-64 h-70 rounded-lg flex flex-col  ${
+                    isHoveredCard4
+                      ? "bg-accent text-white"
+                      : "bg-card text-text"
+                  } shadow-lg pointer-events-auto border-1 border-primary/40 relative overflow-hidden cursor-pointer`}
+                  onHoverStart={() => setIsHoveredCard4(true)}
+                  onHoverEnd={() => setIsHoveredCard4(false)}
+                  initial="hidden"
+                  animate="visible"
+                  whileHover={{
+                    scale: 1.1,
+                    transition: { duration: 0.4 },
+                  }}
+                >
+                  {!isHoveredCard4 ? (
+                    <div className="flex items-center justify-center h-full p-6 text-center">
+                      <h2 className="text-xl md:text-2xl font-bold font-mono">
                         Custom FlashCards
                       </h2>
                     </div>
-                    <div className="flex-1 p-8 overflow-y-auto bg-card text-text text-center items-center">
-                      <p className="text-sm">
-                        Crea tus propias Flashcards y ¡practica!
-                      </p>
+                  ) : (
+                    <div className="flex flex-col h-full">
+                      <div className="p-4 bg-secondary text-white rounded-t-lg border-b font-semibold border-gray-300">
+                        <h2 className="text-xl md:text-2xl font-bold text-center">
+                          Custom FlashCards
+                        </h2>
+                      </div>
+                      <div className="flex-1 p-8 overflow-y-auto bg-card text-text text-center items-center">
+                        <p className="text-sm">
+                          Crea tus propias Flashcards y ¡practica!
+                        </p>
+                      </div>
+                      <div className="p-4 bg-card rounded-b-lg border-t border-gray-300 text-center">
+                        <p className="text-xs text-text ">
+                          ¡Haga clic para comenzar!
+                        </p>
+                      </div>
                     </div>
-                    <div className="p-4 bg-card rounded-b-lg border-t border-gray-300 text-center">
-                      <p className="text-xs text-text ">
-                        ¡Haga clic para comenzar!
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </motion.div>
-            </Link>
+                  )}
+                </motion.div>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

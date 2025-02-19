@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import GradientText from "./effectcomponents/GradientText";
@@ -14,103 +13,102 @@ export const MenuRight = ({ name, email, profileImage }) => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { logout } = useUserStore();
   const handleLogout = () => {
     logout();
-
-    navigate('/')
-
+    navigate("/");
   };
 
   return (
-    <>
-      <motion.nav className="fixed right-5 p-4 bg-card py-1 px-4 top-[20px] rounded-full text-text shadow-lg z-50 font-semibold">
-        <motion.div
-          className="flex flex-row space-x-4 items-center gap-4 transform-gpu"
-          whileHover={{ scale: 1.05 }}
-          transition={{ type: "spring", stiffness: 300 }}
-        >
+    <motion.nav className="fixed right-5 top-[20px] z-50 font-semibold sm:bg-card sm:shadow-lg sm:rounded-full sm:p-4 sm:py-1 sm:px-4">
+      <motion.div
+        className="flex flex-row items-center gap-4 transform-gpu"
+        whileHover={{ scale: 1.05 }}
+        transition={{ type: "spring", stiffness: 300 }}
+      >
+
+        <div className="hidden sm:block">
           <GradientText
             colors={["#054A91", "#F17300", "#054A91", "#F17300", "#054A91"]}
             animationSpeed={3}
             showBorder={false}
             className="custom-class"
           >
-            &quot;{name}&quot;
+            {name}
           </GradientText>
-          <div className="relative">
-            <button
-              onClick={toggleDropdown}
-              className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary cursor-pointer"
-            >
-              <img
-                src={profileImage || "/avatarejemplo.jpg"}
-                alt="Avatar"
-                className="w-full h-full object-cover"
-              />
-            </button>
-            <AnimatePresence>
-              {isDropdownOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  className="absolute right-0 mt-4 w-60 bg-card rounded-lg shadow-lg backdrop-blur-md border border-muted/20"
-                >
-                  <ul className="py-2">
-                    <li className="border-b border-muted/20 mb-1 pb-2 flex flex-col items-center justify-center">
-                      <span className="text-base">
-                        <DecryptedText text="Pró-user" animateOn="view" />
-                      </span>
-                      <span className="text-sm underline decoration-solid">
-                        <DecryptedText text={email} animateOn="view" />
-                      </span>
-                    </li>
-                    <li>
-                      <a
-                        href="/auth/profile"
-                        className="flex items-center px-4 py-2 text-text hover:bg-muted/30 transition-colors duration-200 font-semibold cursor-pointer"
-                      >
-                        <FaUser className="mr-3" />
-                        Perfil
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="flex items-center px-4 py-2 text-text hover:bg-muted/30 transition-colors duration-200 font-semibold cursor-pointer"
-                      >
-                        <FaGraduationCap className="mr-3" />
-                        Flashcards
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/estadistica"
-                        className="flex items-center px-4 py-2 text-text hover:bg-muted/30 transition-colors duration-200 font-semibold cursor-pointer"
-                      >
-                        <FaStar className="mr-3" />
-                        Estadisticas
-                      </a>
-                    </li>
-                    <li className="border-t border-muted/20 mt-2 pt-2 flex items-center justify-center">
-                      <button
-                        className="w-28 flex items-center justify-center text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
-                        onClick={handleLogout}
-                        type="submit"
-                      >
-                        <FaSignOutAlt className="mr-2" />
-                        Logout
-                      </button>
-                    </li>
-                  </ul>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </motion.div>
-      </motion.nav>
-    </>
+        </div>
+        <div className="relative">
+          <button
+            onClick={toggleDropdown}
+            className="w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden border-2 border-primary cursor-pointer"
+          >
+            <img
+              src={profileImage || "/avatarejemplo.jpg"}
+              alt="Avatar"
+              className="w-full h-full object-cover"
+            />
+          </button>
+          <AnimatePresence>
+            {isDropdownOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="absolute right-0 mt-4 w-60 bg-card rounded-lg shadow-lg backdrop-blur-md border border-muted/20"
+              >
+                <ul className="py-2">
+                  <li className="border-b border-muted/20 mb-1 pb-2 flex flex-col items-center justify-center">
+                    <span className="text-base">
+                      <DecryptedText text="Pró-user" animateOn="view" />
+                    </span>
+                    <span className="text-sm underline decoration-solid">
+                      <DecryptedText text={email} animateOn="view" />
+                    </span>
+                  </li>
+                  <li>
+                    <a
+                      href="/auth/profile"
+                      className="flex items-center px-4 py-2 text-text hover:bg-muted/30 transition-colors duration-200 font-semibold cursor-pointer"
+                    >
+                      <FaUser className="mr-3" />
+                      Perfil
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="flex items-center px-4 py-2 text-text hover:bg-muted/30 transition-colors duration-200 font-semibold cursor-pointer"
+                    >
+                      <FaGraduationCap className="mr-3" />
+                      Flashcards
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/estadistica"
+                      className="flex items-center px-4 py-2 text-text hover:bg-muted/30 transition-colors duration-200 font-semibold cursor-pointer"
+                    >
+                      <FaStar className="mr-3" />
+                      Estadísticas
+                    </a>
+                  </li>
+                  <li className="border-t border-muted/20 mt-2 pt-2 flex items-center justify-center">
+                    <button
+                      className="w-28 flex items-center justify-center text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
+                      onClick={handleLogout}
+                      type="submit"
+                    >
+                      <FaSignOutAlt className="mr-2" />
+                      Logout
+                    </button>
+                  </li>
+                </ul>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </motion.div>
+    </motion.nav>
   );
 };
