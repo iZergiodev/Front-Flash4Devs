@@ -44,5 +44,11 @@
     "globals": "^15.14.0",
     "tailwindcss": "^4.0.3",
     "vite": "^6.0.11"
+  },
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "@swc/core",
+      "esbuild"
+    ]
   }
 }

@@ -88,7 +88,7 @@ export const SideBar = () => {
                   whileTap={{ scale: 0.9 }}
                 >
                   <FaBook className="mr-2 text-accent hover:text-white" />
-                  <p className="text-sm">Documentácion</p>
+                  <p className="text-sm">Documentación</p>
                 </motion.a>
               </Link>
 

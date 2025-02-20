@@ -127,7 +127,7 @@ export const Biblioteca = () => {
       <div className="flex flex-col justify-center lg:flex-row w-full p-4 lg:p-8 lg:gap-1">
         <div className="w-full lg:w-1/3 p-6 bg-card rounded-lg shadow-lg mb-8 lg:mb-10 lg:mr-2 z-40 lg:mt-30 lg:ml-60 mt-20">
           <h2 className="orbitron text-xl font-bold text-text mb-4 text-center">
-            Como começar a estudar
+            Como comenzar a estudiar
           </h2>
           <div className="flex">
             <FaBook className="mr-2 mt-1 text-accent" />
@@ -139,7 +139,7 @@ export const Biblioteca = () => {
           <ol className="list-none list-inside space-y-2">
             <li className="text-gray-700 flex items-center">
               <Fa1 className="mr-2 text-text" /> Elija una tecnología en
-              carrusel de al lado;
+              el carrusel de al lado;
             </li>
             <li className="text-gray-700 flex items-center">
               <Fa2 className="mr-2 text-text" /> Lea una breve descripción y qué
@@ -199,7 +199,7 @@ export const Biblioteca = () => {
               </p>
               <div className="w-full p-6 bg-gray-100">
                 <p className="text-sm text-gray-700">
-                  Versão: {tecnologias[indiceAtual].versao}
+                  Versión: {tecnologias[indiceAtual].versao}
                 </p>
                 <a
                   href={tecnologias[indiceAtual].documentacao}
@@ -207,7 +207,7 @@ export const Biblioteca = () => {
                   rel="noopener noreferrer"
                   className="text-blue-600 hover:underline"
                 >
-                  Documentação oficial
+                  Documentación oficial
                 </a>
               </div>
             </div>
