@@ -58,7 +58,7 @@ export const Home = () => {
         <Navbar />
         <SideBar />
         <div className="flex flex-col md:flex-row items-center justify-items w-full h-full p-2 gap-1">
-          <div className="flex justify-center items-center w-full md:w-1/2 mt-35 ml-65">
+          <div className="flex justify-center items-center w-full md:w-1/2 mt-30 md:mt-35 md:ml-65">
             <HeroSection />
           </div>
           <div className="w-full md:w-1/2 flex flex-col items-center z-10 mt-25">
@@ -68,7 +68,7 @@ export const Home = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-[700px]">
               <Link to="/eligecategoria/coding">
                 <motion.div
-                  className={`w-58 ml-25 md:ml-0 md:top-0 top-30 justify-center items-center md:w-64 h-70 rounded-lg flex flex-col ${
+                  className={`w-58 ml-60 md:ml-0 bottom-10 md:bottom-0 md:top-0 justify-center items-center md:w-64 h-70 rounded-lg flex flex-col ${
                     isHoveredCard1
                       ? "bg-accent text-white"
                       : "bg-card text-text"
@@ -111,7 +111,7 @@ export const Home = () => {
               </Link>
               <Link to="/eligecategoria/concept">
                 <motion.div
-                  className={`w-58 ml-25 md:ml-0 md:top-0 top-30 justify-center items-center md:w-64 h-70 rounded-lg flex flex-col ${
+                  className={`w-58 ml-60 md:ml-0 bottom-10 md:bottom-0 md:top-0 justify-center items-center md:w-64 h-70 rounded-lg flex flex-col ${
                     isHoveredCard2
                       ? "bg-accent text-white"
                       : "bg-card  text-text"
@@ -155,7 +155,7 @@ export const Home = () => {
               </Link>
               <Link to="/eligecategoria/entrevista">
                 <motion.div
-                  className={`w-58 ml-25 md:ml-0 md:top-0 top-30 justify-center items-center md:w-64 h-70 rounded-lg flex flex-col  ${
+                  className={`w-58 ml-60 md:ml-0 bottom-10 md:bottom-0 md:top-0 justify-center items-center md:w-64 h-70 rounded-lg flex flex-col  ${
                     isHoveredCard3
                       ? "bg-accent text-white"
                       : "bg-card text-text"
@@ -198,7 +198,7 @@ export const Home = () => {
               </Link>
               <Link to="/eligecategoria/custom">
                 <motion.div
-                  className={`w-58 ml-25 md:ml-0 md:top-0 top-30 justify-center items-center md:w-64 h-70 rounded-lg flex flex-col  ${
+                  className={`w-58 ml-60 md:ml-0 bottom-10 md:bottom-0 md:top-0 justify-center items-center md:w-64 h-70 rounded-lg flex flex-col ${
                     isHoveredCard4
                       ? "bg-accent text-white"
                       : "bg-card text-text"

@@ -6,10 +6,10 @@ import { AboutUs } from "../views/AboutUs.jsx";
 import { PublicRoutes } from "../../router/PublicRoutes.jsx";
 
 
+
 export const AuthRouter = () => {
   return (
     <Routes>
-
       <Route
         path="/login"
         element={

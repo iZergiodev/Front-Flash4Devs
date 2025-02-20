@@ -1,11 +1,20 @@
 import { useState, useEffect } from "react"; // Adicione o useEffect
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router";
-import { FaRocket, FaChartLine, FaBook } from "react-icons/fa";
+import {
+  FaRocket,
+  FaChartLine,
+  FaBook,
+  FaUsers,
+  FaBars,
+  FaTimes,
+  FaProjectDiagram,
+  FaMap,
+} from "react-icons/fa";
 import { FaUsersViewfinder } from "react-icons/fa6";
 import { MdOutlineBookOnline } from "react-icons/md";
 import { GiProgression } from "react-icons/gi";
-import { FaUsers, FaBars, FaTimes } from "react-icons/fa";
+import {  } from "react-icons/fa";
 import { useUserStore } from "../store/userStore";
 
 export const SideBar = () => {
@@ -70,7 +79,7 @@ export const SideBar = () => {
 
             <div className="space-y-2 border-t border-gray-400 p-2">
               <Link
-                to="/quick-link-1"
+                to="/biblioteca"
                 className="flex items-center p-2 text-text hover:bg-secondary transition-colors hover:text-white duration-200 focus:outline-none focus:ring-2 focus:ring-primary rounded-lg"
               >
                 <motion.a
@@ -78,38 +87,42 @@ export const SideBar = () => {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  <FaRocket className="mr-2 text-accent hover:text-white" />
-                  <p className="text-sm">Link Rápido 1</p>
+                  <FaBook className="mr-2 text-accent hover:text-white" />
+                  <p className="text-sm">Documentácion</p>
                 </motion.a>
               </Link>
 
-              <Link
-                to="/quick-link-2"
+              <a
+                href="https://www.atlassian.com/es/agile"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center p-2 text-text hover:bg-secondary transition-colors hover:text-white duration-200 focus:outline-none focus:ring-2 focus:ring-primary rounded-lg"
               >
-                <motion.a
+                <motion.div
                   className="flex"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  <FaRocket className="mr-2 text-accent" />
-                  <p className="text-sm">Link Rápido 2</p>
-                </motion.a>
-              </Link>
+                  <FaProjectDiagram className="mr-2 text-accent" />
+                  <p className="text-sm">Metodología Agile</p>
+                </motion.div>
+              </a>
 
-              <Link
-                to="/quick-link-3"
+              <a
+                href="https://roadmap.sh/full-stack"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center p-2 text-text hover:bg-secondary transition-colors hover:text-white duration-200 focus:outline-none focus:ring-2 focus:ring-primary rounded-lg"
               >
-                <motion.a
+                <motion.div
                   className="flex"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  <FaRocket className="mr-2 text-accent" />
-                  <p className="text-sm">Link Rápido 3</p>
-                </motion.a>
-              </Link>
+                  <FaMap className="mr-2 text-accent" />
+                  <p className="text-sm">Roadmap Full Stack</p>
+                </motion.div>
+              </a>
             </div>
 
             <div className="my-1"></div>

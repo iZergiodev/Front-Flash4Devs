@@ -5,6 +5,7 @@ import { Estadistica } from "../flash4devs/Estadistica";
 import { Categorias } from "../flash4devs/Categorias";
 import { ConceptCard } from "../flash4devs/ConceptCard";
 import { FormCustom } from "../flash4devs/FormCustom";
+import { Biblioteca } from "../flash4devs/Biblioteca.jsx";
 
 
 import { ProtectedRoutes } from "../router/ProtectedRoutes.jsx";
@@ -27,6 +28,7 @@ export const AppRouter = () => {
       <Route path="/categorias" element={<Categorias />} />
       <Route path="/conceptcard" element={<ConceptCard />} />
       <Route path="/customform" element={<FormCustom />} />
+      <Route path="/biblioteca" element={<Biblioteca />} />
       <Route
         path="/eligecategoria/*"
         element={
