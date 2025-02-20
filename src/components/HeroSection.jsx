@@ -26,7 +26,7 @@ export const HeroSection = () => {
         }}
       />
 
-      <div className="absolute inset-0 bg-black/50" />
+      <div className="absolute inset-0 bg-black/40" />
 
       <div className="relative z-10 p-4 sm:p-6 flex flex-col justify-between h-full text-white text-xs sm:text-base">
         <h1 className="text-lg sm:text-4xl p-2 sm:p-3 text-center font-bold mb-2 sm:mb-4 text-white bg-clip-text">

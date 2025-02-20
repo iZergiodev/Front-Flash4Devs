@@ -15,7 +15,8 @@ export const EligirDificultad = ({ onSelectDifficulty }) => {
 
       <div className="p-4 flex flex-col space-y-4 items-center justify-center">
         <button onClick={() => handleClick("easy")}>
-          <div className="rounded-lg overflow-hidden shadow-lg w-60">
+          <div
+            className="rounded-lg overflow-hidden shadow-lg w-60 hover:scale-105 transition-transform">
             <header className="bg-green-600 p-2 border-b-1 border-gray-300">
               <h2 className="text-white text-center font-semibold">Easy</h2>
             </header>
@@ -27,7 +28,7 @@ export const EligirDificultad = ({ onSelectDifficulty }) => {
         </button>
 
         <button onClick={() => handleClick("medium")}>
-          <div className="rounded-lg overflow-hidden shadow-lg w-60">
+          <div className="rounded-lg overflow-hidden shadow-lg w-60 hover:scale-105 trasition-transform">
             <header className="bg-yellow-400 p-2 border-b-1 border-gray-300">
               <h2 className="text-white text-center font-semibold">Medium</h2>
             </header>
@@ -39,7 +40,7 @@ export const EligirDificultad = ({ onSelectDifficulty }) => {
         </button>
 
         <button onClick={() => handleClick("hard")}>
-          <div className="rounded-lg overflow-hidden shadow-lg w-60">
+          <div className="rounded-lg overflow-hidden shadow-lg w-60 hover:scale-105 transition-transform">
             <header className="bg-red-600 p-2 border-b-1 border-gray-300">
               <h2 className="text-white text-center font-semibold">Hard</h2>
             </header>
