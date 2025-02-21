@@ -1,75 +1,47 @@
-import SplitText from "../../components/effectcomponents/SplitText";
-import Squares from "../../components/effectcomponents/Squares";
-
 import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router";
 import toast, { Toaster } from "react-hot-toast";
-import { useLoading } from "../../hooks/useLoading";
 import { ThreeDots } from "react-loader-spinner";
-import { useUserStore } from "../../store/userStore";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
+import SplitText from "../../components/effectcomponents/SplitText";
+import Squares from "../../components/effectcomponents/Squares";
+import { useLoading } from "../../hooks/useLoading";
+import { useUserStore } from "../../store/userStore";
 
 export const Login = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-
-  // const waitThreeSeconds = () => {
-  //   return new Promise((resolve) => {
-  //     setTimeout(() => {
-  //       resolve("¡Han pasado 3 segundos!");
-  //     }, 3000); // 3000 milisegundos = 3 segundos
-  //   });
-  // };
-
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [eyeIsClosed, setEyeState] = useState(false);
+  const inputRef = useRef(null);
+  const navigate = useNavigate();
   const { loginAuthorized } = useUserStore();
-
-  let navigate = useNavigate();
+  const { isLoading, startLoading, stopLoading } = useLoading();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
-  const { isLoading, startLoading, stopLoading } = useLoading();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const url = "https://back-flash4devs-production.up.railway.app/api/login";
 
     try {
       startLoading();
       const response = await fetch(url, {
         method: "POST",
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
-      // await waitThreeSeconds();
+
       if (response.status === 404) {
         toast.error("Usuario o contraseña incorrectos");
         return;
       }
 
       if (response.ok) {
-        const data = await response.json();
-        const token = data.access_token;
-        localStorage.setItem("token", token);
-
+        const { access_token } = await response.json();
+        localStorage.setItem("token", access_token);
         loginAuthorized();
-
-        const { isLogged } = useUserStore.getState();
-        console.log(isLogged);
-
         navigate("/");
       }
     } catch (error) {
@@ -80,17 +52,10 @@ export const Login = () => {
     }
   };
 
-  const inputRef = useRef(null);
-  const [eyeIsClosed, setEyeState] = useState(false);
-
   const toggleShow = () => {
-    if (inputRef.current.type === "password") {
-      setEyeState(true);
-      inputRef.current.type = "text";
-    } else {
-      setEyeState(false);
-      inputRef.current.type = "password";
-    }
+    const input = inputRef.current;
+    input.type = input.type === "password" ? "text" : "password";
+    setEyeState((prev) => !prev);
   };
 
   return (

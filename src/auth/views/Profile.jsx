@@ -20,12 +20,12 @@ import { ThreeDots } from "react-loader-spinner";
 import { decodeToken } from "../../utils/decodeToken";
 import { useEffect } from "react";
 
+
 export const Profile = () => {
   const [avatar, setAvatar] = useState("/avatarejemplo.jpg");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-
   const [description, setDescription] = useState("");
   const [porcentage, setPorcentage] = useState(0);
   const [rank, setRank] = useState("Beginner");
@@ -36,8 +36,7 @@ export const Profile = () => {
   const [backEndRating, setBackEndRating] = useState("");
 
   const { isLoading, startLoading, stopLoading } = useLoading();
-
-  const [isEditingFirstName, setIsEditingFirstName] = useState(false);
+  const navigate = useNavigate();
 
   const getUserInfo = async () => {
     const token = localStorage.getItem("token");
@@ -57,24 +56,17 @@ export const Profile = () => {
     );
 
     const { profile_image, email, name, last_name } = await resp.json();
-
     setAvatar(profile_image);
     setFirstName(name);
     setLastName(last_name);
     setEmail(email);
-
     stopLoading();
   };
-
-  useEffect(() => {
-    getUserInfo();
-  }, []);
 
   const handleAvatarChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
       startLoading();
-
       try {
         const token = localStorage.getItem("token");
         const formData = new FormData();
@@ -84,17 +76,12 @@ export const Profile = () => {
           "https://back-flash4devs-production.up.railway.app/api/upload/",
           {
             method: "POST",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+            headers: { Authorization: `Bearer ${token}` },
             body: formData,
           }
         );
 
-        if (!response.ok) {
-          throw new Error("Error al subir la imagen");
-        }
-
+        if (!response.ok) throw new Error("Error al subir la imagen");
         const data = await response.json();
         setAvatar(data.url);
       } catch (error) {
@@ -105,50 +92,76 @@ export const Profile = () => {
     }
   };
 
-  const navigate = useNavigate();
-
   const handleSave = () => {
     navigate("/");
-    //Falta lógica
+    // Falta lógica
+  };
+
+  const fetchUserStats = async () => {
+    const token = localStorage.getItem("token");
+    const response = await fetch(
+      "https://back-flash4devs-production.up.railway.app/card/user-stats",
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+
+    const {
+      good_answers,
+      bad_answer,
+      level,
+      rating_interview_front_react,
+      rating_interview_backend_python,
+    } = await response.json();
+
+    const calculatedPorcentage =
+      good_answers + bad_answer === 0
+        ? 0
+        : (good_answers / (good_answers + bad_answer)) * 100;
+
+    setPorcentage(calculatedPorcentage);
+    setRank(level);
+    setFrontEndRating(rating_interview_front_react);
+    setBackEndRating(rating_interview_backend_python);
   };
 
   useEffect(() => {
-    const userStats = async () => {
-      const token = localStorage.getItem("token");
-
-      const response = await fetch(
-        "https://back-flash4devs-production.up.railway.app/card/user-stats",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      const {
-        good_answers,
-        bad_answer,
-        level,
-        rating_interview_front_react,
-        rating_interview_backend_python,
-      } = await response.json();
-
-      let calculatedPorcentage = 0;
-
-      if (good_answers === 0 && bad_answer === 0) {
-        calculatedPorcentage = 0;
-        calculatedPorcentage =
-          (good_answers / (good_answers + bad_answer)) * 100;
-      }
-
-      setPorcentage(calculatedPorcentage);
-      setRank(level);
-      setFrontEndRating(rating_interview_front_react);
-      setBackEndRating(rating_interview_backend_python);
-    };
-
-    userStats();
+    getUserInfo();
+    fetchUserStats();
   }, []);
+
+  const renderInputField = (
+    label,
+    value,
+    onChange,
+    placeholder = "",
+    readOnly = false,
+    Icon = FaUser
+  ) => (
+    <div>
+      <label className="text-xs font-medium text-text flex items-center space-x-2">
+        <Icon />
+        <span>{label}</span>
+      </label>
+      <div className="mt-2 flex items-center">
+        <input
+          type="text"
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+          readOnly={readOnly}
+          className={`flex-1 p-1 ${
+            readOnly ? "bg-muted/20" : ""
+          } border border-muted rounded-lg w-full text-sm`}
+        />
+        {!readOnly && (
+          <button className="ml-2 text-accent cursor-pointer">
+            <FaPen />
+          </button>
+        )}
+      </div>
+    </div>
+  );
 
   return (
     <div className="min-h-screen relative overflow-hidden">
@@ -168,7 +181,6 @@ export const Profile = () => {
           <h1 className="text-3xl font-semibold text-center mb-4 text-text">
             Tu Perfil
           </h1>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             <div className="space-y-6">
               <div className="flex justify-center">
@@ -193,98 +205,58 @@ export const Profile = () => {
                   />
                 </div>
               </div>
-
+              {renderInputField(
+                "Nombre",
+                firstName,
+                (e) => setFirstName(e.target.value),
+                "",
+                true
+              )}
+              {renderInputField(
+                "Apellidos",
+                lastName,
+                (e) => setLastName(e.target.value),
+                "Escribe tu apellido"
+              )}
+              {renderInputField(
+                "Correo Electrónico",
+                email,
+                (e) => setEmail(e.target.value),
+                "",
+                true,
+                FaEnvelope
+              )}
               <div>
                 <label className="text-xs font-medium text-text flex items-center space-x-2">
-                  <FaUser />
-                  <span>Nombre</span>
+                  <FaInfoCircle />
+                  <span>Acerca de ti</span>
                 </label>
-                <div className="mt-2 flex items-center">
-                  <input
-                    type="text"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    readOnly
-                    className="flex-1 p-1 bg-muted/20 border border-muted rounded-lg w-[371px] text-sm"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="text-xs font-medium text-text flex items-center space-x-2">
-                  <FaUser />
-                  <span>Apellidos</span>
-                </label>
-                <div className="mt-2 flex items-center">
-                  <input
-                    type="text"
-                    placeholder="Escribe tu apellido"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    className="flex-1 p-1 border border-muted rounded-lg w-full text-sm"
-                  />
-                  <button className="ml-2 text-accent cursor-pointer">
-                    <FaPen />
-                  </button>
-                </div>
-              </div>
-
-              <div>
-                <label className="text-xs font-medium text-text flex items-center space-x-2">
-                  <FaEnvelope />
-                  <span>Correo Electrónico</span>
-                </label>
-                <div className="mt-1 flex items-center">
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    readOnly
-                    className="flex-1 p-1 bg-muted/20 border border-muted rounded-lg w-[371px] text-sm"
-                  />
-                </div>
-                <div>
-                  <label className="text-xs font-medium text-text flex items-center space-x-2 mt-6">
-                    <FaInfoCircle />
-                    <span>Acerca de ti</span>
-                  </label>
-                  <textarea
-                    value={description}
-                    placeholder="Escribe un poco sobre ti"
-                    onChange={(e) => setDescription(e.target.value)}
-                    className="w-full p-1 border border-muted rounded-lg resize-none text-sm mt-1"
-                    rows={3}
-                  ></textarea>
-                </div>
+                <textarea
+                  value={description}
+                  placeholder="Escribe un poco sobre ti"
+                  onChange={(e) => setDescription(e.target.value)}
+                  className="w-full p-1 border border-muted rounded-lg resize-none text-sm mt-1"
+                  rows={3}
+                ></textarea>
               </div>
             </div>
-
             <div className="space-y-6">
-              <div className="w-full">
-                <label className="text-xs font-medium text-text flex items-center space-x-2 mt-6">
-                  <FaMedal />
-                  <span>Puntuación Media</span>
-                </label>
-                <input
-                  type="text"
-                  value={`${porcentage}%`}
-                  readOnly
-                  className="flex-1 p-1 bg-muted/20 border border-muted rounded-lg w-full text-sm mt-1"
-                />
-              </div>
-              <div>
-                <label className="text-xs font-medium text-text flex items-center space-x-2">
-                  <FaBrain />
-                  <span>Rango actual</span>
-                </label>
-                <input
-                  type="text"
-                  value={rank}
-                  readOnly
-                  className="flex-1 p-1 bg-muted/20 border border-muted rounded-lg w-full text-sm mt-1"
-                />
-              </div>
-
+              {renderInputField(
+                "Puntuación Media",
+                `${porcentage}%`,
+                () => {},
+                "",
+                true,
+                FaMedal
+              )}
+              {renderInputField(
+                "Rango actual",
+                rank,
+                () => {},
+                "",
+                true,
+                FaBrain
+              )}
               <div>
                 <label className="text-xs font-medium text-text flex items-center space-x-2">
                   <FaMedal />
@@ -294,72 +266,37 @@ export const Profile = () => {
                   <div className="flex items-center justify-between p-1 border border-muted rounded-lg text-sm">
                     <span>{`Rating FrontEnd = ${frontEndRating}`}</span>
                   </div>
-
                   <div className="flex items-center justify-between p-1 border border-muted rounded-lg text-sm">
                     <span>{`Rating BackEnd = ${backEndRating}`}</span>
                   </div>
                 </div>
               </div>
-
-              <div>
-                <label className="text-xs font-medium text-text flex items-center space-x-2">
-                  <FaGithub />
-                  <span>GitHub</span>
-                </label>
-                <div className="mt-1 flex items-center">
-                  <input
-                    type="text"
-                    placeholder="Enlace a tu GitHub"
-                    value={github}
-                    onChange={(e) => setGithub(e.target.value)}
-                    className="flex-1 p-1 border border-muted rounded-lg w-full text-sm"
-                  />
-                  <button className="ml-2 text-accent cursor-pointer">
-                    <FaPen />
-                  </button>
-                </div>
-              </div>
-
-              <div>
-                <label className="text-xs font-medium text-text flex items-center space-x-2">
-                  <FaLinkedin />
-                  <span>LinkedIn</span>
-                </label>
-                <div className="mt-1 flex items-center">
-                  <input
-                    type="text"
-                    placeholder="Enlace a tu Linkedin"
-                    value={linkedin}
-                    onChange={(e) => setLinkedin(e.target.value)}
-                    className="flex-1 p-1 border border-muted rounded-lg w-full text-sm"
-                  />
-                  <button className="ml-2 text-accent cursor-pointer">
-                    <FaPen />
-                  </button>
-                </div>
-              </div>
-
-              <div>
-                <label className="text-xs font-medium text-text flex items-center space-x-2">
-                  <FaTwitter />
-                  <span>Twitter</span>
-                </label>
-                <div className="mt-1 flex items-center">
-                  <input
-                    type="text"
-                    placeholder="Enlace a tu Twitter"
-                    value={twitter}
-                    onChange={(e) => setTwitter(e.target.value)}
-                    className="flex-1 p-1 border border-muted rounded-lg w-full text-sm"
-                  />
-                  <button className="ml-2 text-accent cursor-pointer">
-                    <FaPen />
-                  </button>
-                </div>
-              </div>
+              {renderInputField(
+                "GitHub",
+                github,
+                (e) => setGithub(e.target.value),
+                "Enlace a tu GitHub",
+                false,
+                FaGithub
+              )}
+              {renderInputField(
+                "LinkedIn",
+                linkedin,
+                (e) => setLinkedin(e.target.value),
+                "Enlace a tu Linkedin",
+                false,
+                FaLinkedin
+              )}
+              {renderInputField(
+                "Twitter",
+                twitter,
+                (e) => setTwitter(e.target.value),
+                "Enlace a tu Twitter",
+                false,
+                FaTwitter
+              )}
             </div>
           </div>
-
           <div className="text-center mt-6">
             <button
               onClick={handleSave}
