@@ -24,10 +24,9 @@ export const MenuRight = ({ name, email, profileImage }) => {
     <motion.nav className="fixed right-5 top-[20px] z-50 font-semibold sm:bg-card sm:shadow-lg sm:rounded-full sm:p-4 sm:py-1 sm:px-4">
       <motion.div
         className="flex flex-row items-center gap-4 transform-gpu"
-        whileHover={{ scale: 1.05 }}
+        whileHover={{ scale: 1.02 }}
         transition={{ type: "spring", stiffness: 300 }}
       >
-
         <div className="hidden sm:block">
           <GradientText
             colors={["#054A91", "#F17300", "#054A91", "#F17300", "#054A91"]}
@@ -55,14 +54,14 @@ export const MenuRight = ({ name, email, profileImage }) => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="absolute right-0 mt-4 w-60 bg-card rounded-lg shadow-lg backdrop-blur-md border border-muted/20"
+                className="fixed right-0 mt-4 w-47 bg-card rounded-lg shadow-lg border border-muted/20 z-[100]"
               >
                 <ul className="py-2">
                   <li className="border-b border-muted/20 mb-1 pb-2 flex flex-col items-center justify-center">
-                    <span className="text-base">
+                    <span className="text-md">
                       <DecryptedText text="Pró-user" animateOn="view" />
                     </span>
-                    <span className="text-sm underline decoration-solid">
+                    <span className="text-[0.625rem] underline decoration-solid">
                       <DecryptedText text={email} animateOn="view" />
                     </span>
                   </li>

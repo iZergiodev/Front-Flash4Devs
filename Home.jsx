@@ -61,11 +61,11 @@ export const Home = () => {
           <div className="flex justify-center items-center w-full md:w-1/2 mt-30 md:mt-35 md:ml-65">
             <HeroSection />
           </div>
-          <div className="w-full md:w-1/2 flex flex-col items-center z-10 mt-25">
-            <p className="orbitron items-center text-md mb-5 text-center hidden lg:block xl:block mr-20">
+          <div className="w-full md:w-1/2 flex flex-col items-center z-10 mt-25 mr-30">
+            <p className="orbitron items-center text-md mb-5 text-center hidden lg:block xl:block mr-15">
               ¿Qué vamos a estudiar primero?
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-[700px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-[650px]">
               <Link to="/eligecategoria/coding">
                 <motion.div
                   className={`w-58 ml-60 md:ml-0 bottom-10 md:bottom-0 md:top-0 justify-center items-center md:w-64 h-70 rounded-lg flex flex-col ${
