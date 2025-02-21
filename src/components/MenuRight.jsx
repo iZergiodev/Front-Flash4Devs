@@ -4,7 +4,7 @@ import GradientText from "./effectcomponents/GradientText";
 import { FaUser, FaGraduationCap, FaStar, FaSignOutAlt } from "react-icons/fa";
 import DecryptedText from "./effectcomponents/DecryptedText";
 import { useUserStore } from "../store/userStore";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 export const MenuRight = ({ name, email, profileImage }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -66,31 +66,28 @@ export const MenuRight = ({ name, email, profileImage }) => {
                     </span>
                   </li>
                   <li>
-                    <a
-                      href="/auth/profile"
+                    <Link to={"/auth/profile"}
                       className="flex items-center px-4 py-2 text-text hover:bg-muted/30 transition-colors duration-200 font-semibold cursor-pointer"
                     >
                       <FaUser className="mr-3" />
                       Perfil
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="#"
+                    <Link to={"/categorias"}
                       className="flex items-center px-4 py-2 text-text hover:bg-muted/30 transition-colors duration-200 font-semibold cursor-pointer"
                     >
                       <FaGraduationCap className="mr-3" />
                       Flashcards
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="/estadistica"
+                    <Link to={"/estadistica"}
                       className="flex items-center px-4 py-2 text-text hover:bg-muted/30 transition-colors duration-200 font-semibold cursor-pointer"
                     >
                       <FaStar className="mr-3" />
                       Estadísticas
-                    </a>
+                    </Link>
                   </li>
                   <li className="border-t border-muted/20 mt-2 pt-2 flex items-center justify-center">
                     <button
