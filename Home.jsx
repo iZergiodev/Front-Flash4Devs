@@ -65,7 +65,7 @@ export const Home = () => {
             <p className="orbitron items-center text-md mb-5 text-center hidden lg:block xl:block mr-4">
               ¿Qué vamos a estudiar primero?
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-14 mt-10 ">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-14 mt-10 mr-10">
               <Link to="/eligecategoria/coding">
                 <motion.div
                   className={`w-58 ml-60 md:ml-0 bottom-10 md:bottom-0 md:top-0 justify-center items-center md:w-64 h-70 rounded-lg flex flex-col ${
