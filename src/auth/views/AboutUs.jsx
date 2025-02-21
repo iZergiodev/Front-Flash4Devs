@@ -5,10 +5,96 @@ import { Footer } from "../../components/Footer";
 import GradientText from "../../components/effectcomponents/GradientText";
 import Squares from "../../components/effectcomponents/Squares";
 
-// import FotoYago from "../../../public/yagop.jpg";
-// import FotoSergio from "../../../public/sergio.jpeg";
-
 export const AboutUs = () => {
+  const teamMembers = [
+    {
+      name: "Yago Cima Castelao",
+      nickname: "CodePanthom",
+      description:
+        "Control absoluto de los datos digitales, capaz de reescribir códigos y sistemas en tiempo real!",
+      image: "/yagop.jpg",
+      socialLinks: {
+        github: "https://github.com/YagoCastelao",
+        linkedin: "https://linkedin.com/in/yagocimacastelao/",
+        twitter: "https://twitter.com/yagocastelau",
+      },
+    },
+    {
+      name: "Sergio Carretero Molina",
+      nickname: "CaffeinMaster",
+      description:
+        "Capaz de bajar y subir mis niveles de cafeina según mi antojo!",
+      image: "/sergio.jpeg",
+      socialLinks: {
+        github: "https://github.com/iZergiodev",
+        linkedin: "https://linkedin.com/in/izergiodev/",
+        twitter: "https://twitter.com/yagocastelau",
+      },
+    },
+  ];
+
+  const renderTeamMember = (member) => (
+    <motion.div
+      key={member.name}
+      initial={{ opacity: 0, x: -50 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.8, delay: 0.2 }}
+      className="bg-card p-6 rounded-lg shadow-xl flex flex-col items-center w-120 pointer-events-auto"
+    >
+      <img
+        src={member.image}
+        alt={member.name}
+        className="w-110 h-110 rounded mb-4 shadow-xl"
+      />
+      <h2 className="text-xl font-extrabold text-center text-primary">
+        {member.name}{" "}
+        <span className="text-text font-semibold italic">
+          <GradientText
+            colors={["#054A91", "#F17300", "#054A91", "#F17300", "#054A91"]}
+            animationSpeed={3}
+            showBorder={false}
+            className="custom-class"
+          >
+            &quot;{member.nickname}&quot;
+          </GradientText>
+        </span>
+      </h2>
+      <p className="text-center mt-2">{member.description}</p>
+      <div className="flex justify-center gap-6 mt-4">
+        <a
+          href={member.socialLinks.github}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FaGithub
+            className="text-accent hover:text-primary transition-colors duration-300"
+            size={24}
+          />
+        </a>
+        <a
+          href={member.socialLinks.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FaLinkedin
+            className="text-accent hover:text-primary transition-colors duration-300"
+            size={24}
+          />
+        </a>
+        <a
+          href={member.socialLinks.twitter}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FaTwitter
+            className="text-accent hover:text-primary transition-colors duration-300"
+            size={24}
+          />
+        </a>
+      </div>
+    </motion.div>
+  );
+
   return (
     <>
       <Navbar />
@@ -35,139 +121,7 @@ export const AboutUs = () => {
           >
           </motion.h1>
           <div className="flex flex-row gap-24">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="bg-card p-6 rounded-lg shadow-xl flex flex-col items-center w-120 pointer-events-auto"
-            >
-              <img
-                src="/yagop.jpg"
-                alt="yago"
-                className="w-110 h-110 rounded mb-4 shadow-xl"
-              />
-              <h2 className="text-xl font-extrabold text-center text-primary">
-                Yago Cima Castelao{" "}
-                <span className="text-text font-semibold italic">
-                  <GradientText
-                    colors={[
-                      "#054A91",
-                      "#F17300",
-                      "#054A91",
-                      "#F17300",
-                      "#054A91",
-                    ]}
-                    animationSpeed={3}
-                    showBorder={false}
-                    className="custom-class"
-                  >
-                    &quot;CodePanthom&quot;
-                  </GradientText>
-                </span>
-              </h2>
-              <p className="text-center mt-2">
-                Control absoluto de los datos digitales, capaz de reescribir
-                códigos y sistemas en tiempo real!
-              </p>
-              <div className="flex justify-center gap-6 mt-4">
-                <a
-                  href="https://github.com/YagoCastelao"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FaGithub
-                    className="text-accent hover:text-primary transition-colors duration-300"
-                    size={24}
-                  />
-                </a>
-                <a
-                  href="https://linkedin.com/in/yagocimacastelao/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FaLinkedin
-                    className="text-accent hover:text-primary transition-colors duration-300"
-                    size={24}
-                  />
-                </a>
-                <a
-                  href="https://twitter.com/yagocastelau"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FaTwitter
-                    className="text-accent hover:text-primary transition-colors duration-300"
-                    size={24}
-                  />
-                </a>
-              </div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="bg-card p-6 rounded-lg shadow-xl flex flex-col items-center w-120 pointer-events-auto"
-            >
-              <img
-                src="/sergio.jpeg"
-                alt="sergio"
-                className="w-100 h-110 rounded mb-4 shadow-xl"
-              />
-              <h2 className="text-xl font-extrabold text-center text-primary">
-                Sergio Carretero Molina{" "}
-                <span className="text-text font-semibold italic">
-                  <GradientText
-                    colors={[
-                      "#054A91",
-                      "#F17300",
-                      "#054A91",
-                      "#F17300",
-                      "#054A91",
-                    ]}
-                    animationSpeed={3}
-                    showBorder={false}
-                    className="custom-class"
-                  >
-                    &quot;CaffeinMaster&quot;
-                  </GradientText>
-                </span>
-              </h2>
-              <p className="text-center mt-2">
-                Capaz de bajar y subir mis niveles de cafeina según mi antojo!
-              </p>
-              <div className="flex justify-center gap-6 mt-4">
-                <a
-                  href="https://github.com/iZergiodev"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FaGithub
-                    className="text-accent hover:text-primary transition-colors duration-300"
-                    size={24}
-                  />
-                </a>
-                <a
-                  href="https://linkedin.com/in/izergiodev/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FaLinkedin
-                    className="text-accent hover:text-primary transition-colors duration-300"
-                    size={24}
-                  />
-                </a>
-                <a
-                  href="https://twitter.com/yagocastelau"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FaTwitter
-                    className="text-accent hover:text-primary transition-colors duration-300"
-                    size={24}
-                  />
-                </a>
-              </div>
-            </motion.div>
+            {teamMembers.map((member) => renderTeamMember(member))}
           </div>
         </div>
       </div>
