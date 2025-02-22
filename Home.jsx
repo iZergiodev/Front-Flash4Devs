@@ -121,11 +121,11 @@ export const Home = () => {
       <Navbar />
       <SideBar />
       <div className="flex flex-col md:flex-row items-center justify-items w-full h-full p-2 gap-1">
-        <div className="flex justify-center items-center w-full md:w-1/2 mt-30 md:mt-35 md:ml-65">
+        <div className="flex justify-center items-center w-full md:w-1/2 mt-22 md:mt-38 md:ml-68">
           <HeroSection />
         </div>
         <div className="w-full md:w-1/2 flex flex-col items-center mt-25 mr-30">
-          <p className="orbitron items-center text-md mb-5 text-center hidden lg:block xl:block mr-4">
+          <p className="orbitron items-center text-md mb-1 text-center hidden lg:block xl:block mr-4">
             ¿Qué vamos a estudiar primero?
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-14 mt-10 mr-10">
