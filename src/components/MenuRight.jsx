@@ -8,17 +8,33 @@ import { Link, useNavigate } from "react-router";
 
 export const MenuRight = ({ name, email, profileImage }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
   const navigate = useNavigate();
   const { logout } = useUserStore();
+
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+
   const handleLogout = () => {
     logout();
     navigate("/");
   };
+
+  const menuItems = [
+    {
+      to: "/auth/profile",
+      icon: FaUser,
+      text: "Perfil",
+    },
+    {
+      to: "/categorias",
+      icon: FaGraduationCap,
+      text: "Flashcards",
+    },
+    {
+      to: "/estadistica",
+      icon: FaStar,
+      text: "Estadísticas",
+    },
+  ];
 
   return (
     <motion.nav className="fixed right-5 top-[20px] z-50 font-semibold sm:bg-card sm:shadow-lg sm:rounded-full sm:p-4 sm:py-1 sm:px-4">
@@ -37,6 +53,7 @@ export const MenuRight = ({ name, email, profileImage }) => {
             {name}
           </GradientText>
         </div>
+
         <div className="relative">
           <button
             onClick={toggleDropdown}
@@ -48,6 +65,7 @@ export const MenuRight = ({ name, email, profileImage }) => {
               className="w-full h-full object-cover"
             />
           </button>
+
           <AnimatePresence>
             {isDropdownOpen && (
               <motion.div
@@ -65,30 +83,19 @@ export const MenuRight = ({ name, email, profileImage }) => {
                       <DecryptedText text={email} animateOn="view" />
                     </span>
                   </li>
-                  <li>
-                    <Link to={"/auth/profile"}
-                      className="flex items-center px-4 py-2 text-text hover:bg-muted/30 transition-colors duration-200 font-semibold cursor-pointer"
-                    >
-                      <FaUser className="mr-3" />
-                      Perfil
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={"/categorias"}
-                      className="flex items-center px-4 py-2 text-text hover:bg-muted/30 transition-colors duration-200 font-semibold cursor-pointer"
-                    >
-                      <FaGraduationCap className="mr-3" />
-                      Flashcards
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={"/estadistica"}
-                      className="flex items-center px-4 py-2 text-text hover:bg-muted/30 transition-colors duration-200 font-semibold cursor-pointer"
-                    >
-                      <FaStar className="mr-3" />
-                      Estadísticas
-                    </Link>
-                  </li>
+
+                  {menuItems.map((item, index) => (
+                    <li key={index}>
+                      <Link
+                        to={item.to}
+                        className="flex items-center px-4 py-2 text-text hover:bg-muted/30 transition-colors duration-200 font-semibold cursor-pointer"
+                      >
+                        <item.icon className="mr-3" />
+                        {item.text}
+                      </Link>
+                    </li>
+                  ))}
+
                   <li className="border-t border-muted/20 mt-2 pt-2 flex items-center justify-center">
                     <button
                       className="w-28 flex items-center justify-center text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"

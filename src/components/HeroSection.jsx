@@ -2,10 +2,32 @@ import Typewriter from "typewriter-effect";
 import { motion } from "framer-motion";
 
 export const HeroSection = () => {
+  const containerStyles = `
+    relative flex items-center justify-center w-full max-w-[680px] h-[400px] sm:h-[500px] md:h-[600px] lg:h-[600px] 
+    rounded-lg shadow-lg overflow-hidden border border-primary/40 z-20
+  `;
+
+  const backgroundImageStyles = {
+    backgroundImage: "url('/Programadorsorriendo.webp')",
+    backgroundSize: "cover",
+  };
+
+  const innerShadowStyles = {
+    boxShadow: `
+      inset 0 0 50px 20px rgba(5, 74, 145, 0.5), 
+      inset 0 0 80px 40px rgba(62, 124, 177, 0.3)
+    `,
+  };
+
+  const typewriterStrings = [
+    "¡Todo lo que necesitas para ser Programador!",
+    "¡Aprende eficientemente y alcanza tus objetivos!",
+    "¡Mejora tus habilidades y consigue el trabajo que deseas!",
+  ];
+
   return (
     <motion.div
-      className="relative flex items-center justify-center w-full max-w-[680px] h-[400px] sm:h-[500px] md:h-[600px] lg:h-[600px] 
-                  rounded-lg shadow-lg overflow-hidden border border-primary/40 z-20"
+      className={containerStyles}
       initial={{ opacity: 0, x: 100 }}
       whileInView={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.8 }}
@@ -13,17 +35,12 @@ export const HeroSection = () => {
     >
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: "url('/Programadorsorriendo.webp')",
-          backgroundSize: "cover",
-        }}
+        style={backgroundImageStyles}
       />
 
       <div
         className="absolute inset-0 rounded-lg overflow-hidden"
-        style={{
-          boxShadow: `inset 0 0 50px 20px rgba(5, 74, 145, 0.5), inset 0 0 80px 40px rgba(62, 124, 177, 0.3)`,
-        }}
+        style={innerShadowStyles}
       />
 
       <div className="absolute inset-0 bg-black/40" />
@@ -41,11 +58,7 @@ export const HeroSection = () => {
           <p className="text-sm sm:text-xl font-semibold text-center">
             <Typewriter
               options={{
-                strings: [
-                  "¡Todo lo que necesitas para ser Programador!",
-                  "¡Aprende eficientemente y alcanza tus objetivos!",
-                  "¡Mejora tus habilidades y consigue el trabajo que deseas!",
-                ],
+                strings: typewriterStrings,
                 autoStart: true,
                 loop: true,
               }}

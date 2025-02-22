@@ -21,32 +21,57 @@ export const SideBar = () => {
   const { isLogged } = useUserStore();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setIsSidebarOpen(true);
-      } else {
-        setIsSidebarOpen(false);
-      }
+      setIsSidebarOpen(window.innerWidth >= 768);
     };
 
-
     window.addEventListener("resize", handleResize);
-
-
     handleResize();
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const sidebarLinks = [
+    {
+      to: "/biblioteca",
+      icon: FaBook,
+      text: "Documentación",
+    },
+    {
+      href: "https://www.atlassian.com/es/agile",
+      icon: FaProjectDiagram,
+      text: "Metodología Agile",
+      external: true,
+    },
+    {
+      href: "https://roadmap.sh/full-stack",
+      icon: FaMap,
+      text: "Roadmap Full Stack",
+      external: true,
+    },
+  ];
+
+  const statistics = [
+    {
+      icon: MdOutlineBookOnline,
+      text: "Flashcards Estudiados: 1.2k",
+    },
+    {
+      icon: FaUsersViewfinder,
+      text: "Usuarios activos: 500+",
+    },
+    {
+      icon: GiProgression,
+      text: "Progreso promedio: 85%",
+    },
+  ];
+
   return (
     <>
+
       <button
         onClick={toggleSidebar}
         className="fixed top-4 left-4 p-2 bg-card rounded-lg z-30 md:hidden"
@@ -58,6 +83,7 @@ export const SideBar = () => {
         )}
       </button>
 
+
       <AnimatePresence>
         {(isSidebarOpen || window.innerWidth >= 768) && (
           <motion.div
@@ -67,6 +93,7 @@ export const SideBar = () => {
             exit={{ x: -100, opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
+
             <motion.img
               src="/Logo.png"
               alt="Logo"
@@ -75,57 +102,43 @@ export const SideBar = () => {
               whileTap={{ scale: 0.9 }}
             />
 
-            <div className="my-1"></div>
-
             <div className="space-y-2 border-t border-gray-400 p-2">
-              <Link
-                to="/biblioteca"
-                className="flex items-center p-2 text-text hover:bg-secondary transition-colors hover:text-white duration-200 focus:outline-none focus:ring-2 focus:ring-primary rounded-lg"
-              >
-                <motion.a
-                  className="flex"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <FaBook className="mr-2 text-accent hover:text-white" />
-                  <p className="text-sm">Documentación</p>
-                </motion.a>
-              </Link>
-
-              <a
-                href="https://www.atlassian.com/es/agile"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center p-2 text-text hover:bg-secondary transition-colors hover:text-white duration-200 focus:outline-none focus:ring-2 focus:ring-primary rounded-lg"
-              >
-                <motion.div
-                  className="flex"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <FaProjectDiagram className="mr-2 text-accent" />
-                  <p className="text-sm">Metodología Agile</p>
-                </motion.div>
-              </a>
-
-              <a
-                href="https://roadmap.sh/full-stack"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center p-2 text-text hover:bg-secondary transition-colors hover:text-white duration-200 focus:outline-none focus:ring-2 focus:ring-primary rounded-lg"
-              >
-                <motion.div
-                  className="flex"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <FaMap className="mr-2 text-accent" />
-                  <p className="text-sm">Roadmap Full Stack</p>
-                </motion.div>
-              </a>
+              {sidebarLinks.map((link, index) =>
+                link.external ? (
+                  <a
+                    key={index}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center p-2 text-text hover:bg-secondary transition-colors hover:text-white duration-200 focus:outline-none focus:ring-2 focus:ring-primary rounded-lg"
+                  >
+                    <motion.div
+                      className="flex"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      <link.icon className="mr-2 text-accent" />
+                      <p className="text-sm">{link.text}</p>
+                    </motion.div>
+                  </a>
+                ) : (
+                  <Link
+                    key={index}
+                    to={link.to}
+                    className="flex items-center p-2 text-text hover:bg-secondary transition-colors hover:text-white duration-200 focus:outline-none focus:ring-2 focus:ring-primary rounded-lg"
+                  >
+                    <motion.div
+                      className="flex"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      <link.icon className="mr-2 text-accent" />
+                      <p className="text-sm">{link.text}</p>
+                    </motion.div>
+                  </Link>
+                )
+              )}
             </div>
-
-            <div className="my-1"></div>
 
             <div className="space-y-2 border-t border-gray-400 p-2 flex flex-col items-center">
               <h3 className="flex items-center p-1 text-text font-bold">
@@ -133,23 +146,16 @@ export const SideBar = () => {
                 Estadística
               </h3>
 
-              <p className="p-2 text-text flex items-center text-sm">
-                <MdOutlineBookOnline className="mr-2 text-2xl text-accent" />
-                Flashcards Estudiados: 1.2k
-              </p>
-
-              <p className="p-2 text-text flex items-center text-sm">
-                <FaUsersViewfinder className="mr-2 text-2xl text-accent" />{" "}
-                Usuarios activos: 500+
-              </p>
-
-              <p className="p-2 text-text flex items-center text-sm">
-                <GiProgression className="mr-2 text-2xl text-accent" /> Progreso
-                promedio: 85%
-              </p>
+              {statistics.map((stat, index) => (
+                <p
+                  key={index}
+                  className="p-2 text-text flex items-center text-sm"
+                >
+                  <stat.icon className="mr-2 text-2xl text-accent" />
+                  {stat.text}
+                </p>
+              ))}
             </div>
-
-            <div className="my-1"></div>
 
             <div className="space-y-2 border-t border-gray-400 p-2 flex flex-col items-center">
               <FaUsers className="text-4xl text-accent mx-auto mb-4 mt-4 animate-bounce" />
@@ -161,9 +167,7 @@ export const SideBar = () => {
               </p>
               <div className="my-3"></div>
 
-              {isLogged ? (
-                ""
-              ) : (
+              {!isLogged && (
                 <Link
                   to="/auth/register"
                   className="w-35 flex items-center justify-center text-white bg-accent py-2 px-4 rounded-full shadow-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer pointer-events-auto font-semibold text-md"
