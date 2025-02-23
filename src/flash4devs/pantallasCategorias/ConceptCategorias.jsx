@@ -37,15 +37,16 @@ const tecnologias = [
 
 export const ConceptCategorias = () => {
   return (
+    <div className="w-full min-h-screen h-full overflow-auto">
     <div className="max-w-[900px] mx-auto p-4 mt-30">
     <h1 className="bg-card text-center p-6 font-extrabold text-text text-2xl rounded-full shadow-lg ">
       ¡Elige una categoria para comenzar las Concept Flashcards!
     </h1>
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 mt-10">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 mt-10 last:pb-20">
       {tecnologias.map((tech, index) => (
         <Link key={index} to={`/flashcards/concept/${tech.nome.toLowerCase()}`}>
           <div
-            className="w-58 h-58 bg-white rounded-lg shadow-lg flex flex-col items-center transform transition-transform hover:scale-105 border-b-1 border-gray-300 cursor-pointer"
+            className="w-full max-w-[232px] h-56 md:w-58 md:h-58 bg-white rounded-lg shadow-lg flex flex-col items-center transform transition-transform hover:scale-105 border-b border-gray-300 cursor-pointer mx-auto"
           >
             <div className="w-full text-center mb-4 bg-text/60 p-3 border-b-1 border-gray-500 rounded-md">
               <h2 className="text-xl font-bold text-white">
@@ -63,6 +64,7 @@ export const ConceptCategorias = () => {
         </Link>
       ))}
     </div>
+  </div>
   </div>
   )
 }
