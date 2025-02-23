@@ -39,7 +39,7 @@ export const AboutUs = () => {
       initial={{ opacity: 0, x: -50 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.8, delay: 0.2 }}
-      className="bg-card p-6 rounded-lg shadow-xl flex flex-col items-center w-120 pointer-events-auto"
+      className="bg-card p-6 rounded-lg shadow-xl flex flex-col items-center w-full sm:w-120 pointer-events-auto"
     >
       <img
         src={member.image}
@@ -98,7 +98,7 @@ export const AboutUs = () => {
   return (
     <>
       <Navbar />
-      <div className="relative min-h-screen overflow-hidden">
+      <div className="relative min-h-screen">
         <div className="absolute inset-0 z-0">
           <Squares
             speed={0.1}
@@ -120,7 +120,7 @@ export const AboutUs = () => {
             className="text-4xl font-bold text-primary mb-8 pointer-events-auto"
           >
           </motion.h1>
-          <div className="flex flex-col sm:py-0 py-10 sm:flex-row gap-24">
+          <div className="flex flex-col sm:py-0 py-10 sm:flex-row gap-24 last:pb-20">
             {teamMembers.map((member) => renderTeamMember(member))}
           </div>
         </div>
