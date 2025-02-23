@@ -8,7 +8,7 @@ import AnimatedContent from "./src/components/effectcomponents/AnimatedContent";
 import { useUserStore } from "./src/store/userStore";
 import { motion } from "framer-motion";
 import { Link } from "react-router";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import useExtractInfo from "./src/hooks/useExtractInfo";
 
 export const Home = () => {
@@ -20,12 +20,35 @@ export const Home = () => {
     false,
     false,
   ]);
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+  const sideBarRef = useRef(null);
 
   const handleHover = (index, isHovered) => {
     setHoveredCards((prev) =>
       prev.map((state, i) => (i === index ? isHovered : state))
     );
   };
+
+  const toggleSideBar = () => {
+    setIsSideBarOpen((prev) => !prev);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        window.innerWidth < 768 &&
+        sideBarRef.current &&
+        !sideBarRef.current.contains(event.target)
+      ) {
+        setIsSideBarOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const cardData = [
     {
@@ -36,8 +59,7 @@ export const Home = () => {
     {
       path: "/eligecategoria/concept",
       title: "Concept Flashcards",
-      description:
-        "¡Aprende la teoría de las tecnologías más demandadas del sector!",
+      description: "¡Aprende la teoría de las tecnologías más demandadas!",
     },
     {
       path: "/eligecategoria/entrevista",
@@ -54,9 +76,9 @@ export const Home = () => {
   const renderCard = (index, { path, title, description }) => (
     <Link to={path} key={index}>
       <motion.div
-        className={`w-58 ml-60 md:ml-0 bottom-10 md:bottom-0 md:top-0 justify-center items-center md:w-64 h-70 rounded-lg flex flex-col ${
-          hoveredCards[index] ? "bg-accent text-white" : "bg-card text-text"
-        } shadow-lg pointer-events-auto relative overflow-hidden cursor-pointer border-1 border-primary/40`}
+        className={`w-full max-w-[16rem] h-60 rounded-lg flex flex-col shadow-lg pointer-events-auto relative overflow-hidden cursor-pointer border border-primary/40
+          ${hoveredCards[index] ? "bg-accent text-white" : "bg-card text-text"} 
+          md:w-64 md:h-70 md:ml-0 md:bottom-0 md:top-0`}
         onHoverStart={() => handleHover(index, true)}
         onHoverEnd={() => handleHover(index, false)}
         initial="hidden"
@@ -64,13 +86,13 @@ export const Home = () => {
         whileHover={{ scale: 1.1, transition: { duration: 0.4 } }}
       >
         {!hoveredCards[index] ? (
-          <div className="flex items-center justify-center h-full p-6 text-center">
-            <h2 className="text-lg md:text-xl font-bold font-mono">{title}</h2>
+          <div className="flex items-center justify-center h-full p-4 md:p-6 text-center">
+            <h2 className="text-base md:text-xl font-bold font-mono">{title}</h2>
           </div>
         ) : (
           <div className="flex flex-col h-full">
             <div className="p-3 md:p-4 bg-accent text-white rounded-t-lg border-b font-semibold border-gray-300">
-              <h2 className="text-lg md:text-xl font-bold text-center">
+              <h2 className="text-base md:text-xl font-bold text-center">
                 {title}
               </h2>
             </div>
@@ -89,47 +111,59 @@ export const Home = () => {
   );
 
   return (
-    <div className="relative w-full min-h-screen">
-      <div className="absolute inset-0">
-        <Squares
-          speed={0.1}
-          squareSize={40}
-          direction="diagonal"
-          borderColor="rgba(241, 115, 0, 0.2)"
-          hoverFillColor="#81A4CD"
-        />
+    <div className="relative w-full min-h-screen flex">
+      <div ref={sideBarRef} className="hidden md:block md:w-60">
+        <SideBar isOpen={true} setIsOpen={() => {}} />
       </div>
-      <AnimatedContent
-        distance={150}
-        direction="vertical"
-        reverse={false}
-        config={{ tension: 80, friction: 20 }}
-        initialOpacity={0.2}
-        animateOpacity
-        scale={0.1}
-        threshold={0.2}
-      >
+      <div className="flex-1 relative">
+        <div className="absolute inset-0 z-0">
+          <Squares
+            speed={0.1}
+            squareSize={40}
+            direction="diagonal"
+            borderColor="rgba(241, 115, 0, 0.2)"
+            hoverFillColor="#81A4CD"
+            
+          />
+        </div>
+
         {isLogged && (
           <MenuRight
             name={nameState}
             email={emailState}
             profileImage={avatar}
+            className="relative z-50 pointer-events-auto"
           />
         )}
-      </AnimatedContent>
-      <Footer />
-      <Navbar />
-      <SideBar />
-      <div className="flex flex-col md:flex-row items-center justify-items w-full h-full p-2 gap-1">
-        <div className="flex justify-center items-center w-full md:w-1/2 mt-22 md:mt-38 md:ml-68">
-          <HeroSection />
+        <AnimatedContent
+          distance={150}
+          direction="vertical"
+          reverse={false}
+          config={{ tension: 80, friction: 20 }}
+          initialOpacity={0.2}
+          animateOpacity
+          scale={0.1}
+          threshold={0.2}
+          className="relative z-40 pointer-events-none" 
+        >
+
+        </AnimatedContent>
+        <Footer/>
+        <Navbar toggleSideBar={toggleSideBar} />
+        <div className="md:hidden">
+          <SideBar isOpen={isSideBarOpen} setIsOpen={setIsSideBarOpen} />
         </div>
-        <div className="w-full md:w-1/2 flex flex-col items-center mt-25 mr-30">
-          <p className="orbitron items-center text-md mb-1 text-center hidden lg:block xl:block mr-4">
-            ¿Qué vamos a estudiar primero?
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-14 mt-10 mr-10">
-            {cardData.map((data, index) => renderCard(index, data))}
+        <div className="flex flex-col items-center w-full p-2 gap-1 md:flex-row md:items-center md:h-full md:gap-1 relative z-10">
+          <div className="flex justify-center items-center w-full md:scale-105 mt-20 md:w-1/2 md:mt-25 md:ml-20">
+            <HeroSection/>
+          </div>
+          <div className="w-full flex flex-col items-center mt-8 md:w-1/2 md:mt-25 md:mr-30">
+            <p className="orbitron text-sm text-center md:text-md md:mb-1 lg:block xl:block md:mr-4">
+              ¿Qué vamos a estudiar primero?
+            </p>
+            <div className="grid grid-cols-1 gap-6 mt-6 md:grid-cols-2 md:gap-14 md:mt-10 md:mr-10 last:pb-20">
+              {cardData.map((data, index) => renderCard(index, data))}
+            </div>
           </div>
         </div>
       </div>

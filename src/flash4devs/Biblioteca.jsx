@@ -93,15 +93,25 @@ export const Biblioteca = () => {
 
   return (
     <div className="relative w-full min-h-screen">
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 z-0">
         <Squares
           speed={0.1}
-          squareSize={40}
+          squareSize={20} // Móvil
+          md={{ squareSize: 40 }} // Escritorio
           direction="diagonal"
           borderColor="rgba(241, 115, 0, 0.2)"
           hoverFillColor="#81A4CD"
         />
       </div>
+      {/* Movemos MenuRight fuera de AnimatedContent */}
+      {isLogged && (
+        <MenuRight
+          name={nameState}
+          email={emailState}
+          profileImage={avatar}
+          className="relative z-50 pointer-events-auto"
+        />
+      )}
       <AnimatedContent
         distance={150}
         direction="vertical"
@@ -111,21 +121,14 @@ export const Biblioteca = () => {
         animateOpacity
         scale={0.1}
         threshold={0.2}
+        className="relative z-40 pointer-events-none"
       >
-        {isLogged ? (
-          <MenuRight
-            name={nameState}
-            email={emailState}
-            profileImage={avatar}
-          />
-        ) : (
-          ""
-        )}
+        {/* Otros elementos animados si los hubiera */}
       </AnimatedContent>
       <Footer />
       <Navbar />
-      <div className="flex flex-col justify-center lg:flex-row w-full p-4 lg:p-8 lg:gap-1">
-        <div className="w-full lg:w-1/3 p-6 bg-card rounded-lg shadow-lg mb-8 lg:mb-10 lg:mr-2 z-40 lg:mt-30 lg:ml-60 mt-20">
+      <div className="flex flex-col justify-center lg:flex-row w-full p-4 lg:p-8 lg:gap-1 relative z-10">
+        <div className="w-full lg:w-1/3 p-6 bg-card rounded-lg shadow-lg mb-8 lg:mb-10 lg:mr-2 lg:mt-30 lg:ml-60 mt-20">
           <h2 className="orbitron text-xl font-bold text-text mb-4 text-center">
             Como comenzar a estudiar
           </h2>
@@ -138,8 +141,8 @@ export const Biblioteca = () => {
           </div>
           <ol className="list-none list-inside space-y-2">
             <li className="text-gray-700 flex items-center">
-              <Fa1 className="mr-2 text-text" /> Elija una tecnología en
-              el carrusel de al lado;
+              <Fa1 className="mr-2 text-text" /> Elija una tecnología en el
+              carrusel de al lado;
             </li>
             <li className="text-gray-700 flex items-center">
               <Fa2 className="mr-2 text-text" /> Lea una breve descripción y qué
@@ -150,8 +153,8 @@ export const Biblioteca = () => {
               oficial para profundizar más;
             </li>
             <li className="text-gray-700 flex items-center">
-              <Fa4 className="mr-2 text-text" /> ¡Luego
-              elige la FlashCard que quieres y empieze a Jugar!
+              <Fa4 className="mr-2 text-text" /> ¡Luego elige la FlashCard que
+              quieres y empieza a Jugar!
             </li>
           </ol>
           <div className="mt-6 flex justify-center">
@@ -163,7 +166,7 @@ export const Biblioteca = () => {
           </div>
         </div>
 
-        <div className="w-full lg:flex-1/3 flex items-center justify-center z-40 lg:mt-22">
+        <div className="w-full lg:flex-1 flex items-center justify-center lg:mt-22">
           <button
             onClick={anteriorCard}
             className="p-4 bg-card text-text rounded-full shadow-lg hover:bg-accent transition-colors"
@@ -177,7 +180,7 @@ export const Biblioteca = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 50 }}
             transition={{ duration: 0.5 }}
-            className="w-[650px] h-[670px] bg-white rounded-lg shadow-2xl overflow-hidden mx-4"
+            className="w-full max-w-[650px] h-[670px] bg-white rounded-lg shadow-2xl overflow-hidden mx-4"
           >
             <div className="flex items-center justify-center p-6 bg-primary">
               <img
