@@ -1,8 +1,6 @@
-import { useState, useEffect } from "react"; // Adicione o useEffect
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router";
 import {
-  FaRocket,
   FaChartLine,
   FaBook,
   FaUsers,
@@ -14,25 +12,12 @@ import {
 import { FaUsersViewfinder } from "react-icons/fa6";
 import { MdOutlineBookOnline } from "react-icons/md";
 import { GiProgression } from "react-icons/gi";
-import {  } from "react-icons/fa";
 import { useUserStore } from "../store/userStore";
 
-export const SideBar = () => {
+export const SideBar = ({ isOpen, setIsOpen }) => {
   const { isLogged } = useUserStore();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsSidebarOpen(window.innerWidth >= 768);
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const toggleSidebar = () => setIsOpen(!isOpen);
 
   const sidebarLinks = [
     {
@@ -71,29 +56,26 @@ export const SideBar = () => {
 
   return (
     <>
-
       <button
         onClick={toggleSidebar}
-        className="fixed top-4 left-4 p-2 bg-card rounded-lg z-30 md:hidden"
+        className="fixed top-4 left-2 p-2 bg-card rounded-lg z-50 md:hidden"
       >
-        {isSidebarOpen ? (
+        {isOpen ? (
           <FaTimes className="text-text" />
         ) : (
           <FaBars className="text-text" />
         )}
       </button>
 
-
       <AnimatePresence>
-        {(isSidebarOpen || window.innerWidth >= 768) && (
+        {(isOpen || window.innerWidth >= 768) && (
           <motion.div
-            className="fixed left-0 top-0 h-screen w-60 bg-card shadow-lg flex flex-col items-center p-4 z-40 pt-0 rounded-r-2xl [filter:drop-shadow(10px_0_15px_rgba(0,0,0,0.1))]"
-            initial={{ x: -100, opacity: 0 }}
+            className="fixed left-0 top-0 h-screen w-60 bg-card shadow-lg flex flex-col items-center p-4 z-40 pt-0 rounded-r-2xl [filter:drop-shadow(10px_0_15px_rgba(0,0,0,0.1))] md:static md:h-full md:shadow-none md:rounded-none md:[filter:none]"
+            initial={{ x: window.innerWidth < 768 ? -100 : 0, opacity: window.innerWidth < 768 ? 0 : 1 }}
             animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -100, opacity: 0 }}
+            exit={{ x: window.innerWidth < 768 ? -100 : 0, opacity: window.innerWidth < 768 ? 0 : 1 }}
             transition={{ duration: 0.3 }}
           >
-
             <motion.img
               src="/Logo.png"
               alt="Logo"

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 export const HeroSection = () => {
   const containerStyles = `
     relative flex items-center justify-center w-full max-w-[680px] h-[400px] sm:h-[500px] md:h-[600px] lg:h-[600px] 
-    rounded-lg shadow-lg overflow-hidden border border-primary/40 z-20
+    rounded-lg shadow-lg overflow-hidden border border-primary/40 z-10
   `;
 
   const backgroundImageStyles = {
@@ -45,7 +45,7 @@ export const HeroSection = () => {
 
       <div className="absolute inset-0 bg-black/40" />
 
-      <div className="relative z-10 p-4 sm:p-6 flex flex-col justify-between h-full text-white text-xs sm:text-base">
+      <div className="relative p-4 sm:p-6 flex flex-col justify-between h-full text-white text-xs sm:text-base">
         <h1 className="text-lg sm:text-4xl p-2 sm:p-3 text-center font-bold mb-2 sm:mb-4 text-white bg-clip-text">
           ¡Bienvenido a{" "}
           <span className="orbitron p-1 sm:p-2 text-sm sm:text-base">

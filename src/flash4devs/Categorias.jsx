@@ -47,45 +47,54 @@ export const Categorias = () => {
   ];
 
   return (
-    <>
-      <div className="relative w-full h-screen overflow-hidden z-10">
-        <div className="absolute inset-0 -z-10">
-          <Squares
-            speed={0.1}
-            squareSize={40}
-            direction="diagonal"
-            borderColor="rgba(241, 115, 0, 0.2)"
-            hoverFillColor="#81A4CD"
-          />
-        </div>
+    <div className="relative w-full min-h-screen flex flex-col">
+      <div className="absolute inset-0 z-0">
+        <Squares
+          speed={0.1}
+          squareSize={20} // Móvil
+          md={{ squareSize: 40 }} // Escritorio
+          direction="diagonal"
+          borderColor="rgba(241, 115, 0, 0.2)"
+          hoverFillColor="#81A4CD"
+        />
+      </div>
+      <div className="relative z-40">
         <Navbar />
+      </div>
+      <div className="relative z-50 pointer-events-auto">
         <MenuRight name={nameState} email={emailState} profileImage={avatar} />
-        <Footer />
-        <div className="max-w-[1100px] mx-auto p-4 mt-23">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      </div>
+      <div className="relative z-10 flex flex-col items-center p-4 md:p-4 flex-1">
+        <div className="max-w-[1100px] w-full mt-20 md:mt-23">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-6 last:pb-20">
             {tecnologias.map((tech, index) => (
               <div
                 key={index}
-                className="w-80 h-88 bg-white rounded-lg shadow-lg flex flex-col items-center transform transition-transform hover:scale-105"
+                className="w-full max-w-[320px] h-80 md:w-80 md:h-88 bg-white rounded-lg shadow-lg flex flex-col items-center transform transition-transform hover:scale-105 mx-auto"
               >
-                <div className="w-full text-center mb-4 bg-card p-3 border-b-1 border-gray-300 rounded-md">
-                  <h2 className="text-xl font-bold text-text">{tech.nombre}</h2>
+                <div className="w-full text-center mb-4 bg-card p-3 md:p-3 border-b border-gray-300 rounded-t-lg">
+                  <h2 className="text-lg md:text-xl font-bold text-text">
+                    {tech.nombre}
+                  </h2>
                 </div>
-                <div className="w-full flex justify-center items-center mb-4 mt-4 rounded-lg">
+                <div className="w-full flex justify-center items-center mb-4 mt-2 md:mt-4 rounded-lg">
                   <img
                     src={tech.logo}
                     alt={`Logo ${tech.nombre}`}
-                    className="w-28 h-25"
+                    className="w-20 h-20 md:w-28 md:h-25 object-contain"
                   />
                 </div>
-                <div className="w-full text-center mt-3 p-4 border-t-1 border-gray-200">
-                  <p className="text-xs text-text">{tech.descripcion}</p>
+                <div className="w-full text-center mt-2 md:mt-3 p-3 md:p-4 border-t border-gray-200 rounded-b-lg">
+                  <p className="text-xs md:text-xs text-text">
+                    {tech.descripcion}
+                  </p>
                 </div>
               </div>
             ))}
           </div>
         </div>
       </div>
-    </>
+      <Footer />
+    </div>
   );
 };

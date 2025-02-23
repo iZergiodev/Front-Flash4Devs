@@ -14,7 +14,7 @@ export function Footer() {
   ];
 
   return (
-    <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-[300px] sm:w-[380px] h-[50px] sm:h-[60px] bg-card text-text flex justify-center items-center z-40 rounded-full shadow-lg text-sm sm:text-base">
+    <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-[300px] sm:w-[380px] h-[50px] sm:h-[60px] bg-card text-text flex justify-center items-center z-40 rounded-full shadow-lg text-sm sm:text-base mb-5 scale-90">
       <ul className="flex justify-center gap-1 list-none mr-2 sm:mr-4">
         {socialLinks.map(({ icon: Icon, href }, index) => (
           <li key={index} className="mx-1 sm:mx-2">

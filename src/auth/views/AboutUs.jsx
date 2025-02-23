@@ -101,7 +101,7 @@ export const AboutUs = () => {
       <div className="relative min-h-screen overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Squares
-            speed={0.5}
+            speed={0.1}
             squareSize={40}
             direction="diagonal"
             borderColor="rgba(241, 115, 0, 0.2)"
@@ -120,7 +120,7 @@ export const AboutUs = () => {
             className="text-4xl font-bold text-primary mb-8 pointer-events-auto"
           >
           </motion.h1>
-          <div className="flex flex-row gap-24">
+          <div className="flex flex-col sm:py-0 py-10 sm:flex-row gap-24">
             {teamMembers.map((member) => renderTeamMember(member))}
           </div>
         </div>
