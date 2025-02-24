@@ -173,7 +173,7 @@ export const CodingCard = () => {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
       setIsFlipped(false);
       setShowSolution(false);
-      setMessage("");
+      setCode("");
     } else {
       alert(
         `Cuestionario completado!\nBuenas: ${score.good}\nRegulares: ${score.regular}\nMalas: ${score.bad}`

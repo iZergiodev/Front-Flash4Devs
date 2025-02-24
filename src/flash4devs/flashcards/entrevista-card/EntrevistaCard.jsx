@@ -24,7 +24,7 @@ export const EntrevistaCard = () => {
   const [showStatistics, setShowStatistics] = useState(false);
   const [answers, setAnswers] = useState([]);
 
-  const location = useLocation()
+  const location = useLocation();
 
   const pathSegments = location.pathname.split("/");
   const lastSegment = pathSegments[pathSegments.length - 1];
@@ -54,7 +54,8 @@ export const EntrevistaCard = () => {
     const fetchQuestions = async () => {
       try {
         const response = await fetch(
-          `https://back-flash4devs-production.up.railway.app/card/${lastSegment}?limit=30`);
+          `https://back-flash4devs-production.up.railway.app/card/${lastSegment}?limit=30`
+        );
         const data = await response.json();
         setQuestions(data);
         setIsLoading(false);
@@ -173,13 +174,19 @@ export const EntrevistaCard = () => {
               <textarea
                 value={answer}
                 onChange={(e) => setAnswer(e.target.value)}
-                placeholder="Ingresa tu respuesta"
+                placeholder="Ingresa tu respuesta..."
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                 rows={4}
               />
+              {answer.length > 0 && answer.length < 10 && (
+                <p className="text-red-500 text-sm mt-1">
+                  La respuesta debe tener al menos 10 caracteres.
+                </p>
+              )}
               <button
                 onClick={handleSaveAnswer}
                 className="w-[60%] mx-auto text-sm mt-5 border-t-1 shadow-lg border-gray-300 text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+                disabled={!answer || answer.length < 10}
               >
                 Siguiente
               </button>
