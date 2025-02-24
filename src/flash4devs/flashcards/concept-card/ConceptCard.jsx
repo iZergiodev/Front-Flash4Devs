@@ -150,8 +150,22 @@ export const ConceptCard = () => {
     );
   }
 
+  const handleSkip = () => {
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+      setIsFlipped(false);
+      setShowSolution(false);
+      setMessage(""); 
+    } else {
+      alert(
+        `Cuestionario completado!\nBuenas: ${score.good}\nRegulares: ${score.regular}\nMalas: ${score.bad}`
+      );
+      navigate("/");
+    }
+  };
+
   const updateUserAnswers = async (type) => {
-    const token = localStorage.getItem("token"); // Obtener el token de acceso
+    const token = localStorage.getItem("token");
     if (!token) {
       console.error("No se encontró el token de acceso.");
       return;
@@ -237,13 +251,19 @@ export const ConceptCard = () => {
                     </p>
                   )}
                 </div>
-                <div>
+                <div className="flex justify-center gap-4 mt-5">
                   <button
-                    className="w-50 mt-5 border-t-1 border-gray-300 text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-50 border-t-1 border-gray-300 text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary disabled:bg-gray-400 disabled:cursor-not-allowed"
                     onClick={handleFlip}
                     disabled={!message || message.length < 10}
                   >
                     Mostrar Respuesta
+                  </button>
+                  <button
+                    className="w-50 border-t-1 border-gray-300 text-white bg-gray-500 py-2 px-4 rounded-lg hover:bg-gray-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400"
+                    onClick={handleSkip}
+                  >
+                    Skip
                   </button>
                 </div>
               </div>
