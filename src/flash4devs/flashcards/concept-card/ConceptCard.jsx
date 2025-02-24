@@ -77,7 +77,6 @@ export const ConceptCard = () => {
     }
   }, [currentQuestionIndex, navigate, questions.length, score]);
 
-
   const handleGoBack = () => {
     window.history.back();
   };
@@ -109,7 +108,7 @@ export const ConceptCard = () => {
       setResIA(textoLimpio);
       setIsFlipped(true);
       setShowSolution(true);
-      setMessage('')
+      setMessage("");
 
       if (palabraClave === "BIEN¬") {
         await updateUserAnswers("good");
@@ -228,15 +227,21 @@ export const ConceptCard = () => {
                   <textarea
                     rows="5"
                     className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-50 dark:border-gray-300 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none"
-                    placeholder="Tu respuesta..."
+                    placeholder="Tu respuesta ..."
                     onChange={handleMessageChange}
                     value={message}
                   ></textarea>
+                  {message.length > 0 && message.length < 10 && (
+                    <p className="text-red-500 text-sm mt-1">
+                      La respuesta debe tener al menos 10 caracteres.
+                    </p>
+                  )}
                 </div>
                 <div>
                   <button
                     className="w-50 mt-5 border-t-1 border-gray-300 text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
                     onClick={handleFlip}
+                    disabled={!message || message.length < 10}
                   >
                     Mostrar Respuesta
                   </button>
