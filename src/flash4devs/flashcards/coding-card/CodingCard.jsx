@@ -20,7 +20,6 @@ export const CodingCard = () => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [showSolution, setShowSolution] = useState(false);
   const [score, setScore] = useState({ good: 0, regular: 0, bad: 0 });
-  const [message, setMessage] = useState("");
   const [resIA, setResIA] = useState("");
   const [code, setCode] = useState("");
 
@@ -119,9 +118,11 @@ export const CodingCard = () => {
   const handleFlip = async () => {
     const url = "https://back-flash4devs-production.up.railway.app/chat/";
     const data = {
-      system_prompt: `Eres un profesor y estás evaluando una respuesta a una pregunta sobre programación, en este momento se trata de la tecnología ${tech}. Debes de responder el primer mensaje con un BIEN o MAL en mayúscula seguida de ¬, tal que así BIEN¬ o MAL¬ acto seguido debes de dar un breve resumen de porque está mal la pregunta, en caso de que esté bien, simplemente felicitalo. La pregunta es: ${currentQuestion.question}. El alumno te va a responder con código. Si la respuesta no tiene sentido o no tiene nada que ver con la question, la respuesta está mal.`,
-      user_message: message,
+      system_prompt: `Eres un profesor que evalúa una respuesta de código sobre la tecnología ${tech}. La pregunta es: "${currentQuestion.question}". El alumno ha respondido con el siguiente código: "${code}". Evalúa estrictamente este código y determina si está correcto o incorrecto. Responde únicamente con "BIEN¬" si está correcto, seguido de un breve mensaje de felicitación, o "MAL¬" si está incorrecto, seguido de una explicación breve y específica de qué está mal y cómo corregirlo. No proporciones ejemplos adicionales, código de prueba ni soluciones completas, solo corrige el código enviado por el alumno si es necesario. Si la respuesta no tiene sentido o no está relacionada con la pregunta, indícalo claramente después de "MAL¬".`,
+      user_message: code,
     };
+
+    console.log(currentQuestion.question);
 
     try {
       const response = await fetch(url, {
@@ -137,24 +138,26 @@ export const CodingCard = () => {
       }
 
       const result = await response.json();
-      const { palabraClave, textoLimpio } = parsearRespuesta(result.generated_text);
+      const { palabraClave, textoLimpio } = parsearRespuesta(
+        result.generated_text
+      );
       setResIA(textoLimpio);
       setIsFlipped(true);
       setShowSolution(true);
-      setMessage('');
+      setCode("");
 
       if (palabraClave === "BIEN¬") {
         setScore((prevScore) => ({
           ...prevScore,
           good: prevScore.good + 1,
         }));
-        await updateUserAnswers("good"); // Actualizar estadísticas en el backend
+        await updateUserAnswers("good");
       } else if (palabraClave === "MAL¬") {
         setScore((prevScore) => ({
           ...prevScore,
           bad: prevScore.bad + 1,
         }));
-        await updateUserAnswers("bad"); // Actualizar estadísticas en el backend
+        await updateUserAnswers("bad");
       }
     } catch (error) {
       console.error("Error posting data:", error);
@@ -165,8 +168,7 @@ export const CodingCard = () => {
     setSelectedDifficulty(difficulty);
   };
 
-  const handleMessageChange = (value, event) => {
-    setMessage(event.target.value);
+  const handleMessageChange = (value) => {
     setCode(value);
   };
 
@@ -248,11 +250,17 @@ export const CodingCard = () => {
                       formatOnType: true,
                     }}
                   />
+                  {code.length > 0 && code.length < 10 && (
+                    <p className="text-red-500 text-sm mt-1">
+                      La respuesta debe tener al menos 10 caracteres.
+                    </p>
+                  )}
                 </div>
                 <div>
                   <button
-                    className="w-50 mt-5 border-t-1 shadow-lg border-gray-300 text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-50 mt-5 border-t-1 shadow-lg border-gray-300 text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary disabled:bg-gray-400 disabled:cursor-not-allowed"
                     onClick={handleFlip}
+                    disabled={!code || code.length < 10} 
                   >
                     Mostrar Respuesta
                   </button>
@@ -281,6 +289,7 @@ export const CodingCard = () => {
                       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
                       setIsFlipped(false);
                       setShowSolution(false);
+                      setCode("");
                     } else {
                       alert(
                         `Cuestionario completado!\nBuenas: ${score.good}\nRegulares: ${score.regular}\nMalas: ${score.bad}`
