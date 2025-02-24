@@ -20,7 +20,6 @@ import { ThreeDots } from "react-loader-spinner";
 import { decodeToken } from "../../utils/decodeToken";
 import { useEffect } from "react";
 
-
 export const Profile = () => {
   const [avatar, setAvatar] = useState("/avatarejemplo.jpg");
   const [firstName, setFirstName] = useState("");
@@ -99,30 +98,45 @@ export const Profile = () => {
 
   const fetchUserStats = async () => {
     const token = localStorage.getItem("token");
-    const response = await fetch(
-      "https://back-flash4devs-production.up.railway.app/card/user-stats",
-      {
-        headers: { Authorization: `Bearer ${token}` },
+    try {
+      const response = await fetch(
+        "https://back-flash4devs-production.up.railway.app/card/user-stats",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error al obtener estadísticas del usuario");
       }
-    );
 
-    const {
-      good_answers,
-      bad_answer,
-      level,
-      rating_interview_front_react,
-      rating_interview_backend_python,
-    } = await response.json();
+      const {
+        good_answers,
+        bad_answer,
+        level,
+        rating_interview_front_react,
+        rating_interview_backend_python,
+      } = await response.json();
 
-    const calculatedPorcentage =
-      good_answers + bad_answer === 0
-        ? 0
-        : (good_answers / (good_answers + bad_answer)) * 100;
+      const goodAnswersNum = Number(good_answers) || 0;
+      const badAnswersNum = Number(bad_answer) || 0;
 
-    setPorcentage(calculatedPorcentage);
-    setRank(level);
-    setFrontEndRating(rating_interview_front_react);
-    setBackEndRating(rating_interview_backend_python);
+      const totalAnswers = goodAnswersNum + badAnswersNum;
+      const calculatedPorcentage =
+        totalAnswers === 0 ? 0 : (goodAnswersNum / totalAnswers) * 100;
+
+      setPorcentage(calculatedPorcentage);
+      setRank(level || "Beginner");
+      setFrontEndRating(rating_interview_front_react || "N/A");
+      setBackEndRating(rating_interview_backend_python || "N/A");
+    } catch (error) {
+      console.error("Error fetching user stats:", error);
+
+      setPorcentage(0);
+      setRank("Beginner");
+      setFrontEndRating("N/A");
+      setBackEndRating("N/A");
+    }
   };
 
   useEffect(() => {
