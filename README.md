@@ -34,9 +34,17 @@ Con una interfaz moderna y animaciones fluidas, Flash4Devs combina practicidad y
 
 ---
 
+## 🔗 Repositorio de Backend
+
+Si quieres acceder a nuestro repositorio de Backend, visita:  
+[https://github.com/iZergiodev/Back-Flash4Devs](https://github.com/iZergiodev/Back-Flash4Devs)
+
+---
+
 ## 🛠️ Tecnologías Utilizadas
 
 Flash4Devs fue construido con un stack moderno y potente para garantizar rendimiento y una experiencia de usuario increíble. Estas son las principales tecnologías del frontend:
+
 
 ### Dependencias
 - <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/react.svg" width="16" height="16" /> **React** - Biblioteca principal para construir la interfaz.  
