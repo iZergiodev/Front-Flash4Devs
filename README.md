@@ -41,6 +41,14 @@ Si quieres acceder a nuestro repositorio de Backend, visita:
 
 ---
 
+## 🔗 Api del Proyecto
+
+La API está alojada y disponible para consulta en nuestra documentación oficial, accesible a través del siguiente enlace:
+[https://back-flash4devs-production.up.railway.app/docs#/](https://back-flash4devs-production.up.railway.app/docs#/). 
+Allí encontrarás todos los detalles sobre los endpoints, parámetros y ejemplos de uso.
+
+---
+
 ## 🛠️ Tecnologías Utilizadas
 
 Flash4Devs fue construido con un stack moderno y potente para garantizar rendimiento y una experiencia de usuario increíble. Estas son las principales tecnologías del frontend:
