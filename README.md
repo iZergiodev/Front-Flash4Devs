@@ -41,7 +41,7 @@ Si quieres acceder a nuestro repositorio de Backend, visita:
 
 ---
 
-## 🔗 Api del Proyecto
+## 🔗 API Flash4Devs
 
 La API está alojada y disponible para consulta en nuestra documentación oficial, accesible a través del siguiente enlace:
 [https://back-flash4devs-production.up.railway.app/docs#/](https://back-flash4devs-production.up.railway.app/docs#/). 
