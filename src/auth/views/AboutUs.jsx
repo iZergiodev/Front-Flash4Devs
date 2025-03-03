@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { PiAlienDuotone } from "react-icons/pi";
 import { Navbar } from "../../components/Navbar";
 import { Footer } from "../../components/Footer";
 import GradientText from "../../components/effectcomponents/GradientText";
@@ -17,6 +18,8 @@ export const AboutUs = () => {
         github: "https://github.com/YagoCastelao",
         linkedin: "https://linkedin.com/in/yagocimacastelao/",
         twitter: "https://twitter.com/yagocastelau",
+        portfolio:
+          "https://portfolioyago-hcbeaa4kx-yago-cima-castelaos-projects.vercel.app/",
       },
     },
     {
@@ -29,6 +32,7 @@ export const AboutUs = () => {
         github: "https://github.com/iZergiodev",
         linkedin: "https://linkedin.com/in/izergiodev/",
         twitter: "https://twitter.com/yagocastelau",
+        portfolio: "https://www.zergio.dev/",
       },
     },
   ];
@@ -87,6 +91,16 @@ export const AboutUs = () => {
           rel="noopener noreferrer"
         >
           <FaTwitter
+            className="text-accent hover:text-primary transition-colors duration-300"
+            size={24}
+          />
+        </a>
+        <a
+          href={member.socialLinks.portfolio}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <PiAlienDuotone
             className="text-accent hover:text-primary transition-colors duration-300"
             size={24}
           />
