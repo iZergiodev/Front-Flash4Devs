@@ -18,8 +18,7 @@ export const AboutUs = () => {
         github: "https://github.com/YagoCastelao",
         linkedin: "https://linkedin.com/in/yagocimacastelao/",
         twitter: "https://twitter.com/yagocastelau",
-        portfolio:
-          "https://portfolioyago-hcbeaa4kx-yago-cima-castelaos-projects.vercel.app/",
+        portfolio: "https://portfolioyago.vercel.app/",
       },
     },
     {
