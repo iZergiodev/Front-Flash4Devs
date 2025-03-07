@@ -24,8 +24,14 @@ export const CustomCard = () => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
+        const token = localStorage.getItem("token");
         const response = await fetch(
-          `https://back-flash4devs-production.up.railway.app/card/custom-questions?tech=${tech}&limit=10`
+          `https://back-flash4devs-production.up.railway.app/card/custom-questions?tech=${tech}&limit=10`, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            }
+          }
         );
 
         if (!response.ok) {
