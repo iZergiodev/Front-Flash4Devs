@@ -54,10 +54,11 @@ export const Login = () => {
     if (!formData.email) {
       setEmailError("El correo electrónico es obligatorio");
       hasError = true;
-    } else if (!validateEmail(formData.email)) {
-      setEmailError("Por favor, introduce un correo electrónico válido");
-      hasError = true;
-    }
+    } 
+    // else if (!validateEmail(formData.email)) {
+    //   setEmailError("Por favor, introduce un correo electrónico válido");
+    //   hasError = true;
+    // }
 
     if (!formData.password) {
       setPasswordError("La contraseña es obligatoria");
