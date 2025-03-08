@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useUserStore } from "../../store/userStore";
 import toast, { Toaster } from "react-hot-toast";
-
 import { Navbar } from "../../components/Navbar";
 import { Footer } from "../../components/Footer";
 import { useLoading } from "../../hooks/useLoading";
@@ -20,23 +19,50 @@ export const Register = () => {
     confirmPassword: "",
     acceptTerms: false,
   });
+  const [emailError, setEmailError] = useState("");
 
   let navigate = useNavigate();
-
   const { loginAuthorized } = useUserStore();
-
   const { isLoading, startLoading, stopLoading } = useLoading();
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+    const newValue = type === "checkbox" ? checked : value;
+
     setFormData({
       ...formData,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: newValue,
     });
+
+    if (name === "email") {
+      if (!value) {
+        setEmailError("El correo electrónico es obligatorio");
+      } else if (!validateEmail(value)) {
+        setEmailError("Por favor, introduce un correo electrónico válido");
+      } else {
+        setEmailError("");
+      }
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!formData.email || !validateEmail(formData.email)) {
+      setEmailError("Por favor, introduce un correo electrónico válido");
+      toast.error("Corrige el campo de correo electrónico");
+      return;
+    }
+
+    if (!formData.acceptTerms) {
+      alert("Você deve aceitar os termos e condições para se registrar.");
+      return;
+    }
 
     const url =
       "https://back-flash4devs-production.up.railway.app/api/register";
@@ -56,11 +82,6 @@ export const Register = () => {
         },
       });
 
-      if (!formData.acceptTerms) {
-        alert("Você deve aceitar os termos e condições para se registrar.");
-        return;
-      }
-
       if (response.status === 400) {
         toast.error("El email ya está registrado");
         return;
@@ -73,7 +94,6 @@ export const Register = () => {
       const data = await response.json();
       console.log(data);
       if (response.ok) {
-        // loginAuthorized();
         navigate("/auth/login");
       }
     } catch (error) {
@@ -83,6 +103,7 @@ export const Register = () => {
       stopLoading();
     }
   };
+
   return (
     <>
       <Toaster position="bottom-right" reverseOrder={false} />
@@ -185,11 +206,16 @@ export const Register = () => {
                       type="email"
                       name="email"
                       placeholder="Correo Electrónico"
-                      className="border border-muted py-1 px-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-accent"
+                      className={`border py-1 px-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-accent ${
+                        emailError ? "border-red-500" : "border-muted"
+                      }`}
                       value={formData.email}
                       onChange={handleChange}
                       required
                     />
+                    {emailError && (
+                      <p className="text-red-500 text-xs mt-1">{emailError}</p>
+                    )}
                   </div>
                   <div className="mt-4 md:mt-5">
                     <input
@@ -238,6 +264,7 @@ export const Register = () => {
                     <button
                       type="submit"
                       className="w-full text-white bg-accent py-2 md:py-3 text-center rounded hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+                      disabled={!!emailError}
                     >
                       Registrate aquí
                     </button>

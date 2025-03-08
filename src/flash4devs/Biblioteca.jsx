@@ -103,7 +103,7 @@ export const Biblioteca = () => {
           hoverFillColor="#81A4CD"
         />
       </div>
-      {/* Movemos MenuRight fuera de AnimatedContent */}
+
       {isLogged && (
         <MenuRight
           name={nameState}
@@ -122,9 +122,7 @@ export const Biblioteca = () => {
         scale={0.1}
         threshold={0.2}
         className="relative z-40 pointer-events-none"
-      >
-        {/* Otros elementos animados si los hubiera */}
-      </AnimatedContent>
+      ></AnimatedContent>
       <Footer />
       <Navbar />
       <div className="flex flex-col justify-center lg:flex-row w-full p-4 lg:p-8 lg:gap-1 relative z-10">
@@ -200,15 +198,15 @@ export const Biblioteca = () => {
               <p className="text-lg text-gray-600 text-center">
                 {tecnologias[indiceAtual].descricao}
               </p>
-              <div className="w-full p-6 bg-gray-100">
-                <p className="text-sm text-gray-700">
+              <div className="md:w-[250px] md:h-[200px] flex flex-col items-center justify-center rounded-full p-6 bg-gray-100 shadow-lg mt-10">
+                <p className="text-md text-text pb-3">
                   Versión: {tecnologias[indiceAtual].versao}
                 </p>
                 <a
                   href={tecnologias[indiceAtual].documentacao}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline"
+                  className="text-accent hover:text-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
                 >
                   Documentación oficial
                 </a>
