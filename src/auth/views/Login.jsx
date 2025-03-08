@@ -10,43 +10,105 @@ import { useUserStore } from "../../store/userStore";
 
 export const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [eyeIsClosed, setEyeState] = useState(false);
   const inputRef = useRef(null);
   const navigate = useNavigate();
   const { loginAuthorized } = useUserStore();
   const { isLoading, startLoading, stopLoading } = useLoading();
 
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+
+    if (name === "email") {
+      if (!value) {
+        setEmailError("El correo electrónico es obligatorio");
+      } else if (!validateEmail(value)) {
+        setEmailError("Por favor, introduce un correo electrónico válido");
+      } else {
+        setEmailError("");
+      }
+    }
+
+    if (name === "password") {
+      if (!value) {
+        setPasswordError("La contraseña es obligatoria");
+      } else {
+        setPasswordError("");
+      }
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    let hasError = false;
+
+    if (!formData.email) {
+      setEmailError("El correo electrónico es obligatorio");
+      hasError = true;
+    } else if (!validateEmail(formData.email)) {
+      setEmailError("Por favor, introduce un correo electrónico válido");
+      hasError = true;
+    }
+
+    if (!formData.password) {
+      setPasswordError("La contraseña es obligatoria");
+      hasError = true;
+    }
+
+    if (hasError) {
+      toast.error("Corrige los errores en el formulario");
+      return;
+    }
+
     const url = "https://back-flash4devs-production.up.railway.app/api/login";
 
     try {
       startLoading();
+      console.log("Enviando requisição para:", url);
+      console.log("Dados enviados:", formData);
+
       const response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
-      if (response.status === 404) {
-        toast.error("Usuario o contraseña incorrectos");
+      console.log("Status da resposta:", response.status);
+
+      if (response.status === 401) {
+        console.log("Credenciais incorretas detectadas (401)");
+        setPasswordError("Correo o contraseña incorrectos");
+        stopLoading();
         return;
       }
 
-      if (response.ok) {
-        const { access_token } = await response.json();
-        localStorage.setItem("token", access_token);
-        loginAuthorized();
-        navigate("/");
+      if (!response.ok) {
+        console.log("Resposta não OK, status:", response.status);
+        throw new Error(
+          `Error en la respuesta del servidor: ${response.status}`
+        );
       }
+
+      console.log("Login bem-sucedido");
+      const { access_token } = await response.json();
+      localStorage.setItem("token", access_token);
+      loginAuthorized();
+      navigate("/");
     } catch (error) {
+      console.log("Erro capturado no catch:", error.message);
+      setEmailError("");
+      setPasswordError("");
       toast.error("Error al conectar con el servidor");
-      console.error(error.message);
+      console.error("Erro de conexão:", error.message);
     } finally {
       stopLoading();
     }
@@ -101,10 +163,15 @@ export const Login = () => {
                   id="email"
                   name="email"
                   placeholder="Ingresa tu correo electrónico"
-                  className="w-full px-3 py-2 border border-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
+                  className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent ${
+                    emailError ? "border-red-500" : "border-muted"
+                  }`}
                   value={formData.email}
                   onChange={handleInputChange}
                 />
+                {emailError && (
+                  <p className="text-red-500 text-xs mt-1">{emailError}</p>
+                )}
               </div>
               <div className="mb-6">
                 <label
@@ -120,7 +187,9 @@ export const Login = () => {
                     id="password"
                     name="password"
                     placeholder="Ingresa tu contraseña"
-                    className="w-full px-3 py-2 border border-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
+                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent ${
+                      passwordError ? "border-red-500" : "border-muted"
+                    }`}
                     value={formData.password}
                     onChange={handleInputChange}
                   />
@@ -136,10 +205,14 @@ export const Login = () => {
                     )}
                   </button>
                 </div>
+                {passwordError && (
+                  <p className="text-red-500 text-xs mt-1">{passwordError}</p>
+                )}
               </div>
               <button
                 className="w-full text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
                 type="submit"
+                disabled={isLoading || emailError || passwordError}
               >
                 Entrar
               </button>
