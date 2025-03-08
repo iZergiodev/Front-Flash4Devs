@@ -18,10 +18,10 @@ export const Login = () => {
   const { loginAuthorized } = useUserStore();
   const { isLoading, startLoading, stopLoading } = useLoading();
 
-  const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
+  // const validateEmail = (email) => {
+  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //   return emailRegex.test(email);
+  // };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -30,8 +30,8 @@ export const Login = () => {
     if (name === "email") {
       if (!value) {
         setEmailError("El correo electrónico es obligatorio");
-      } else if (!validateEmail(value)) {
-        setEmailError("Por favor, introduce un correo electrónico válido");
+      // } else if (!validateEmail(value)) {
+      //   setEmailError("Por favor, introduce un correo electrónico válido");
       } else {
         setEmailError("");
       }
