@@ -1,0 +1,27 @@
+/* DarkModeSwitcher.css */
+label {
+	position: relative;
+  }
+  
+  label:after {
+	content: "";
+	width: 40px; /* Reducido de 180px */
+	height: 40px; /* Reducido de 180px */
+	position: absolute;
+	top: 4px; /* Reducido de 10px */
+	left: 4px; /* Reducido de 10px */
+	background: linear-gradient(180deg, #ffcc89, #f17300); /* Claro */
+	border-radius: 40px; /* Reducido de 180px */
+	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra más pequeña */
+	transition: 0.3s;
+  }
+  
+  input:checked + label:after {
+	left: 92px; /* Reducido de 490px, ajustado a w-24 (96px) menos 4px de margen */
+	transform: translateX(-100%);
+	background: linear-gradient(180deg, #777, #3a3a3a); /* Oscuro */
+  }
+  
+  input:active + label:after {
+	width: 52px; /* Reducido de 260px, proporcional al nuevo tamaño */
+  }

@@ -11,6 +11,7 @@ import { Link } from "react-router";
 import { useState, useEffect, useRef } from "react";
 import useExtractInfo from "./src/hooks/useExtractInfo";
 import { useTheme } from "./src/store/useTheme";
+import { DarkModeSwitcher } from "./src/components/DarkModeSwitcher";
 
 export const Home = () => {
 
@@ -129,7 +130,7 @@ export const Home = () => {
             hoverFillColor="#81A4CD"
           />
         </div>
-
+        <DarkModeSwitcher/>
         {isLogged && (
           <MenuRight
             name={nameState}
@@ -163,7 +164,6 @@ export const Home = () => {
           <div className="w-full flex flex-col items-center mt-8 md:w-1/2 md:mt-25 md:mr-30">
             <p className="orbitron text-sm text-center md:text-md md:mb-1 lg:block xl:block md:mr-4">
               ¿Qué vamos a estudiar primero?
-              <button onClick={toggleTheme} className="cursor-pointer z-51">{theme}</button>
             </p>
             <div className="grid grid-cols-1 gap-6 mt-6 md:grid-cols-2 md:gap-14 md:mt-10 md:mr-10 last:pb-20">
               {cardData.map((data, index) => renderCard(index, data))}
