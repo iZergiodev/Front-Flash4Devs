@@ -1,10 +1,12 @@
 import { useRef, useEffect, useState } from 'react';
 import './Squares.css';
+import { useTheme } from '../../store/useTheme';
+
 
 const Squares = ({
   direction = 'right',
   speed = 1,
-  borderColor = '#999',
+  borderColor: colorSelected,
   squareSize = 40,
   hoverFillColor = '#222',
 }) => {
@@ -14,6 +16,12 @@ const Squares = ({
   const numSquaresY = useRef();
   const gridOffset = useRef({ x: 0, y: 0 });
   const [hoveredSquare, setHoveredSquare] = useState(null);
+
+  // Usamos el hook useTheme dentro del componente
+  const { theme } = useTheme();
+
+  // Definimos borderColor dinámicamente según el tema
+  const borderColor = colorSelected || (theme === 'light' ? 'rgba(241, 115, 0, 0.2)' : 'blue');
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -56,8 +64,6 @@ const Squares = ({
 
       const colorCenter = "rgba(0, 0, 0, 0)";
       const colorEdge1 = "rgba(0, 0, 0, 0)";
-   
-  
 
       const gradient = ctx.createRadialGradient(
         canvas.width / 2,
@@ -68,7 +74,7 @@ const Squares = ({
         Math.sqrt(Math.pow(canvas.width, 2) + Math.pow(canvas.height, 2)) / 2
       );
       gradient.addColorStop(0, colorCenter);
-      gradient.addColorStop(0, colorEdge1);
+      gradient.addColorStop(1, colorEdge1); // Corregí el segundo 0 por 1
 
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -101,7 +107,6 @@ const Squares = ({
       requestRef.current = requestAnimationFrame(updateAnimation);
     };
 
-    // Track mouse hover
     const handleMouseMove = (event) => {
       const rect = canvas.getBoundingClientRect();
       const mouseX = event.clientX - rect.left;
@@ -133,7 +138,7 @@ const Squares = ({
     };
   }, [direction, speed, borderColor, hoverFillColor, hoveredSquare, squareSize]);
 
-  return <canvas ref={canvasRef} className="squares-canvas"></canvas>;
+  return <canvas ref={canvasRef} className="squares-canvas" />;
 };
 
-export default Squares
+export default Squares;

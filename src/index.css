@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@layer base {
+  html {
+    @apply transition-colors duration-300; 
+  }
+}
+
 * {
  font-family: "Fira Code", serif;
   font-optical-sizing: auto;
@@ -16,6 +22,8 @@
   --color-text: #054a91;
   --color-muted: #81a4cd;
 }
+
+@custom-variant dark (&:where(.dark, .dark *));
 
 .text_logo {
   font-family: "Lato", serif;
