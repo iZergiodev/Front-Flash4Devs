@@ -1,9 +1,10 @@
-/* DarkModeSwitcher.css */
-label {
-	position: relative;
+.darkmode-switcher {
+  label { 
+    position: relative;
   }
+}
   
-  label:after {
+.darkmode-switcher:after {
 	content: "";
 	width: 40px; /* Reducido de 180px */
 	height: 40px; /* Reducido de 180px */
@@ -16,12 +17,12 @@ label {
 	transition: 0.3s;
   }
   
-  input:checked + label:after {
+  .inputDark:checked + .darkmode-switcher:after {
 	left: 92px; /* Reducido de 490px, ajustado a w-24 (96px) menos 4px de margen */
 	transform: translateX(-100%);
 	background: linear-gradient(180deg, #777, #3a3a3a); /* Oscuro */
   }
   
-  input:active + label:after {
+  .inputDark:active + .darkmode-switcher:after {
 	width: 52px; /* Reducido de 260px, proporcional al nuevo tamaño */
   }

@@ -14,13 +14,13 @@ export const DarkModeSwitcher = () => {
       <input
         type="checkbox"
         id="darkmode-toggle"
-        className="hidden"
+        className="hidden inputDark"
         checked={theme === 'dark'}
         onChange={handleToggle}
       />
       <label
         htmlFor="darkmode-toggle"
-        className="relative block w-24 h-12 bg-card dark:bg-[#242424] rounded-full shadow-[inset_0_2px_6px_rgba(0,0,0,0.4),inset_0_-2px_6px_rgba(255,255,255,0.4)] cursor-pointer transition-all duration-300"
+        className="darkmode-switcher relative block w-24 h-12 bg-card dark:bg-[#242424] rounded-full shadow-[inset_0_2px_6px_rgba(0,0,0,0.4),inset_0_-2px_6px_rgba(255,255,255,0.4)] cursor-pointer transition-all duration-300"
       >
 
         <svg
