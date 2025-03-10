@@ -10,8 +10,14 @@ import { motion } from "framer-motion";
 import { Link } from "react-router";
 import { useState, useEffect, useRef } from "react";
 import useExtractInfo from "./src/hooks/useExtractInfo";
+import { useTheme } from "./src/store/useTheme";
+import { DarkModeSwitcher } from "./src/components/DarkModeSwitcher";
 
 export const Home = () => {
+
+
+  const {theme, toggleTheme} = useTheme()
+
   const { isLogged } = useUserStore();
   const { emailState, nameState, avatar } = useExtractInfo();
   const [hoveredCards, setHoveredCards] = useState([
@@ -77,7 +83,7 @@ export const Home = () => {
     <Link to={path} key={index}>
       <motion.div
         className={`w-full max-w-[16rem] h-60 rounded-lg flex flex-col shadow-lg pointer-events-auto relative overflow-hidden cursor-pointer border border-primary/40
-          ${hoveredCards[index] ? "bg-accent text-white" : "bg-card text-text"} 
+          ${hoveredCards[index] ? "bg-accent text-white" : "bg-card dark:bg-amber-100 text-text"} 
           md:w-64 md:h-70 md:ml-0 md:bottom-0 md:top-0`}
         onHoverStart={() => handleHover(index, true)}
         onHoverEnd={() => handleHover(index, false)}
@@ -114,19 +120,17 @@ export const Home = () => {
     <div className="relative w-full min-h-screen flex">
       <div ref={sideBarRef} className="hidden md:block md:w-60">
         <SideBar isOpen={true} setIsOpen={() => {}} />
-      </div>
+      </div>  
       <div className="flex-1 relative">
         <div className="absolute inset-0 z-0">
           <Squares
             speed={0.1}
             squareSize={40}
             direction="diagonal"
-            borderColor="rgba(241, 115, 0, 0.2)"
             hoverFillColor="#81A4CD"
-            
           />
         </div>
-
+        <DarkModeSwitcher/>
         {isLogged && (
           <MenuRight
             name={nameState}

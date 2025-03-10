@@ -37,10 +37,9 @@ export const MenuRight = ({ name, email, profileImage }) => {
   ];
 
   return (
-    <motion.nav className="fixed right-2 top-[15px] z-50 font-semibold sm:right-5 sm:top-[20px] sm:bg-card sm:shadow-lg sm:rounded-full sm:p-4 sm:py-1 sm:px-4 scale-125 sm:scale-100">
+    <motion.nav className="fixed right-2 top-[15px] z-50 font-semibold sm:right-5 sm:top-[20px] sm:bg-card sm:shadow-lg sm:rounded-full sm:p-4 sm:py-1 sm:px-4 scale-110 sm:scale-100">
       <motion.div
         className="flex flex-row items-center gap-2 sm:gap-4 transform-gpu"
-        whileHover={{ scale: 1.02 }}
         transition={{ type: "spring", stiffness: 300 }}
       >
         <div className="hidden sm:block">
@@ -72,10 +71,10 @@ export const MenuRight = ({ name, email, profileImage }) => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="fixed right-0 mt-2 w-44 sm:w-47 bg-card rounded-lg shadow-lg border border-muted/20 z-[100] max-w-[90vw]"
+                className="fixed right-0 mt-3 w-44 sm:w-47 bg-card rounded-lg shadow-lg border border-muted/20 z-[100] max-w-[90vw]"
               >
                 <ul className="py-2">
-                  <li className="border-b border-muted/20 mb-1 pb-2 flex flex-col items-center justify-center">
+                  <li className="border-b border-muted/20 mb-1 pb-2 flex flex-col items-center justify-center px-5 mt-1">
                     <span className="text-sm sm:text-md">
                       <DecryptedText text="Pró-user" animateOn="view" />
                     </span>

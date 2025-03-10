@@ -13,6 +13,7 @@ import { FaUsersViewfinder } from "react-icons/fa6";
 import { MdOutlineBookOnline } from "react-icons/md";
 import { GiProgression } from "react-icons/gi";
 import { useUserStore } from "../store/userStore";
+import { useEffect } from "react";
 
 export const SideBar = ({ isOpen, setIsOpen }) => {
   const { isLogged } = useUserStore();
