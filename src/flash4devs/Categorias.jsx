@@ -104,7 +104,7 @@ export const Categorias = () => {
       </div>
       <div className="fixed bottom-0 left-0 flex flex-col items-center z-100 hidden lg:block">
         <div className="relative">
-          <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 bg-white dark:bg-[#919191] text-gray-900 p-5 rounded-full shadow-md w-70 flex flex-col items-center text-center border border-gray-300 dark:border-black z-50 before:content-[''] before:absolute before:-bottom-4 before:left-1/2 before:-translate-x-1/2 before:w-6 before:h-6 before:bg-white before:rounded-full before:border before:border-gray-300 before:shadow-md">
+          <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 bg-white dark:bg-[#e4e2e2] text-gray-900 p-5 rounded-full shadow-md w-70 flex flex-col items-center text-center border border-gray-300 dark:border-black z-50 before:content-[''] before:absolute before:-bottom-4 before:left-1/2 before:-translate-x-1/2 before:w-6 before:h-6 before:bg-white before:rounded-full before:border before:border-gray-300 before:shadow-md">
             <p className="text-text dark:text-black">
               ¡Hola! Si quieres leer la documentación oficial de cada categoría
             </p>

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 export const HeroSection = () => {
   const containerStyles = `
-    relative flex items-center justify-center w-full max-w-[680px] h-[400px] sm:h-[500px] md:h-[600px] lg:h-[600px] 
+    relative flex items-center justify-center w-full max-w-[600px] h-[400px] sm:h-[500px] md:h-[600px] lg:h-[600px] 
     rounded-lg shadow-lg overflow-hidden border border-primary/40 z-10
   `;
 

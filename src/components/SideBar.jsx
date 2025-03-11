@@ -59,7 +59,7 @@ export const SideBar = ({ isOpen, setIsOpen }) => {
     <>
       <button
         onClick={toggleSidebar}
-        className="fixed top-4 left-2 p-2 bg-card rounded-lg z-50 md:hidden"
+        className="fixed top-4 left-2 p-2 bg-card dark:bg-[#919191] rounded-lg z-50 md:hidden"
       >
         {isOpen ? (
           <FaTimes className="text-text" />

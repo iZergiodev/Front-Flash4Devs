@@ -61,28 +61,32 @@ export const Home = () => {
       path: "/eligecategoria/coding",
       title: "Coding Flashcards",
       description: "¿Quieres mejorar tu habilidad como programador?",
+      backgroundImage: "/notebook.jpg",
     },
     {
       path: "/eligecategoria/concept",
       title: "Concept Flashcards",
       description: "¡Aprende la teoría de las tecnologías más demandadas!",
+      backgroundImage: "/livros1.jpg",
     },
     {
       path: "/eligecategoria/entrevista",
       title: "Preguntas de Entrevistas",
       description: "¡Preparate para una entrevista laboral!",
+      backgroundImage: "/entrevista.jpg",
     },
     {
       path: "/eligecategoria/custom",
       title: "Custom FlashCards",
       description: "Crea tus propias Flashcards y ¡practica!",
+      backgroundImage: "/formulario.jpg",
     },
   ];
 
-  const renderCard = (index, { path, title, description }) => (
+  const renderCard = (index, { path, title, description, backgroundImage }) => (
     <Link to={path} key={index}>
       <motion.div
-        className={`w-full max-w-[16rem] h-60 rounded-lg flex flex-col shadow-lg pointer-events-auto relative overflow-hidden cursor-pointer border border-primary/40
+        className={`w-full max-w-[16rem] h-60 rounded-lg flex flex-col shadow-lg pointer-events-auto relative overflow-hidden cursor-pointer 
           ${
             hoveredCards[index]
               ? "bg-accent text-white"
@@ -96,14 +100,21 @@ export const Home = () => {
         whileHover={{ scale: 1.1, transition: { duration: 0.4 } }}
       >
         {!hoveredCards[index] ? (
-          <div className="flex items-center justify-center h-full p-4 md:p-6 text-center">
-            <h2 className="text-base md:text-xl font-bold font-mono">
+          <div
+            className="flex items-center justify-center h-full p-4 md:p-6 text-center bg-cover bg-center"
+            style={{
+              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${backgroundImage})`,
+            }}
+          >
+            <h2
+              className="text-base md:text-2xl font-bold font-mono text-white orbitran"
+            >
               {title}
             </h2>
           </div>
         ) : (
           <div className="flex flex-col h-full">
-            <div className="p-3 md:p-4 bg-accent  text-white rounded-t-lg border-b font-semibold border-gray-300 dark:border-black">
+            <div className="p-3 md:p-4 bg-accent text-white rounded-t-lg border-b font-semibold border-gray-300 dark:border-black">
               <h2 className="text-base md:text-xl font-bold text-center">
                 {title}
               </h2>
