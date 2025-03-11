@@ -21,7 +21,9 @@ const Squares = ({
   const { theme } = useTheme();
 
   // Definimos borderColor dinámicamente según el tema
-  const borderColor = colorSelected || (theme === 'light' ? 'rgba(241, 115, 0, 0.2)' : 'blue');
+  const borderColor =
+    colorSelected ||
+    (theme === "light" ? "rgba(241, 115, 0, 0.2)" : "rgba(241, 115, 0, 0.2)");
 
   useEffect(() => {
     const canvas = canvasRef.current;
