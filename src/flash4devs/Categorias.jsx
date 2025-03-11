@@ -87,14 +87,12 @@ export const Categorias = () => {
   ];
 
   return (
-    <div className="relative w-full min-h-screen flex flex-col">
+    <div className="relative w-full min-h-screen flex flex-col dark:bg-[#3C4043]">
       <div className="absolute inset-0 z-0">
         <Squares
           speed={0.1}
-          squareSize={20} // Móvel
-          md={{ squareSize: 40 }} // Escritorio
+          squareSize={40}
           direction="diagonal"
-          borderColor="rgba(241, 115, 0, 0.2)"
           hoverFillColor="#81A4CD"
         />
       </div>
@@ -106,13 +104,13 @@ export const Categorias = () => {
       </div>
       <div className="fixed bottom-0 left-0 flex flex-col items-center z-100 hidden lg:block">
         <div className="relative">
-          <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 bg-white text-gray-900 p-5 rounded-full shadow-md w-70 flex flex-col items-center text-center border border-gray-300 z-50 before:content-[''] before:absolute before:-bottom-4 before:left-1/2 before:-translate-x-1/2 before:w-6 before:h-6 before:bg-white before:rounded-full before:border before:border-gray-300 before:shadow-md">
-            <p className="text-text">
+          <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 bg-white dark:bg-[#919191] text-gray-900 p-5 rounded-full shadow-md w-70 flex flex-col items-center text-center border border-gray-300 dark:border-black z-50 before:content-[''] before:absolute before:-bottom-4 before:left-1/2 before:-translate-x-1/2 before:w-6 before:h-6 before:bg-white before:rounded-full before:border before:border-gray-300 before:shadow-md">
+            <p className="text-text dark:text-black">
               ¡Hola! Si quieres leer la documentación oficial de cada categoría
             </p>
             <Link
               to="/biblioteca"
-              className="text-accent hover:text-secondary transition-colors duration-200 cursor-pointer pt-2"
+              className="text-text hover:text-accent transition-colors duration-200 cursor-pointer pt-2"
             >
               ¡Haga clic!
             </Link>
@@ -134,10 +132,10 @@ export const Categorias = () => {
             {frontendTechnologies.map((tech, index) => (
               <div
                 key={index}
-                className="w-full max-w-[320px] h-80 md:w-80 md:h-88 bg-white rounded-lg shadow-lg flex flex-col items-center transform transition-transform hover:scale-105 mx-auto"
+                className="w-full max-w-[320px] h-70 md:w-80 md:h-80 bg-white dark:bg-[#919191] rounded-lg shadow-lg flex flex-col items-center transform transition-transform hover:scale-105 mx-auto"
               >
-                <div className="w-full text-center mb-4 bg-card p-3 md:p-3 border-b border-gray-300 rounded-t-lg">
-                  <h2 className="text-lg md:text-xl font-bold text-text">
+                <div className="w-full text-center mb-4 bg-card dark:bg-accent p-3 md:p-3 border-b border-gray-300 dark:border-black rounded-t-lg">
+                  <h2 className="text-lg md:text-xl font-bold text-text dark:text-black">
                     {tech.nombre}
                   </h2>
                 </div>
@@ -148,8 +146,8 @@ export const Categorias = () => {
                     className="w-20 h-20 md:w-28 md:h-25 object-contain"
                   />
                 </div>
-                <div className="w-full text-center mt-2 md:mt-3 p-3 md:p-4 border-t border-gray-200 rounded-b-lg">
-                  <p className="text-xs md:text-xs text-text">
+                <div className="w-full text-center mt-2 md:mt-3 p-3 md:p-4 border-t border-gray-200 dark:border-black rounded-b-lg">
+                  <p className="text-xs md:text-xs text-text dark:text-black">
                     {tech.descripcion}
                   </p>
                 </div>
@@ -164,10 +162,10 @@ export const Categorias = () => {
             {backendTechnologies.map((tech, index) => (
               <div
                 key={index}
-                className="w-full max-w-[320px] h-80 md:w-80 md:h-88 bg-white rounded-lg shadow-lg flex flex-col items-center transform transition-transform hover:scale-105 mx-auto"
+                className="w-full max-w-[320px] h-80 md:w-80 md:h-88 bg-white dark:bg-[#919191] rounded-lg shadow-lg flex flex-col items-center transform transition-transform hover:scale-105 mx-auto"
               >
-                <div className="w-full text-center mb-4 bg-card p-3 md:p-3 border-b border-gray-300 rounded-t-lg">
-                  <h2 className="text-lg md:text-xl font-bold text-text">
+                <div className="w-full text-center mb-4 bg-card dark:bg-accent p-3 md:p-3 border-b border-gray-300 dark:border-black rounded-t-lg">
+                  <h2 className="text-lg md:text-xl font-bold text-text dark:text-black">
                     {tech.nombre}
                   </h2>
                 </div>
@@ -178,8 +176,8 @@ export const Categorias = () => {
                     className="w-20 h-20 md:w-28 md:h-25 object-contain"
                   />
                 </div>
-                <div className="w-full text-center mt-2 md:mt-3 p-3 md:p-4 border-t border-gray-200 rounded-b-lg">
-                  <p className="text-xs md:text-xs text-text">
+                <div className="w-full text-center mt-2 md:mt-3 p-3 md:p-4 border-t border-gray-200 dark:border-black rounded-b-lg">
+                  <p className="text-xs md:text-xs text-text dark:text-black">
                     {tech.descripcion}
                   </p>
                 </div>

@@ -71,10 +71,16 @@ export const SideBar = ({ isOpen, setIsOpen }) => {
       <AnimatePresence>
         {(isOpen || window.innerWidth >= 768) && (
           <motion.div
-            className="fixed left-0 top-0 h-screen w-60 bg-card shadow-lg flex flex-col items-center p-4 z-40 pt-0 rounded-r-2xl [filter:drop-shadow(10px_0_15px_rgba(0,0,0,0.1))] md:static md:h-full md:shadow-none md:rounded-none md:[filter:none]"
-            initial={{ x: window.innerWidth < 768 ? -100 : 0, opacity: window.innerWidth < 768 ? 0 : 1 }}
+            className="fixed left-0 top-0 h-screen w-60 bg-card dark:bg-[#919191] shadow-lg flex flex-col items-center p-4 z-40 pt-0 rounded-r-2xl [filter:drop-shadow(10px_0_15px_rgba(0,0,0,0.1))] md:static md:h-full md:shadow-none md:rounded-none md:[filter:none]"
+            initial={{
+              x: window.innerWidth < 768 ? -100 : 0,
+              opacity: window.innerWidth < 768 ? 0 : 1,
+            }}
             animate={{ x: 0, opacity: 1 }}
-            exit={{ x: window.innerWidth < 768 ? -100 : 0, opacity: window.innerWidth < 768 ? 0 : 1 }}
+            exit={{
+              x: window.innerWidth < 768 ? -100 : 0,
+              opacity: window.innerWidth < 768 ? 0 : 1,
+            }}
             transition={{ duration: 0.3 }}
           >
             <motion.img
@@ -85,7 +91,7 @@ export const SideBar = ({ isOpen, setIsOpen }) => {
               whileTap={{ scale: 0.9 }}
             />
 
-            <div className="space-y-2 border-t border-gray-400 p-2">
+            <div className="space-y-2 border-t border-gray-400 dark:border-t dark:border-black p-2">
               {sidebarLinks.map((link, index) =>
                 link.external ? (
                   <a
@@ -93,7 +99,7 @@ export const SideBar = ({ isOpen, setIsOpen }) => {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center p-2 text-text hover:bg-secondary transition-colors hover:text-white duration-200 focus:outline-none focus:ring-2 focus:ring-primary rounded-lg"
+                    className="flex items-center p-2 text-text dark:text-black hover:bg-secondary dark:hover:bg-[#5d6368] transition-colors hover:text-white duration-200 focus:outline-none focus:ring-2 focus:ring-primary rounded-lg"
                   >
                     <motion.div
                       className="flex"
@@ -108,7 +114,7 @@ export const SideBar = ({ isOpen, setIsOpen }) => {
                   <Link
                     key={index}
                     to={link.to}
-                    className="flex items-center p-2 text-text hover:bg-secondary transition-colors hover:text-white duration-200 focus:outline-none focus:ring-2 focus:ring-primary rounded-lg"
+                    className="flex items-center p-2 text-text dark:text-black  hover:bg-secondary dark:hover:bg-[#5d6368] transition-colors hover:text-white duration-200 focus:outline-none focus:ring-2 focus:ring-primary rounded-lg"
                   >
                     <motion.div
                       className="flex"
@@ -123,8 +129,8 @@ export const SideBar = ({ isOpen, setIsOpen }) => {
               )}
             </div>
 
-            <div className="space-y-2 border-t border-gray-400 p-2 flex flex-col items-center">
-              <h3 className="flex items-center p-1 text-text font-bold">
+            <div className="space-y-2 border-t border-gray-400 dark:border-t dark:border-black p-2 flex flex-col items-center">
+              <h3 className="flex items-center p-1 text-text dark:text-black font-bold">
                 <FaChartLine className="mr-2" />
                 Estadística
               </h3>
@@ -132,7 +138,7 @@ export const SideBar = ({ isOpen, setIsOpen }) => {
               {statistics.map((stat, index) => (
                 <p
                   key={index}
-                  className="p-2 text-text flex items-center text-sm"
+                  className="p-2 text-text dark:text-black  flex items-center text-sm"
                 >
                   <stat.icon className="mr-2 text-2xl text-accent" />
                   {stat.text}
@@ -140,12 +146,12 @@ export const SideBar = ({ isOpen, setIsOpen }) => {
               ))}
             </div>
 
-            <div className="space-y-2 border-t border-gray-400 p-2 flex flex-col items-center">
+            <div className="space-y-2 border-t border-gray-400 dark:border-t dark:border-black p-2 flex flex-col items-center">
               <FaUsers className="text-4xl text-accent mx-auto mb-4 mt-4 animate-bounce" />
-              <h2 className="text-md font-bold text-primary mb-2">
+              <h2 className="text-md font-bold text-primary dark:text-black  mb-2">
                 1000+ Usuarios
               </h2>
-              <p className="text-md text-center mt-2 text-muted">
+              <p className="text-md text-center mt-2 text-muted dark:text-black ">
                 ¡Ya han mejorado sus habilidades con nuestras flashcards!
               </p>
               <div className="my-3"></div>

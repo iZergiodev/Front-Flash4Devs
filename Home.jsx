@@ -83,7 +83,11 @@ export const Home = () => {
     <Link to={path} key={index}>
       <motion.div
         className={`w-full max-w-[16rem] h-60 rounded-lg flex flex-col shadow-lg pointer-events-auto relative overflow-hidden cursor-pointer border border-primary/40
-          ${hoveredCards[index] ? "bg-accent text-white" : "bg-card dark:bg-amber-100 text-text"} 
+          ${
+            hoveredCards[index]
+              ? "bg-accent text-white"
+              : "bg-card dark:bg-[#919191] text-text dark:text-black"
+          } 
           md:w-64 md:h-70 md:ml-0 md:bottom-0 md:top-0`}
         onHoverStart={() => handleHover(index, true)}
         onHoverEnd={() => handleHover(index, false)}
@@ -93,20 +97,22 @@ export const Home = () => {
       >
         {!hoveredCards[index] ? (
           <div className="flex items-center justify-center h-full p-4 md:p-6 text-center">
-            <h2 className="text-base md:text-xl font-bold font-mono">{title}</h2>
+            <h2 className="text-base md:text-xl font-bold font-mono">
+              {title}
+            </h2>
           </div>
         ) : (
           <div className="flex flex-col h-full">
-            <div className="p-3 md:p-4 bg-accent text-white rounded-t-lg border-b font-semibold border-gray-300">
+            <div className="p-3 md:p-4 bg-accent  text-white rounded-t-lg border-b font-semibold border-gray-300 dark:border-black">
               <h2 className="text-base md:text-xl font-bold text-center">
                 {title}
               </h2>
             </div>
-            <div className="flex-1 p-4 md:p-6 overflow-y-auto bg-card text-text text-center">
+            <div className="flex-1 p-4 md:p-6 overflow-y-auto bg-card dark:bg-[#919191] text-text dark:text-black text-center">
               <p className="text-sm md:text-base">{description}</p>
             </div>
-            <div className="p-3 md:p-4 bg-card rounded-b-lg border-t border-gray-300 text-center">
-              <p className="text-xs md:text-sm text-text">
+            <div className="p-3 md:p-4 bg-card dark:bg-[#919191] rounded-b-lg border-t border-gray-300 dark:border-black text-center">
+              <p className="text-xs md:text-sm text-text dark:text-black">
                 ¡Haga clic para comenzar!
               </p>
             </div>
@@ -120,8 +126,8 @@ export const Home = () => {
     <div className="relative w-full min-h-screen flex">
       <div ref={sideBarRef} className="hidden md:block md:w-60">
         <SideBar isOpen={true} setIsOpen={() => {}} />
-      </div>  
-      <div className="flex-1 relative">
+      </div>
+      <div className="flex-1 relative bg-white dark:bg-[#3C4043]">
         <div className="absolute inset-0 z-0">
           <Squares
             speed={0.1}
@@ -130,7 +136,7 @@ export const Home = () => {
             hoverFillColor="#81A4CD"
           />
         </div>
-        <DarkModeSwitcher/>
+        <DarkModeSwitcher />
         {isLogged && (
           <MenuRight
             name={nameState}
@@ -148,18 +154,16 @@ export const Home = () => {
           animateOpacity
           scale={0.1}
           threshold={0.2}
-          className="relative z-40 pointer-events-none" 
-        >
-
-        </AnimatedContent>
-        <Footer/>
+          className="relative z-40 pointer-events-none"
+        ></AnimatedContent>
+        <Footer />
         <Navbar toggleSideBar={toggleSideBar} />
         <div className="md:hidden">
           <SideBar isOpen={isSideBarOpen} setIsOpen={setIsSideBarOpen} />
         </div>
         <div className="flex flex-col items-center w-full p-2 gap-1 md:flex-row md:items-center md:h-full md:gap-1 relative z-10">
           <div className="flex justify-center items-center w-full md:scale-105 mt-20 md:w-1/2 md:mt-25 md:ml-20">
-            <HeroSection/>
+            <HeroSection />
           </div>
           <div className="w-full flex flex-col items-center mt-8 md:w-1/2 md:mt-25 md:mr-30">
             <p className="orbitron text-sm text-center md:text-md md:mb-1 lg:block xl:block md:mr-4">

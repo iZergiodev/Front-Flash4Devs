@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import GradientText from "./effectcomponents/GradientText";
 import { FaUser, FaGraduationCap, FaStar, FaSignOutAlt } from "react-icons/fa";
@@ -37,7 +37,7 @@ export const MenuRight = ({ name, email, profileImage }) => {
   ];
 
   return (
-    <motion.nav className="fixed right-2 top-[15px] z-50 font-semibold sm:right-5 sm:top-[20px] sm:bg-card sm:shadow-lg sm:rounded-full sm:p-4 sm:py-1 sm:px-4 scale-110 sm:scale-100">
+    <motion.nav className="fixed right-2 top-[15px] z-50 font-semibold sm:right-5 sm:top-[20px] sm:bg-card dark:sm:bg-[#919191]  sm:shadow-lg sm:rounded-full sm:p-4 sm:py-1 sm:px-4 scale-110 sm:scale-100">
       <motion.div
         className="flex flex-row items-center gap-2 sm:gap-4 transform-gpu"
         transition={{ type: "spring", stiffness: 300 }}
@@ -56,7 +56,7 @@ export const MenuRight = ({ name, email, profileImage }) => {
         <div className="relative">
           <button
             onClick={toggleDropdown}
-            className="w-7 h-7 sm:w-10 sm:h-10 rounded-full overflow-hidden border-2 border-primary cursor-pointer"
+            className="w-7 h-7 sm:w-10 sm:h-10 rounded-full overflow-hidden border-2 border-primary dark:border-black cursor-pointer"
           >
             <img
               src={profileImage || "/avatarejemplo.jpg"}
@@ -71,7 +71,7 @@ export const MenuRight = ({ name, email, profileImage }) => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="fixed right-0 mt-3 w-44 sm:w-47 bg-card rounded-lg shadow-lg border border-muted/20 z-[100] max-w-[90vw]"
+                className="fixed right-0 mt-3 w-44 sm:w-47 bg-card dark:bg-[#919191]  rounded-lg shadow-lg border border-muted/20 z-[100] max-w-[90vw]"
               >
                 <ul className="py-2">
                   <li className="border-b border-muted/20 mb-1 pb-2 flex flex-col items-center justify-center px-5 mt-1">
@@ -87,7 +87,7 @@ export const MenuRight = ({ name, email, profileImage }) => {
                     <li key={index}>
                       <Link
                         to={item.to}
-                        className="flex items-center px-3 py-2 text-text hover:bg-muted/30 transition-colors duration-200 font-semibold cursor-pointer text-sm sm:text-base"
+                        className="flex items-center px-3 py-2 text-text dark:text-[#202124] hover:bg-muted/30 transition-colors duration-200 font-semibold cursor-pointer text-sm sm:text-base"
                       >
                         <item.icon className="mr-2 sm:mr-3" />
                         {item.text}
