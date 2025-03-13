@@ -47,7 +47,7 @@ const backendTechnologies = [
       "Python es un lenguaje simple y potente, usado em desarrollo web, ciencia de datos, automatización e inteligencia artificial.",
   },
   {
-    nombre: "Git",
+    nome: "Git",
     logo: "/icons/Git.svg",
     descripcion:
       "Git é um sistema de controle de versões para rastrear mudanças no código e colaborar em projetos de software.",
@@ -111,10 +111,11 @@ export const CodingCategorias = () => {
             </Link>
           ))}
         </div>
-        {/* 
+         
          <h1 className="orbitron text-2xl md:text-3xl font-bold text-primary mt-5 text-center">
           Categorías Backend
         </h1>
+
         <div className="grid grid-cols-1 gap-6 mt-6 md:grid-cols-3 md:gap-10 md:mt-10 last:pb-20">
           {backendTechnologies.map((tech, index) => (
             <Link
@@ -137,7 +138,7 @@ export const CodingCategorias = () => {
               </div>
             </Link>
           ))}
-        </div>*/}
+        </div>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import {
   FaPen,
@@ -18,9 +18,9 @@ import { Footer } from "../../components/Footer";
 import { useLoading } from "../../hooks/useLoading";
 import { ThreeDots } from "react-loader-spinner";
 import { decodeToken } from "../../utils/decodeToken";
-import { useEffect } from "react";
 
 export const Profile = () => {
+  const [originalData, setOriginalData] = useState({});
   const [avatar, setAvatar] = useState("/avatarejemplo.jpg");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -33,6 +33,7 @@ export const Profile = () => {
   const [twitter, setTwitter] = useState("");
   const [frontEndRating, setFrontEndRating] = useState("");
   const [backEndRating, setBackEndRating] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
 
   const { isLoading, startLoading, stopLoading } = useLoading();
   const navigate = useNavigate();
@@ -43,23 +44,44 @@ export const Profile = () => {
     const idFromToken = decodedToken ? decodedToken.id : null;
 
     startLoading();
-    const resp = await fetch(
-      `https://back-flash4devs-production.up.railway.app/api/user/${idFromToken}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    try {
+      const resp = await fetch(
+        `https://back-flash4devs-production.up.railway.app/api/user/${idFromToken}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-    const { profile_image, email, name, last_name } = await resp.json();
-    setAvatar(profile_image);
-    setFirstName(name);
-    setLastName(last_name);
-    setEmail(email);
-    stopLoading();
+      const { profile_image, email, name, last_name } = await resp.json();
+      const userData = {
+        avatar: profile_image,
+        firstName: name,
+        lastName: last_name,
+        email: email,
+        description: "",
+        github: "",
+        linkedin: "",
+        twitter: "",
+      };
+
+      setAvatar(profile_image);
+      setFirstName(name);
+      setLastName(last_name);
+      setEmail(email);
+      setDescription("");
+      setGithub("");
+      setLinkedin("");
+      setTwitter("");
+      setOriginalData(userData);
+    } catch (error) {
+      console.error("Error fetching user info:", error);
+    } finally {
+      stopLoading();
+    }
   };
 
   const handleAvatarChange = async (event) => {
@@ -89,11 +111,6 @@ export const Profile = () => {
         stopLoading();
       }
     }
-  };
-
-  const handleSave = () => {
-    navigate("/");
-    // Falta lógica
   };
 
   const fetchUserStats = async () => {
@@ -131,7 +148,6 @@ export const Profile = () => {
       setBackEndRating(rating_interview_backend_python || "N/A");
     } catch (error) {
       console.error("Error fetching user stats:", error);
-
       setPorcentage(0);
       setRank("Beginner");
       setFrontEndRating("N/A");
@@ -144,12 +160,48 @@ export const Profile = () => {
     fetchUserStats();
   }, []);
 
+  const handleCancel = () => {
+    setAvatar(originalData.avatar);
+    setFirstName(originalData.firstName);
+    setLastName(originalData.lastName);
+    setEmail(originalData.email);
+    setDescription(originalData.description);
+    setGithub(originalData.github);
+    setLinkedin(originalData.linkedin);
+    setTwitter(originalData.twitter);
+    setIsEditing(false);
+  };
+
+  const handleEditToggle = () => {
+    if (isEditing) {
+      handleCancel();
+    } else {
+      setIsEditing(true);
+    }
+  };
+
+  const handleSave = () => {
+    setIsEditing(false);
+    setOriginalData({
+      avatar,
+      firstName,
+      lastName,
+      email,
+      description,
+      github,
+      linkedin,
+      twitter,
+    });
+    navigate("/");
+    // Adicione lógica de salvamento para o backend aqui se necessário
+  };
+
   const renderInputField = (
     label,
     value,
     onChange,
     placeholder = "",
-    readOnly = false,
+    alwaysDisabled = false,
     Icon = FaUser
   ) => (
     <div>
@@ -163,16 +215,11 @@ export const Profile = () => {
           value={value}
           onChange={onChange}
           placeholder={placeholder}
-          readOnly={readOnly}
+          disabled={alwaysDisabled || !isEditing}
           className={`flex-1 p-1 ${
-            readOnly ? "bg-muted/20" : ""
+            alwaysDisabled || !isEditing ? "bg-muted/20 cursor-not-allowed" : ""
           } border border-muted dark:border-gray-500 rounded-lg w-full text-sm`}
         />
-        {!readOnly && (
-          <button className="ml-2 text-accent cursor-pointer">
-            <FaPen />
-          </button>
-        )}
       </div>
     </div>
   );
@@ -229,7 +276,8 @@ export const Profile = () => {
                 "Apellidos",
                 lastName,
                 (e) => setLastName(e.target.value),
-                "Escribe tu apellido"
+                "Escribe tu apellido",
+                false
               )}
               {renderInputField(
                 "Correo Electrónico",
@@ -248,7 +296,10 @@ export const Profile = () => {
                   value={description}
                   placeholder="Escribe un poco sobre ti"
                   onChange={(e) => setDescription(e.target.value)}
-                  className="w-full p-1 border border-muted dark:border-gray-500 rounded-lg resize-none text-sm mt-1"
+                  disabled={!isEditing}
+                  className={`w-full p-1 border border-muted dark:border-gray-500 rounded-lg resize-none text-sm mt-1 ${
+                    !isEditing ? "bg-muted/20 cursor-not-allowed" : ""
+                  }`}
                   rows={3}
                 ></textarea>
               </div>
@@ -276,10 +327,10 @@ export const Profile = () => {
                   <span>Medallas</span>
                 </label>
                 <div className="space-y-1 mt-1">
-                  <div className="flex items-center justify-between p-1 border border-muted dark:border-gray-500 rounded-lg text-sm">
+                  <div className="flex items-center justify-between p-1 border border-muted dark:border-gray-500 rounded-lg text-sm bg-muted/20 cursor-not-allowed">
                     <span>{`Rating FrontEnd = ${frontEndRating}`}</span>
                   </div>
-                  <div className="flex items-center justify-between p-1 border border-muted dark:border-gray-500 rounded-lg text-sm">
+                  <div className="flex items-center justify-between p-1 border border-muted dark:border-gray-500 rounded-lg text-sm bg-muted/20 cursor-not-allowed">
                     <span>{`Rating BackEnd = ${backEndRating}`}</span>
                   </div>
                 </div>
@@ -310,10 +361,19 @@ export const Profile = () => {
               )}
             </div>
           </div>
-          <div className="text-center mt-6">
+          <div className="text-center mt-6 flex justify-center space-x-4">
+            <button
+              onClick={handleEditToggle}
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm cursor-pointer"
+            >
+              {isEditing ? "Cancelar" : "Editar"}
+            </button>
             <button
               onClick={handleSave}
-              className="px-4 py-2 bg-accent text-white rounded-lg shadow hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm cursor-pointer"
+              className={`px-4 py-2 bg-accent text-white rounded-lg shadow hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm cursor-pointer ${
+                !isEditing ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={!isEditing}
             >
               Salvar
             </button>
