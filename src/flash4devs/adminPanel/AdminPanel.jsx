@@ -1,56 +1,107 @@
-import * as React from "react";
-
 import {
-  createColumnHelper,
-  flexRender,
-  getCoreRowModel,
   useReactTable,
+  getCoreRowModel,
+  flexRender,
 } from "@tanstack/react-table";
 import { useEffect } from "react";
+import { useState } from "react";
+
+// bad_answers: 0;
+// email: "admin@admin";
+// github: null;
+// good_answers: 0;
+// hashed_password: "$2b$12$y2qEZWwQ.tUR8lsJOhhukOig96o1CQuoZqDVwH9XaqDI2txo5l/8.";
+// id: 1;
+// last_name: "admin";
+// level: "beginner";
+// linkedin: null;
+// name: "admin";
+// profile_image: null;
+// rating_interview_backend_python: 0;
+// rating_interview_front_react: 0;
+// role: "admin";
+// x: null;
 
 
-
-const columnHelper = createColumnHelper();
-
-const columns = [
-  columnHelper.accessor("id", {
-    cell: (info) => info.getValue(),
-  }),
-  columnHelper.accessor("name", {
-    cell: (info) => info.getValue(),
-  }),
-  columnHelper.accessor("last_name", {
-    cell: (info) => info.getValue(),
-  }),
-  columnHelper.accessor("email", {
-    cell: (info) => info.getValue(),
-  }),
-  columnHelper.accessor("role", {
-    cell: (info) => info.getValue(),
-  }),
-];
 
 export function AdminPanel() {
+
+  const [data, setData] = useState([]);
 
   const token = localStorage.getItem("token");
   useEffect(() => {
     const getData = async () => {
-      const resp = await fetch(
-        "https://back-flash4devs-production.up.railway.app/api/user/1",{
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          }
-        }
-      );
+      const resp = await fetch("http://127.0.0.1:8000/api/users", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await resp.json();
-      console.log(data)
-      _setData([data]);
+      console.log(data);
+      setData(data);
     };
     getData();
   }, [token]);
 
-  const [data, _setData] = React.useState([]);
+  const handleDelete = async (id) => {
+    try {
+      const resp = await fetch(`http://127.0.0.1:8000/api/user/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!resp.ok) throw new Error("Error deleting user");
+
+      setData((prevData) => prevData.filter((user) => user.id !== id));
+    } catch (error) {
+      console.error("Failed to delete user:", error);
+    }
+  };
+
+
+
+
+  const columns = [
+    {
+      header: "ID",
+      accessorKey: "id",
+    },
+    {
+      header: "Name",
+      accessorKey: "name",
+    },
+    {
+      header: "Email",
+      accessorKey: "email",
+    },
+    {
+      header: "Role",
+      accessorKey: "role",
+    },
+    {
+      header: "Acciones",
+      cell: ({ row }) => (
+        <div className="flex justify-center gap-2">
+          <button
+            onClick={() => handleDelete(row.original.id)}
+            className="bg-blue-400 text-white px-2 py-1 rounded"
+          >
+            Editar
+          </button>
+          <button
+            onClick={() => handleDelete(row.original.id)}
+            className="bg-red-500 text-white px-2 py-1 rounded"
+          >
+            Delete
+          </button>
+        </div>
+      ),
+    },
+  ];
 
   const table = useReactTable({
     data,
@@ -59,19 +110,17 @@ export function AdminPanel() {
   });
 
   return (
-    <div className="p-2 w-screen h-screen flex flex-col items-center justify-center">
-      <table className="mx-auto">
+    <div className="p-4 w-screen h-screen flex justify-center items-center">
+      <table className="border-collapse border w-full max-w-4xl">
         <thead className="border">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <th className="p-2 border" key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
+                  {flexRender(
+                    header.column.columnDef.header,
+                    header.getContext()
+                  )}
                 </th>
               ))}
             </tr>
