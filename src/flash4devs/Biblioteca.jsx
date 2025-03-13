@@ -92,14 +92,12 @@ export const Biblioteca = () => {
   };
 
   return (
-    <div className="relative w-full min-h-screen">
+    <div className="relative w-full min-h-screen bg-white dark:bg-[#3C4043]">
       <div className="absolute inset-0 z-0">
         <Squares
           speed={0.1}
-          squareSize={20} // Móvil
-          md={{ squareSize: 40 }} // Escritorio
+          squareSize={40}
           direction="diagonal"
-          borderColor="rgba(241, 115, 0, 0.2)"
           hoverFillColor="#81A4CD"
         />
       </div>
@@ -126,33 +124,33 @@ export const Biblioteca = () => {
       <Footer />
       <Navbar />
       <div className="flex flex-col justify-center lg:flex-row w-full p-4 lg:p-8 lg:gap-1 relative z-10">
-        <div className="w-full lg:w-1/3 p-6 bg-card rounded-lg shadow-lg mb-8 lg:mb-10 lg:mr-2 lg:mt-30 lg:ml-60 mt-20">
-          <h2 className="orbitron text-xl font-bold text-text mb-4 text-center">
+        <div className="w-full lg:w-1/3 p-6 bg-card dark:bg-[#919191] rounded-lg shadow-lg mb-8 lg:mb-10 lg:mr-2 lg:mt-30 lg:ml-60 mt-20">
+          <h2 className="orbitron text-xl font-bold text-text dark:text-black mb-4 text-center">
             Como comenzar a estudiar
           </h2>
           <div className="flex">
             <FaBook className="mr-2 mt-1 text-accent" />
-            <p className="text-text mb-4">
+            <p className="text-text dark:text-black font-bold mb-4">
               Siga los pasos a continuación para comenzar a aprender sobre las
               Tecnologías:
             </p>
           </div>
           <ol className="list-none list-inside space-y-2">
             <li className="text-gray-700 flex items-center">
-              <Fa1 className="mr-2 text-text" /> Elija una tecnología en el
-              carrusel de al lado;
+              <Fa1 className="mr-2 text-text dark:text-black" /> Elija una
+              tecnología en el carrusel de al lado;
             </li>
             <li className="text-gray-700 flex items-center">
-              <Fa2 className="mr-2 text-text" /> Lea una breve descripción y qué
-              versión es actualmente;
+              <Fa2 className="mr-2 text-text dark:text-black" /> Lea una breve
+              descripción y qué versión es actualmente;
             </li>
             <li className="text-gray-700 flex items-center">
-              <Fa3 className="mr-2 text-text" /> Accede a la documentación
-              oficial para profundizar más;
+              <Fa3 className="mr-2 text-text dark:text-black" /> Accede a la
+              documentación oficial para profundizar más;
             </li>
             <li className="text-gray-700 flex items-center">
-              <Fa4 className="mr-2 text-text" /> ¡Luego elige la FlashCard que
-              quieres y empieza a Jugar!
+              <Fa4 className="mr-2 text-text dark:text-black" /> ¡Luego elige la
+              FlashCard que quieres y empieza a Jugar!
             </li>
           </ol>
           <div className="mt-6 flex justify-center">
@@ -167,7 +165,7 @@ export const Biblioteca = () => {
         <div className="w-full lg:flex-1 flex items-center justify-center lg:mt-22">
           <button
             onClick={anteriorCard}
-            className="p-4 bg-card text-text rounded-full shadow-lg hover:bg-accent transition-colors"
+            className="p-4 bg-card dark:bg-[#919191] text-text dark:text-black rounded-full shadow-lg hover:bg-accent transition-colors"
           >
             {"<"}
           </button>
@@ -178,7 +176,7 @@ export const Biblioteca = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 50 }}
             transition={{ duration: 0.5 }}
-            className="w-full max-w-[650px] h-[670px] bg-white rounded-lg shadow-2xl overflow-hidden mx-4"
+            className="w-full max-w-[650px] h-[670px] bg-white dark:bg-[#919191] dark:text-black rounded-lg shadow-2xl overflow-hidden mx-4"
           >
             <div className="flex items-center justify-center p-6 bg-primary">
               <img
@@ -192,14 +190,14 @@ export const Biblioteca = () => {
             </div>
 
             <div className="p-6 flex flex-col items-center">
-              <div className="text-6xl text-gray-800 mb-4">
+              <div className="text-6xl text-gray-800 dark:text-black mb-4">
                 {tecnologias[indiceAtual].icone}
               </div>
-              <p className="text-lg text-gray-600 text-center">
+              <p className="text-lg text-gray-600 dark:text-black text-center">
                 {tecnologias[indiceAtual].descricao}
               </p>
-              <div className="md:w-[250px] md:h-[200px] flex flex-col items-center justify-center rounded-full p-6 bg-gray-100 shadow-lg mt-10">
-                <p className="text-md text-text pb-3">
+              <div className="md:w-[250px] md:h-[200px] flex flex-col items-center justify-center rounded-full p-6 bg-gray-100 dark:bg-[#afafaf] shadow-lg mt-10">
+                <p className="text-md text-text dark:text-black pb-3">
                   Versión: {tecnologias[indiceAtual].versao}
                 </p>
                 <a
@@ -216,7 +214,7 @@ export const Biblioteca = () => {
 
           <button
             onClick={proximoCard}
-            className="p-4 bg-card text-text rounded-full shadow-lg hover:bg-accent transition-colors"
+            className="p-4 bg-card dark:bg-[#afafaf] text-text dark:text-black rounded-full shadow-lg hover:bg-accent transition-colors"
           >
             {">"}
           </button>

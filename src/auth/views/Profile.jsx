@@ -153,7 +153,7 @@ export const Profile = () => {
     Icon = FaUser
   ) => (
     <div>
-      <label className="text-xs font-medium text-text flex items-center space-x-2">
+      <label className="text-xs font-medium text-text dark:text-black flex items-center space-x-2">
         <Icon />
         <span>{label}</span>
       </label>
@@ -166,7 +166,7 @@ export const Profile = () => {
           readOnly={readOnly}
           className={`flex-1 p-1 ${
             readOnly ? "bg-muted/20" : ""
-          } border border-muted rounded-lg w-full text-sm`}
+          } border border-muted dark:border-gray-500 rounded-lg w-full text-sm`}
         />
         {!readOnly && (
           <button className="ml-2 text-accent cursor-pointer">
@@ -179,20 +179,19 @@ export const Profile = () => {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 bg-white dark:bg-[#3C4043]">
         <Squares
           speed={0.1}
           squareSize={40}
           direction="diagonal"
-          borderColor="rgba(241, 115, 0, 0.2)"
           hoverFillColor="#81A4CD"
         />
       </div>
       <Navbar />
       <Footer />
       <div className="relative z-10 flex items-center justify-center min-h-screen p-4 pointer-events-none">
-        <div className="bg-card p-4 rounded-lg shadow-lg w-full max-w-5xl pointer-events-auto">
-          <h1 className="text-3xl font-semibold text-center mb-4 text-text">
+        <div className="bg-card dark:bg-[#b9b9b9] p-4 rounded-lg shadow-lg w-full max-w-5xl pointer-events-auto">
+          <h1 className="text-3xl font-semibold text-center mb-4 text-text dark:text-black">
             Tu Perfil
           </h1>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -202,7 +201,7 @@ export const Profile = () => {
                   <img
                     src={avatar}
                     alt="Avatar"
-                    className="w-40 h-40 rounded-full border-4 border-primary"
+                    className="w-40 h-40 rounded-full border-4 border-primary dark:border-black"
                   />
                   <label
                     htmlFor="avatar-upload"
@@ -241,7 +240,7 @@ export const Profile = () => {
                 FaEnvelope
               )}
               <div>
-                <label className="text-xs font-medium text-text flex items-center space-x-2">
+                <label className="text-xs font-medium text-text dark:text-black flex items-center space-x-2">
                   <FaInfoCircle />
                   <span>Acerca de ti</span>
                 </label>
@@ -249,7 +248,7 @@ export const Profile = () => {
                   value={description}
                   placeholder="Escribe un poco sobre ti"
                   onChange={(e) => setDescription(e.target.value)}
-                  className="w-full p-1 border border-muted rounded-lg resize-none text-sm mt-1"
+                  className="w-full p-1 border border-muted dark:border-gray-500 rounded-lg resize-none text-sm mt-1"
                   rows={3}
                 ></textarea>
               </div>
@@ -272,15 +271,15 @@ export const Profile = () => {
                 FaBrain
               )}
               <div>
-                <label className="text-xs font-medium text-text flex items-center space-x-2">
+                <label className="text-xs font-medium text-text dark:text-black flex items-center space-x-2">
                   <FaMedal />
                   <span>Medallas</span>
                 </label>
                 <div className="space-y-1 mt-1">
-                  <div className="flex items-center justify-between p-1 border border-muted rounded-lg text-sm">
+                  <div className="flex items-center justify-between p-1 border border-muted dark:border-gray-500 rounded-lg text-sm">
                     <span>{`Rating FrontEnd = ${frontEndRating}`}</span>
                   </div>
-                  <div className="flex items-center justify-between p-1 border border-muted rounded-lg text-sm">
+                  <div className="flex items-center justify-between p-1 border border-muted dark:border-gray-500 rounded-lg text-sm">
                     <span>{`Rating BackEnd = ${backEndRating}`}</span>
                   </div>
                 </div>

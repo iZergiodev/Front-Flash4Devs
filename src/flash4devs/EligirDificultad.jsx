@@ -6,17 +6,16 @@ export const EligirDificultad = ({ onSelectDifficulty }) => {
   };
 
   return (
-    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] h-[500px] rounded-lg shadow-lg bg-white overflow-hidden">
-      <header className="bg-card p-4 border-b-1 border-gray-300">
-        <h1 className="text-xl font-bold text-center text-text">
+    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] h-[500px] rounded-lg shadow-lg bg-white dark:bg-[#c9c8c8] overflow-hidden">
+      <header className="bg-card dark:bg-accent p-4 border-b-1 border-gray-300 dark:border-black">
+        <h1 className="text-xl font-bold text-center text-text dark:text-black">
           Elige la dificultad
         </h1>
       </header>
 
       <div className="p-4 flex flex-col space-y-4 items-center justify-center">
         <button onClick={() => handleClick("easy")}>
-          <div
-            className="rounded-lg overflow-hidden shadow-lg w-60 hover:scale-105 transition-transform">
+          <div className="rounded-lg overflow-hidden shadow-lg w-60 hover:scale-105 transition-transform">
             <header className="bg-green-600 p-2 border-b-1 border-gray-300">
               <h2 className="text-white text-center font-semibold">Easy</h2>
             </header>
@@ -52,7 +51,7 @@ export const EligirDificultad = ({ onSelectDifficulty }) => {
         </button>
       </div>
 
-      <h3 className="text-center p-4 font-bold text-text">
+      <h3 className="text-center p-4 font-bold text-text dark:text-black">
         ¡Que comiencen los juegos!
       </h3>
     </div>

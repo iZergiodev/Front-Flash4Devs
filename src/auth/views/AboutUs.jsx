@@ -42,14 +42,14 @@ export const AboutUs = () => {
       initial={{ opacity: 0, x: -50 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.8, delay: 0.2 }}
-      className="bg-card p-6 rounded-lg shadow-xl flex flex-col items-center w-full sm:w-120 pointer-events-auto"
+      className="bg-card dark:bg-[#919191] p-6 rounded-lg shadow-xl flex flex-col items-center w-full sm:w-120 pointer-events-auto"
     >
       <img
         src={member.image}
         alt={member.name}
         className="w-110 h-110 rounded mb-4 shadow-xl"
       />
-      <h2 className="text-xl font-extrabold text-center text-primary">
+      <h2 className="text-xl font-extrabold text-center text-primary dark:text-black">
         {member.name}{" "}
         <span className="text-text font-semibold italic">
           <GradientText
@@ -112,12 +112,11 @@ export const AboutUs = () => {
     <>
       <Navbar />
       <div className="relative min-h-screen">
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 bg-white dark:bg-[#3C4043]">
           <Squares
             speed={0.1}
             squareSize={40}
             direction="diagonal"
-            borderColor="rgba(241, 115, 0, 0.2)"
             hoverFillColor="#81A4CD"
           />
         </div>
@@ -131,8 +130,7 @@ export const AboutUs = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="text-4xl font-bold text-primary mb-8 pointer-events-auto"
-          >
-          </motion.h1>
+          ></motion.h1>
           <div className="flex flex-col sm:py-0 py-10 sm:flex-row gap-24 last:pb-20">
             {teamMembers.map((member) => renderTeamMember(member))}
           </div>
