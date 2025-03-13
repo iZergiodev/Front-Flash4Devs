@@ -108,12 +108,11 @@ export const Register = () => {
     <>
       <Toaster position="bottom-right" reverseOrder={false} />
       <div className="relative min-h-screen overflow-hidden">
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 bg-white dark:bg-[#3C4043]">
           <Squares
             speed={0.1}
             squareSize={40}
             direction="diagonal"
-            borderColor="rgba(241, 115, 0, 0.2)"
             hoverFillColor="#81A4CD"
           />
         </div>
@@ -135,7 +134,7 @@ export const Register = () => {
         </div>
         <div className="relative z-10 flex items-center justify-center min-h-screen pointer-events-none">
           <div className="container mx-auto px-4">
-            <div className="flex flex-col md:flex-row w-full md:w-8/12 bg-card rounded-xl mx-auto shadow-lg overflow-hidden pointer-events-auto">
+            <div className="flex flex-col md:flex-row w-full md:w-8/12 bg-card dark:bg-[#919191] rounded-xl mx-auto shadow-lg overflow-hidden pointer-events-auto">
               <div
                 className="w-full md:w-1/2 flex flex-col items-center justify-center p-8 md:p-12 bg-no-repeat bg-cover bg-center relative order-2 md:order-1"
                 style={{
@@ -159,7 +158,7 @@ export const Register = () => {
               </div>
 
               <div className="w-full md:w-1/2 py-8 md:py-16 px-6 md:px-12 order-1 md:order-2">
-                <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-primary text-center">
+                <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-primary dark:text-black text-center">
                   <SplitText
                     text="Registro"
                     className="text-2xl md:text-3xl font-semibold text-center"
@@ -177,7 +176,7 @@ export const Register = () => {
                     rootMargin="-50px"
                   />
                 </h2>
-                <p className="mb-4 text-text text-sm md:text-base">
+                <p className="mb-4 text-text dark:text-black text-sm md:text-base">
                   Crea tu cuenta. Es gratis y sólo te llevará un minuto.
                 </p>
                 <form onSubmit={handleSubmit}>

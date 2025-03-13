@@ -84,12 +84,11 @@ export const FormCustom = () => {
   return (
     <>
       <div className="relative w-full h-screen overflow-hidden z-10">
-        <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 -z-10 bg-white dark:bg-[#3C4043]">
           <Squares
             speed={0.1}
             squareSize={40}
             direction="diagonal"
-            borderColor="rgba(241, 115, 0, 0.2)"
             hoverFillColor="#81A4CD"
           />
         </div>
@@ -97,12 +96,14 @@ export const FormCustom = () => {
         <Footer />
         <MenuRight name={nameState} email={emailState} profileImage={avatar} />
         <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-          <div className="bg-white border-1 border-gray-200 p-8 rounded-lg shadow-lg max-w-md w-full">
-            <h1 className="text-2xl text-center font-bold mb-6 text-text">Custom Card</h1>
+          <div className="bg-white dark:bg-[#919191] border-1 border-gray-200 dark:border-black p-8 rounded-lg shadow-lg max-w-md w-full">
+            <h1 className="text-2xl text-center font-bold mb-6 text-text dark:text-black">
+              Custom Card
+            </h1>
             <form className="space-y-4 pointer-events-auto">
               <div className="flex items-center space-x-2">
                 <FaQuestionCircle className="text-accent" size={20} />
-                <label htmlFor="question" className="text-text">
+                <label htmlFor="question" className="text-text dark:text-black">
                   Question
                 </label>
               </div>
@@ -112,13 +113,13 @@ export const FormCustom = () => {
                 value={question}
                 id="question"
                 name="question"
-                className="w-full p-2 border bg-gray-50 border-muted rounded-md focus:outline-none focus:border-accent"
+                className="w-full p-2 border bg-gray-50 dark:bg-gray-200 border-muted rounded-md focus:outline-none focus:border-accent"
                 placeholder="Introduce la pregunta"
               />
 
               <div className="flex items-center space-x-2">
                 <FaLightbulb className="text-accent" size={20} />
-                <label htmlFor="solution" className="text-text">
+                <label htmlFor="solution" className="text-text dark:text-black">
                   Solution
                 </label>
               </div>
@@ -127,13 +128,13 @@ export const FormCustom = () => {
                 id="solution"
                 name="solution"
                 value={solution}
-                className="w-full p-2 border bg-gray-50 border-muted rounded-md focus:outline-none focus:border-accent"
+                className="w-full p-2 border bg-gray-50 dark:bg-gray-200 border-muted rounded-md focus:outline-none focus:border-accent"
                 placeholder="Introduzca la respuesta"
                 rows={3}
               ></textarea>
               <div className="flex items-center space-x-2">
                 <FaTags className="text-accent" size={20} />
-                <label htmlFor="category" className="text-text">
+                <label htmlFor="category" className="text-text dark:text-black">
                   Category
                 </label>
               </div>
@@ -143,13 +144,16 @@ export const FormCustom = () => {
                 value={category}
                 id="category"
                 name="category"
-                className="w-full p-2 border bg-gray-50 border-muted rounded-md focus:outline-none focus:border-accent"
+                className="w-full p-2 border bg-gray-50 dark:bg-gray-200 border-muted rounded-md focus:outline-none focus:border-accent"
                 placeholder="Ingresar categoría"
               />
 
               <div className="flex items-center space-x-2">
                 <FaChartLine className="text-accent" size={20} />
-                <label htmlFor="difficult" className="text-text">
+                <label
+                  htmlFor="difficult"
+                  className="text-text dark:text-black"
+                >
                   Difficult
                 </label>
               </div>
@@ -158,7 +162,7 @@ export const FormCustom = () => {
                 id="difficult"
                 value={difficult}
                 name="difficult"
-                className="w-full p-2 border bg-gray-50 border-muted rounded-md focus:outline-none focus:border-accent"
+                className="w-full p-2 border bg-gray-50 dark:bg-gray-200 border-muted rounded-md focus:outline-none focus:border-accent"
                 placeholder="Introduzca la dificultad"
                 rows={1}
               ></textarea>

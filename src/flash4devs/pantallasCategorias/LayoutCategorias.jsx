@@ -34,12 +34,11 @@ export const LayoutCategorias = () => {
   return (
     <>
       <div className="relative w-full h-screen overflow-hidden z-10">
-        <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 -z-10 bg-white dark:bg-[#3C4043]">
           <Squares
             speed={0.1}
             squareSize={40}
             direction="diagonal"
-            borderColor="rgba(241, 115, 0, 0.2)"
             hoverFillColor="#81A4CD"
           />
         </div>
@@ -48,7 +47,6 @@ export const LayoutCategorias = () => {
         <MenuRight name={nameState} email={emailState} profileImage={avatar} />
 
         {renderComponent()}
-       
       </div>
     </>
   );

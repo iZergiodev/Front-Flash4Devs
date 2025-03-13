@@ -125,18 +125,17 @@ export const Login = () => {
     <>
       <Toaster position="bottom-right" reverseOrder={false} />
       <div className="relative w-full h-screen overflow-hidden">
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 bg-white dark:bg-[#3C4043]">
           <Squares
             speed={0.1}
             squareSize={40}
             direction="diagonal"
-            borderColor="rgba(241, 115, 0, 0.2)"
             hoverFillColor="#81A4CD"
           />
         </div>
         <div className="relative z-10 flex items-center justify-center w-full h-full pointer-events-none">
-          <div className="bg-card p-8 rounded-lg shadow-lg w-full max-w-md pointer-events-auto">
-            <h2 className="text-2xl font-bold mb-6 text-primary text-center">
+          <div className="bg-card dark:bg-[#919191] p-8 rounded-lg shadow-lg w-full max-w-md pointer-events-auto">
+            <h2 className="text-2xl font-bold mb-6 text-primary dark:text-black text-center">
               <SplitText
                 text="Login"
                 className="text-2xl font-semibold text-center"
@@ -155,7 +154,7 @@ export const Login = () => {
               <div className="mb-4">
                 <label
                   htmlFor="email"
-                  className="block text-primary text-sm font-bold mb-2"
+                  className="block text-primary dark:text-black text-sm font-bold mb-2"
                 >
                   Email
                 </label>
@@ -165,19 +164,23 @@ export const Login = () => {
                   name="email"
                   placeholder="Ingresa tu correo electrónico"
                   className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent ${
-                    emailError ? "border-red-500" : "border-muted"
+                    emailError
+                      ? "border-red-500 dark:border-red-800"
+                      : "border-muted dark:border-black"
                   }`}
                   value={formData.email}
                   onChange={handleInputChange}
                 />
                 {emailError && (
-                  <p className="text-red-500 text-xs mt-1">{emailError}</p>
+                  <p className="text-red-500 dark:text-red-800 text-xs mt-1">
+                    {emailError}
+                  </p>
                 )}
               </div>
               <div className="mb-6">
                 <label
                   htmlFor="password"
-                  className="block text-primary text-sm font-bold mb-2"
+                  className="block text-primary dark:text-black text-sm font-bold mb-2"
                 >
                   Contraseña
                 </label>
@@ -189,7 +192,9 @@ export const Login = () => {
                     name="password"
                     placeholder="Ingresa tu contraseña"
                     className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent ${
-                      passwordError ? "border-red-500" : "border-muted"
+                      passwordError
+                        ? "border-red-500 dark:border-red-800"
+                        : "border-muted dark:border-black"
                     }`}
                     value={formData.password}
                     onChange={handleInputChange}
@@ -197,7 +202,7 @@ export const Login = () => {
                   <button
                     type="button"
                     onClick={toggleShow}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none cursor-pointer"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:hover:text-accent focus:outline-none cursor-pointer"
                   >
                     {eyeIsClosed ? (
                       <VscEye size={20} />
@@ -207,7 +212,9 @@ export const Login = () => {
                   </button>
                 </div>
                 {passwordError && (
-                  <p className="text-red-500 text-xs mt-1">{passwordError}</p>
+                  <p className="text-red-500 dark:text-red-800 text-xs mt-1">
+                    {passwordError}
+                  </p>
                 )}
               </div>
               <button
@@ -218,11 +225,11 @@ export const Login = () => {
                 Entrar
               </button>
             </form>
-            <p className="mt-4 text-center text-muted">
+            <p className="mt-4 text-center text-muted dark:text-gray-700">
               ¿No tienes una cuenta?{" "}
               <Link
                 to="/auth/register"
-                className="text-secondary hover:underline"
+                className="text-secondary dark:text-blue-500 hover:underline"
               >
                 Registro
               </Link>
