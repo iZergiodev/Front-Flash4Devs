@@ -1,62 +1,138 @@
 import { Link } from "react-router";
 
-const tecnologias = [
-  {
-    nome: "React",
-    logo: "/icons/React.svg",
-    descricao: "Biblioteca JavaScript para crear interfaces de usuario.",
-  },
-  {
-    nome: "CSS",
-    logo: "/icons/CSS3.svg",
-    descricao: "Lenguaje de estilo para diseñar páginas web.",
-  },
-  {
-    nome: "HTML",
-    logo: "/icons/HTML5.svg",
-    descricao: "Lenguaje de marcado para estructurar contenido web.",
-  },
-  {
-    nome: "Python",
-    logo: "/icons/Python.svg",
-    descricao:
-      "Lenguaje de programación para un desarrollo rápido y eficiente.",
-  },
-  {
-    nome: "JavaScript",
-    logo: "/icons/JavaScript.svg",
-    descricao: "Lenguaje de programación para interactividad en páginas web.",
-  },
-  {
-    nome: "Git",
-    logo: "/icons/Git.svg",
-    descricao:
-      "Sistema de control de versiones para la gestión del código fuente.",
-  },
-];
+  const frontendTechnologies = [
+    {
+      nome: "React",
+      logo: "/icons/React.svg",
+      descripcion:
+        "React es una biblioteca de JavaScript para crear interfaces de usuario usando componentes reutilizables y el eficiente Virtual DOM. Es ideal para aplicaciones web modernas.",
+    },
+    {
+      nome: "CSS",
+      logo: "/icons/CSS3.svg",
+      descripcion:
+        "CSS estiliza páginas web, controlando colores, fuentes, tamaños y diseño. Es esencial para la apariencia visual y responsividad junto con HTML.",
+    },
+    {
+      nome: "HTML",
+      logo: "/icons/HTML5.svg",
+      descripcion:
+        "HTML estructura páginas web, definiendo elementos como títulos, textos e imágenes. Es la base de cualquier sitio web.",
+    },
+    {
+      nome: "JavaScript",
+      logo: "/icons/JavaScript.svg",
+      descripcion:
+        "JavaScript añade interactividad a páginas web, como animaciones y validación de formularios. Es clave en el desarrollo front-end.",
+    },
+    {
+      nome: "TypeScript",
+      logo: "/icons/TypeScript.png",
+      descripcion:
+        "TypeScript es un superset de JavaScript con tipagem estática, usado em projetos React para maior segurança e escalabilidade.",
+    },
+    {
+      nome: "Angular",
+      logo: "/icons/Angular.png",
+      descripcion:
+        "Angular es un framework de JavaScript/TypeScript para crear aplicaciones web dinámicas, com two-way data binding e uma arquitetura estruturada.",
+    },
+  ];
+
+  const backendTechnologies = [
+    {
+      nome: "Python",
+      logo: "/icons/Python.svg",
+      descripcion:
+        "Python es un lenguaje simple y potente, usado em desarrollo web, ciencia de datos, automatización e inteligencia artificial.",
+    },
+    {
+      nome: "Git",
+      logo: "/icons/Git.svg",
+      descripcion:
+        "Git es un sistema de control de versiones para rastrear cambios de código y colaborar en proyectos de software.",
+    },
+    {
+      nome: "Node.js",
+      logo: "/icons/NodeJS.svg",
+      descripcion:
+        "Node.js es un entorno de ejecución de JavaScript del lado del servidor ideal para API y aplicaciones back-end escalables.",
+    },
+    {
+      nome: "FastAPI",
+      logo: "/icons/FastAPI.png",
+      descripcion:
+        "FastAPI es un framework moderno y rápido para crear APIs en Python, basado en Starlette y Pydantic. Soporta async/await, validación automática de datos y genera documentación interactiva. Es ideal para aplicaciones escalables y de alto rendimiento.",
+    },
+    {
+      nome: "SQL",
+      logo: "/icons/SQL.png",
+      descripcion:
+        "SQL es un lenguaje para gestionar bases de datos relacionales, esencial para almacenar y consultar datos en el backend.",
+    },
+    {
+      nome: "MongoDB",
+      logo: "/icons/MongoDB.png",
+      descripcion:
+        "MongoDB es una popular base de datos NoSQL en el backend, ideal para almacenar datos flexibles en aplicaciones modernas.",
+    },
+  ];
 
 export const CustomCategorias = () => {
   return (
     <div className="w-full min-h-screen h-full overflow-auto">
       <div className="max-w-[900px] mx-auto p-4 mt-16 md:mt-30">
-        <h1 className="bg-card text-center p-6 font-extrabold text-text text-2xl rounded-full shadow-lg ">
-          ¡Elige una categoria para comenzar las Custom FlashCard!
+        <h1 className="bg-card dark:bg-[#919191] text-center p-4 md:p-6 font-extrabold text-text dark:text-black text-xl md:text-2xl rounded-full shadow-lg">
+          ¡Elige una categoría para comenzar las Coding Flashcards!
         </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 mt-10 last:pb-20">
-          {tecnologias.map((tech, index) => (
+        <h1 className="orbitron text-2xl md:text-3xl font-bold text-primary mt-5 text-center">
+          Categorías Frontend
+        </h1>
+        <div className="grid grid-cols-1 gap-6 mt-6 md:grid-cols-3 md:gap-10 md:mt-10 last:pb-20">
+          {frontendTechnologies.map((tech, index) => (
             <Link
               key={index}
               to={`/flashcards/custom/${tech.nome.toLowerCase()}`}
             >
-              <div className="w-full max-w-[232px] h-56 md:w-58 md:h-58 bg-white rounded-lg shadow-lg flex flex-col items-center transform transition-transform hover:scale-105 border-b border-gray-300 cursor-pointer mx-auto">
-                <div className="w-full text-center mb-4 bg-text/60 p-3 border-b-1 border-gray-500 rounded-md">
-                  <h2 className="text-xl font-bold text-white">{tech.nome}</h2>
+              <div className="w-full max-w-[232px] h-56 md:w-58 md:h-58 bg-white dark:bg-[#919191] rounded-lg shadow-lg flex flex-col items-center transform transition-transform hover:scale-105 border-b border-gray-300 dark:border-black cursor-pointer mx-auto">
+                <div className="w-full text-center mb-2 md:mb-4 bg-text/60 dark:bg-accent p-2 md:p-3 border-b border-gray-500 dark:border-black rounded-t-lg">
+                  <h2 className="text-lg md:text-xl font-bold text-white dark:text-black">
+                    {tech.nome}
+                  </h2>
                 </div>
-                <div className="w-full flex justify-center items-center mb-4 mt-4 rounded-lg">
+                <div className="w-full flex justify-center items-center mb-4 mt-2 md:mt-4 rounded-lg">
                   <img
                     src={tech.logo}
                     alt={`Logo ${tech.nome}`}
-                    className="w-30 h-30"
+                    className="w-30 h-30 md:w-30 md:h-30 object-contain"
+                  />
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        <h1 className="orbitron text-2xl md:text-3xl font-bold text-primary mt-5 text-center">
+          Categorías Backend
+        </h1>
+
+        <div className="grid grid-cols-1 gap-6 mt-6 md:grid-cols-3 md:gap-10 md:mt-10 last:pb-20">
+          {backendTechnologies.map((tech, index) => (
+            <Link
+              key={index}
+              to={`/flashcards/custom/${tech.nome.toLowerCase()}`}
+            >
+              <div className="w-full max-w-[232px] h-56 md:w-58 md:h-58 bg-white dark:bg-[#919191] rounded-lg shadow-lg flex flex-col items-center transform transition-transform hover:scale-105 border-b border-gray-300 dark:border-black cursor-pointer mx-auto">
+                <div className="w-full text-center mb-2 md:mb-4 bg-text/60 dark:bg-accent p-2 md:p-3 border-b border-gray-500 dark:border-black rounded-t-lg">
+                  <h2 className="text-lg md:text-xl font-bold text-white dark:text-black">
+                    {tech.nome}
+                  </h2>
+                </div>
+                <div className="w-full flex justify-center items-center mb-4 mt-2 md:mt-4 rounded-lg">
+                  <img
+                    src={tech.logo}
+                    alt={`Logo ${tech.nome}`}
+                    className="w-30 h-30 md:w-30 md:h-30 object-contain"
                   />
                 </div>
               </div>
@@ -67,7 +143,7 @@ export const CustomCategorias = () => {
           <img src="/flash-favicon1.png" alt="Logo" className="w-20" />
           <Link
             to="/customform"
-            className="bg-card rounded-full text-semibold text-xs py-2 px-5 h-15 shadow-lg flex items-center text-text"
+            className="bg-card dark:bg-[#919191] rounded-full text-semibold text-xs py-2 px-5 h-15 shadow-lg flex items-center text-text dark:text-black"
           >
             Crea Tu Flashcard
           </Link>

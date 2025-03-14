@@ -149,9 +149,9 @@ export const EntrevistaCard = () => {
 
       {!showStatistics && (
         <div className="absolute top-29 left-1/2 transform -translate-x-1/2">
-          <div className="countdown-container bg-card/60 p-3 rounded-lg shadow-md flex items-center justify-center gap-3">
-            <FaClock className="countdown-icon text-primary text-xl" />
-            <span className="countdown-time text-red-500 font-mono text-2xl font-bold">
+          <div className="countdown-container bg-card/60 dark:bg-gray-400/60 p-3 rounded-lg shadow-md flex items-center justify-center gap-3">
+            <FaClock className="countdown-icon text-primary dark:text-accent text-xl" />
+            <span className="countdown-time text-red-500 dark:text-black font-mono text-2xl font-bold">
               {formatTime(timeLeft)}
             </span>
           </div>
@@ -160,13 +160,13 @@ export const EntrevistaCard = () => {
 
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         {!showStatistics ? (
-          <div className="flex flex-col w-96 bg-white rounded-lg shadow-lg p-6 border border-gray-200">
-            <div className="w-full text-center text-xl font-semibold text-text mb-4 p-3 bg-gray-100 rounded-lg shadow-md">
+          <div className="flex flex-col w-96 bg-white dark:bg-[#919191] rounded-lg shadow-lg p-6 border dark:border-black/60 border-gray-200">
+            <div className="w-full text-center text-xl font-semibold text-text dark:text-black mb-4 p-3 bg-gray-100 dark:bg-accent/80 rounded-lg shadow-md">
               Pregunta {currentQuestionIndex + 1} de {questions.length}
             </div>
             <div className="w-full flex flex-col gap-4">
-              <div className="w-full text-center p-3 border border-gray-300 rounded-lg bg-gray-50">
-                <p className="text-lg font-medium text-text">
+              <div className="w-full text-center p-3 border border-gray-300 dark:border-black/60 rounded-lg bg-gray-50 dark:bg-gray-300">
+                <p className="text-lg font-medium text-text dark:text-black">
                   {questions[currentQuestionIndex].question}
                 </p>
               </div>
@@ -174,7 +174,7 @@ export const EntrevistaCard = () => {
                 value={answer}
                 onChange={(e) => setAnswer(e.target.value)}
                 placeholder="Ingresa tu respuesta..."
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                className="w-full p-3 border border-gray-300 dark:border-black/60 dark:bg-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-700/30 resize-none"
                 rows={4}
               />
               {answer.length > 0 && answer.length < 10 && (
@@ -184,7 +184,7 @@ export const EntrevistaCard = () => {
               )}
               <button
                 onClick={handleSaveAnswer}
-                className="w-[60%] mx-auto text-sm mt-5 border-t-1 shadow-lg border-gray-300 text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-[60%] mx-auto text-sm mt-5 border-t-1 shadow-lg border-gray-300 dark:border-black text-white dark:text-black bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
                 disabled={!answer || answer.length < 10}
               >
                 Siguiente
@@ -202,8 +202,8 @@ export const EntrevistaCard = () => {
 
       {(isTimeUp || allQuestionsAnswered) && !showStatistics && (
         <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 text-center">
-          <div className="bg-card w-[300px] h-[130px] p-2 rounded-lg shadow-lg">
-            <p className="text-md text-text border-b-1 border-gray-300 p-2">
+          <div className="bg-card dark:bg-[#919191] w-[300px] h-[130px] p-2 rounded-lg shadow-lg">
+            <p className="text-md text-text dark:text-black border-b-1 border-gray-300 dark:border-black p-2">
               {" "}
               {isTimeUp
                 ? "¡El tiempo ha terminado!"
@@ -211,7 +211,7 @@ export const EntrevistaCard = () => {
             </p>
             <button
               onClick={handleShowStatistics}
-              className="w-[60%] mx-auto mt-3 border-t-1 shadow-lg border-gray-300 text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+              className="w-[60%] mx-auto mt-3 border-t-1 shadow-lg border-gray-300 text-white dark:text-black bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
             >
               Mostrar Informe
             </button>
