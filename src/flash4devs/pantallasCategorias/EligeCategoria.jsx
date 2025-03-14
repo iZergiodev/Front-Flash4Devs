@@ -49,9 +49,7 @@ export const EligeCategoria = () => {
         <div className="absolute inset-0 -z-10">
           <Squares
             speed={0.1}
-            squareSize={40}
             direction="diagonal"
-            borderColor="rgba(241, 115, 0, 0.4)"
             hoverFillColor="#81A4CD"
           />
         </div>

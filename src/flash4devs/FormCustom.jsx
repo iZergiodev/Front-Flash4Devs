@@ -87,7 +87,6 @@ export const FormCustom = () => {
         <div className="absolute inset-0 -z-10 bg-white dark:bg-[#3C4043]">
           <Squares
             speed={0.1}
-            squareSize={40}
             direction="diagonal"
             hoverFillColor="#81A4CD"
           />

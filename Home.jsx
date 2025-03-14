@@ -142,7 +142,6 @@ export const Home = () => {
         <div className="absolute inset-0 z-0">
           <Squares
             speed={0.1}
-            squareSize={40}
             direction="diagonal"
             hoverFillColor="#81A4CD"
           />
