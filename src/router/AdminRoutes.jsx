@@ -1,33 +1,64 @@
 import { Navigate } from "react-router";
-// import { useUserStore } from "../store/userStore";
+import { useState, useEffect } from "react";
 import { decodeToken } from "../utils/decodeToken";
-import { useState } from "react";
+import { ThreeDots } from "react-loader-spinner";
 
 export const AdminRoutes = ({ children }) => {
-  const [isAdmin, setIsAdmin] = useState(false);
-
-  //   const isLogged = useUserStore((state) => state.isLogged);
-
+  const [isAdmin, setIsAdmin] = useState(null);
   const token = localStorage.getItem("token");
 
-  const { id } = decodeToken(token);
-  try {
+  useEffect(() => {
     const checkAdmin = async () => {
-      const resp = await fetch(`https://back-flash4devs-production.up.railway.app/api/user/${id}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      if (!token) {
+        setIsAdmin(false); 
+        return;
+      }
 
-      const { role } = resp.json();
+      try {
+        const { id } = decodeToken(token);
+        const resp = await fetch(
+          `https://back-flash4devs-production.up.railway.app/api/user/${id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
-      if (role === "admin") setIsAdmin(true);
+        if (!resp.ok) {
+          throw new Error("Error al verificar el rol");
+        }
+
+        const { role } = await resp.json();
+        setIsAdmin(role === "admin");
+      } catch (error) {
+        console.error("Error al verificar admin:", error);
+        setIsAdmin(false); 
+      }
     };
-    checkAdmin()
-  } catch (error) {
-    console.log(error);
-    throw new Error("Necesitas permisos de adminitrador");
+
+    checkAdmin();
+  }, [token]);
+
+  if (isAdmin === null) {
+    return (
+      <div
+        className="absolute inset-0 flex items-center justify-center bg-opacity-75 z-50"
+        style={{ backdropFilter: "blur(5px)" }}
+      >
+        <ThreeDots
+          visible={true}
+          height="80"
+          width="80"
+          color="#054A91"
+          radius="9"
+          ariaLabel="three-dots-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </div>
+    );
   }
 
   if (!isAdmin) {
