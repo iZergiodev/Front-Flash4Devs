@@ -1,82 +1,82 @@
 import { Link } from "react-router";
 
-const frontendTechnologies = [
-  {
-    nome: "React",
-    logo: "/icons/React.svg",
-    descripcion:
-      "React es una biblioteca de JavaScript para crear interfaces de usuario usando componentes reutilizables y el eficiente Virtual DOM. Es ideal para aplicaciones web modernas.",
-  },
-  {
-    nome: "CSS",
-    logo: "/icons/CSS3.svg",
-    descripcion:
-      "CSS estiliza páginas web, controlando colores, fuentes, tamaños y diseño. Es esencial para la apariencia visual y responsividad junto con HTML.",
-  },
-  {
-    nome: "HTML",
-    logo: "/icons/HTML5.svg",
-    descripcion:
-      "HTML estructura páginas web, definiendo elementos como títulos, textos e imágenes. Es la base de cualquier sitio web.",
-  },
-  {
-    nome: "JavaScript",
-    logo: "/icons/JavaScript.svg",
-    descripcion:
-      "JavaScript añade interactividad a páginas web, como animaciones y validación de formularios. Es clave en el desarrollo front-end.",
-  },
-  {
-    nome: "TypeScript",
-    logo: "/icons/TypeScript.png",
-    descripcion:
-      "TypeScript es un superset de JavaScript con tipagem estática, usado em projetos React para maior segurança e escalabilidade.",
-  },
-  {
-    nome: "Angular",
-    logo: "/icons/Angular.png",
-    descripcion:
-      "Angular es un framework de JavaScript/TypeScript para crear aplicaciones web dinámicas, com two-way data binding e uma arquitetura estruturada.",
-  },
-];
+  const frontendTechnologies = [
+    {
+      nome: "React",
+      logo: "/icons/React.svg",
+      descripcion:
+        "React es una biblioteca de JavaScript para crear interfaces de usuario usando componentes reutilizables y el eficiente Virtual DOM. Es ideal para aplicaciones web modernas.",
+    },
+    {
+      nome: "CSS",
+      logo: "/icons/CSS3.svg",
+      descripcion:
+        "CSS estiliza páginas web, controlando colores, fuentes, tamaños y diseño. Es esencial para la apariencia visual y responsividad junto con HTML.",
+    },
+    {
+      nome: "HTML",
+      logo: "/icons/HTML5.svg",
+      descripcion:
+        "HTML estructura páginas web, definiendo elementos como títulos, textos e imágenes. Es la base de cualquier sitio web.",
+    },
+    {
+      nome: "JavaScript",
+      logo: "/icons/JavaScript.svg",
+      descripcion:
+        "JavaScript añade interactividad a páginas web, como animaciones y validación de formularios. Es clave en el desarrollo front-end.",
+    },
+    {
+      nome: "TypeScript",
+      logo: "/icons/TypeScript.png",
+      descripcion:
+        "TypeScript es un superset de JavaScript con tipagem estática, usado em projetos React para maior segurança e escalabilidade.",
+    },
+    {
+      nome: "Angular",
+      logo: "/icons/Angular.png",
+      descripcion:
+        "Angular es un framework de JavaScript/TypeScript para crear aplicaciones web dinámicas, com two-way data binding e uma arquitetura estruturada.",
+    },
+  ];
 
-const backendTechnologies = [
-  {
-    nome: "Python",
-    logo: "/icons/Python.svg",
-    descripcion:
-      "Python es un lenguaje simple y potente, usado em desarrollo web, ciencia de datos, automatización e inteligencia artificial.",
-  },
-  {
-    nome: "Git",
-    logo: "/icons/Git.svg",
-    descripcion:
-      "Git é um sistema de controle de versões para rastrear mudanças no código e colaborar em projetos de software.",
-  },
-  {
-    nome: "Node.js",
-    logo: "/icons/NodeJS.svg",
-    descripcion:
-      "Node.js é um ambiente de execução JavaScript no servidor, ideal para APIs e aplicaciones escaláveis no backend.",
-  },
-  {
-    nome: "FastAPI",
-    logo: "/icons/FastAPI.png",
-    descripcion:
-      "FastAPI es un framework moderno y rápido para crear APIs en Python, basado en Starlette y Pydantic. Soporta async/await, validación automática de datos y genera documentación interactiva. Es ideal para aplicaciones escalables y de alto rendimiento.",
-  },
-  {
-    nome: "SQL",
-    logo: "/icons/SQL.png",
-    descripcion:
-      "SQL é uma linguagem para gerenciar bancos de dados relacionais, essencial para armazenar e consultar dados no backend.",
-  },
-  {
-    nome: "MongoDB",
-    logo: "/icons/MongoDB.png",
-    descripcion:
-      "MongoDB é um banco de dados NoSQL popular no Backend, ideal para armazenar dados flexíveis em aplicações modernas.",
-  },
-];
+  const backendTechnologies = [
+    {
+      nome: "Python",
+      logo: "/icons/Python.svg",
+      descripcion:
+        "Python es un lenguaje simple y potente, usado em desarrollo web, ciencia de datos, automatización e inteligencia artificial.",
+    },
+    {
+      nome: "Git",
+      logo: "/icons/Git.svg",
+      descripcion:
+        "Git es un sistema de control de versiones para rastrear cambios de código y colaborar en proyectos de software.",
+    },
+    {
+      nome: "Node.js",
+      logo: "/icons/NodeJS.svg",
+      descripcion:
+        "Node.js es un entorno de ejecución de JavaScript del lado del servidor ideal para API y aplicaciones back-end escalables.",
+    },
+    {
+      nome: "FastAPI",
+      logo: "/icons/FastAPI.png",
+      descripcion:
+        "FastAPI es un framework moderno y rápido para crear APIs en Python, basado en Starlette y Pydantic. Soporta async/await, validación automática de datos y genera documentación interactiva. Es ideal para aplicaciones escalables y de alto rendimiento.",
+    },
+    {
+      nome: "SQL",
+      logo: "/icons/SQL.png",
+      descripcion:
+        "SQL es un lenguaje para gestionar bases de datos relacionales, esencial para almacenar y consultar datos en el backend.",
+    },
+    {
+      nome: "MongoDB",
+      logo: "/icons/MongoDB.png",
+      descripcion:
+        "MongoDB es una popular base de datos NoSQL en el backend, ideal para almacenar datos flexibles en aplicaciones modernas.",
+    },
+  ];
 
 export const CodingCategorias = () => {
   return (

@@ -227,8 +227,8 @@ export const CodingCard = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <div className={`flip-card ${isFlipped ? "flipped" : ""}`}>
             <div className="flip-card-inner">
-              <div className="flex flex-col flip-card-front w-[800px] h-[500px] bg-white border-1 border-gray-200 rounded-lg shadow-lg">
-                <div className="w-full flex relative items-center text-center text-text mb-4 bg-card p-3 border-b-1 border-gray-300 rounded-md">
+              <div className="flex flex-col flip-card-front w-[800px] h-[500px] bg-white dark:bg-[#919191] border-1 border-gray-200 dark:border-black rounded-lg shadow-lg">
+                <div className="w-full flex relative items-center text-center text-text dark:text-black mb-4 bg-card dark:bg-accent dark:border-black p-3 border-b-1 border-gray-300 rounded-md">
                   <div className="absolute left-1/2 transform -translate-x-1/2">
                     {tech.toUpperCase()}
                   </div>
@@ -239,12 +239,14 @@ export const CodingCard = () => {
                     <FaTimes size={20} />
                   </button>
                 </div>
-                <div className="text-xl font-bold text-text w-full flex flex-col justify-center items-center rounded-lg gap-3">
+                <div className="text-xl font-bold text-text dark:text-black w-full flex flex-col justify-center items-center rounded-lg gap-3">
                   <p>PREGUNTA</p>
-                  <p className="text-gray-400">{currentQuestion.question}</p>
+                  <p className="text-gray-400 dark:text-black">
+                    {currentQuestion.question}
+                  </p>
                 </div>
                 <div className="max-w-3xl w-[400px] mt-5 mx-auto shadow-lg">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
+                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
                     Respuesta
                   </label>
                   <Editor
@@ -271,14 +273,14 @@ export const CodingCard = () => {
                 </div>
                 <div className="flex justify-center gap-4 mt-5">
                   <button
-                    className="w-50 border-t-1 border-gray-300 text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary disabled:bg-gray-400 disabled:cursor-not-allowed"
+                    className="w-50 border-t-1 border-gray-300 dark:border-black text-white dark:text-black bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary disabled:bg-gray-400 disabled:cursor-not-allowed"
                     onClick={handleFlip}
                     disabled={!code || code.length < 10}
                   >
                     Mostrar Respuesta
                   </button>
                   <button
-                    className="w-50 border-t-1 border-gray-300 text-white bg-gray-500 py-2 px-4 rounded-lg hover:bg-gray-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400"
+                    className="w-50 border-t-1 border-gray-300 dark:border-black text-white dark:text-black bg-gray-500 py-2 px-4 rounded-lg hover:bg-gray-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400"
                     onClick={handleSkip}
                   >
                     Skip
@@ -286,8 +288,8 @@ export const CodingCard = () => {
                 </div>
               </div>
 
-              <div className="flip-card-back flex flex-col flip-card-front w-[400px] h-[300px] bg-white rounded-lg shadow-lg">
-                <div className="w-full flex relative items-center text-center text-text mb-4 bg-card p-3 border-b-1 border-gray-300 rounded-md">
+              <div className="flip-card-back flex flex-col flip-card-front w-[400px] h-[300px] bg-white dark:bg-[#919191] rounded-lg shadow-lg">
+                <div className="w-full flex relative items-center text-center text-text dark:text-black mb-4 bg-card dark:bg-accent p-3 border-b-1 border-gray-300 dark:border-black rounded-md">
                   <div className="absolute left-1/2 transform -translate-x-1/2">
                     Respuesta
                   </div>
@@ -298,11 +300,11 @@ export const CodingCard = () => {
                     <FaTimes size={20} />
                   </button>
                 </div>
-                <div className="text-xl font-bold text-text w-full my-auto flex flex-col justify-center items-center mt-10 rounded-lg gap-3">
+                <div className="text-xl font-bold text-text dark:text-black w-full my-auto flex flex-col justify-center items-center mt-10 rounded-lg gap-3">
                   <p>{resIA}</p>
                 </div>
                 <button
-                  className="w-50 mt-5 border-t-1 shadow-lg border-gray-300 text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="w-50 mt-5 border-t-1 shadow-lg border-gray-300 dark:border-black text-white dark:text-black bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
                   onClick={() => {
                     if (currentQuestionIndex < questions.length - 1) {
                       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);

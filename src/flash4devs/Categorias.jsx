@@ -58,13 +58,13 @@ export const Categorias = () => {
       nombre: "Git",
       logo: "/icons/Git.svg",
       descripcion:
-        "Git é um sistema de controle de versões para rastrear mudanças no código e colaborar em projetos de software.",
+        "Git es un sistema de control de versiones para rastrear cambios de código y colaborar en proyectos de software.",
     },
     {
       nombre: "Node.js",
       logo: "/icons/NodeJS.svg",
       descripcion:
-        "Node.js é um ambiente de execução JavaScript no servidor, ideal para APIs e aplicaciones escaláveis no backend.",
+        "Node.js es un entorno de ejecución de JavaScript del lado del servidor ideal para API y aplicaciones back-end escalables.",
     },
     {
       nombre: "FastAPI",
@@ -76,13 +76,13 @@ export const Categorias = () => {
       nombre: "SQL",
       logo: "/icons/SQL.png",
       descripcion:
-        "SQL é uma linguagem para gerenciar bancos de dados relacionais, essencial para armazenar e consultar dados no backend.",
+        "SQL es un lenguaje para gestionar bases de datos relacionales, esencial para almacenar y consultar datos en el backend.",
     },
     {
       nombre: "MongoDB",
       logo: "/icons/MongoDB.png",
       descripcion:
-        "MongoDB é um banco de dados NoSQL popular no Backend, ideal para armazenar dados flexíveis em aplicações modernas.",
+        "MongoDB es una popular base de datos NoSQL en el backend, ideal para almacenar datos flexibles en aplicaciones modernas.",
     },
   ];
 
