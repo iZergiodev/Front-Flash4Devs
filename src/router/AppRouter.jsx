@@ -7,12 +7,12 @@ import { FormCustom } from "../flash4devs/FormCustom";
 import { Biblioteca } from "../flash4devs/Biblioteca.jsx";
 import { AdminPanel } from "../flash4devs/adminPanel/AdminPanel.jsx";
 
-
 import { ProtectedRoutes } from "../router/ProtectedRoutes.jsx";
 import { CategoriasRouter } from "../flash4devs/pantallasCategorias/router/CategoriasRouter.jsx";
 import { FlashcardsRouter } from "../flash4devs/flashcards/router/FlashcardsRouter.jsx";
 import { ConceptCard } from "../flash4devs/flashcards/concept-card/ConceptCard.jsx";
 import { AdminFlashCards } from "../flash4devs/adminPanel/AdminFlashCards.jsx";
+import { AdminRoutes } from "./AdminRoutes.jsx";
 
 export const AppRouter = () => {
   return (
@@ -31,8 +31,22 @@ export const AppRouter = () => {
       <Route path="/conceptcard" element={<ConceptCard />} />
       <Route path="/customform" element={<FormCustom />} />
       <Route path="/biblioteca" element={<Biblioteca />} />
-      <Route path="/admin-users" element={<AdminPanel />} />
-      <Route path="/admin-flashcards" element={<AdminFlashCards />} />
+      <Route
+        path="/admin-users"
+        element={
+          <AdminRoutes>
+            <AdminPanel />
+          </AdminRoutes>
+        }
+      />
+      <Route
+        path="/admin-flashcards"
+        element={
+          <AdminRoutes>
+            <AdminFlashCards />
+          </AdminRoutes>
+        }
+      />
 
       <Route
         path="/eligecategoria/*"

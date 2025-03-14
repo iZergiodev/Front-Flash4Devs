@@ -28,8 +28,8 @@ export const ModalNewFlashcard = ({ onClose, onUpdate }) => {
       e.preventDefault();
       const url =
         formData.type === "coding"
-          ? "http://127.0.0.1:8000/card/register-codingcard"
-          : "http://127.0.0.1:8000/card/register";
+          ? "https://back-flash4devs-production.up.railway.app/card/register-codingcard"
+          : "https://back-flash4devs-production.up.railway.app/card/register";
 
       const resp = await fetch(url, {
         method: "POST",

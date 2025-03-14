@@ -27,7 +27,7 @@ export const Modal = ({ onClose, user, onUpdate }) => {
     e.preventDefault();
     try {
       startLoading()
-      const resp = await fetch(`http://127.0.0.1:8000/api/user/${user.id}`, {
+      const resp = await fetch(`https://back-flash4devs-production.up.railway.app/api/user/${user.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

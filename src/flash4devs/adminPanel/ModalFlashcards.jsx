@@ -27,7 +27,7 @@ export const ModalFlashcards = ({ onClose, flashcard, onUpdate }) => {
     try {
       startLoading();
       const resp = await fetch(
-        `http://127.0.0.1:8000/card/update/${flashcard.id}`,
+        `https://back-flash4devs-production.up.railway.app/card/update/${flashcard.id}`,
         {
           method: "PUT",
           headers: {

@@ -26,7 +26,7 @@ export function AdminFlashCards() {
   useEffect(() => {
     const getData = async () => {
       startLoading()
-      const resp = await fetch("http://127.0.0.1:8000/card/get-all", {
+      const resp = await fetch("https://back-flash4devs-production.up.railway.app/card/get-all", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -43,7 +43,7 @@ export function AdminFlashCards() {
   const handleDelete = async (id) => {
     try {
       startLoading()
-      const resp = await fetch(`http://127.0.0.1:8000/card/by-id/${id}`, {
+      const resp = await fetch(`https://back-flash4devs-production.up.railway.app/card/by-id/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

@@ -24,7 +24,7 @@ export function AdminPanel() {
   useEffect(() => {
     const getData = async () => {
       startLoading()
-      const resp = await fetch("http://127.0.0.1:8000/api/users", {
+      const resp = await fetch("https://back-flash4devs-production.up.railway.app/api/users", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -41,7 +41,7 @@ export function AdminPanel() {
   const handleDelete = async (id) => {
     try {
       startLoading()
-      const resp = await fetch(`http://127.0.0.1:8000/api/user/${id}`, {
+      const resp = await fetch(`https://back-flash4devs-production.up.railway.app/api/user/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
