@@ -12,6 +12,7 @@ import { ProtectedRoutes } from "../router/ProtectedRoutes.jsx";
 import { CategoriasRouter } from "../flash4devs/pantallasCategorias/router/CategoriasRouter.jsx";
 import { FlashcardsRouter } from "../flash4devs/flashcards/router/FlashcardsRouter.jsx";
 import { ConceptCard } from "../flash4devs/flashcards/concept-card/ConceptCard.jsx";
+import { AdminFlashCards } from "../flash4devs/adminPanel/AdminFlashCards.jsx";
 
 export const AppRouter = () => {
   return (
@@ -30,7 +31,8 @@ export const AppRouter = () => {
       <Route path="/conceptcard" element={<ConceptCard />} />
       <Route path="/customform" element={<FormCustom />} />
       <Route path="/biblioteca" element={<Biblioteca />} />
-      <Route path="/admin" element={<AdminPanel />} />
+      <Route path="/admin-users" element={<AdminPanel />} />
+      <Route path="/admin-flashcards" element={<AdminFlashCards />} />
 
       <Route
         path="/eligecategoria/*"
