@@ -1,5 +1,6 @@
 import Squares from "./src/components/effectcomponents/Squares";
 import { Navbar } from "./src/components/Navbar";
+import { ButtonAdmin } from "./src/components/ButtonAdmin";
 import { MenuRight } from "./src/components/MenuRight";
 import { SideBar } from "./src/components/SideBar";
 import { HeroSection } from "./src/components/HeroSection";
@@ -146,6 +147,7 @@ export const Home = () => {
             hoverFillColor="#81A4CD"
           />
         </div>
+        <ButtonAdmin />
         <DarkModeSwitcher />
         {isLogged && (
           <MenuRight
