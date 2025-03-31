@@ -11,14 +11,10 @@ import { motion } from "framer-motion";
 import { Link } from "react-router";
 import { useState, useEffect, useRef } from "react";
 import useExtractInfo from "./src/hooks/useExtractInfo";
-import { useTheme } from "./src/store/useTheme";
 import { DarkModeSwitcher } from "./src/components/DarkModeSwitcher";
+import { decodeToken } from "./src/utils/decodeToken";
 
 export const Home = () => {
-
-
-  const {theme, toggleTheme} = useTheme()
-
   const { isLogged } = useUserStore();
   const { emailState, nameState, avatar } = useExtractInfo();
   const [hoveredCards, setHoveredCards] = useState([
@@ -56,6 +52,31 @@ export const Home = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const [userPermission, setUserPermission] = useState(null);
+
+  const fetchUser = async () => {
+    const token = localStorage.getItem("token");
+    const { id } = decodeToken(localStorage.getItem("token"));
+    const resp = await fetch(
+      `https://back-flash4devs-production.up.railway.app/api/user/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const { role } = await resp.json();
+    setUserPermission(role);
+  };
+
+  useEffect(() => {
+    fetchUser();
+
+    if (!isLogged) {
+      setUserPermission(null);
+    }
+  }, [userPermission, isLogged]);
 
   const cardData = [
     {
@@ -107,9 +128,7 @@ export const Home = () => {
               backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${backgroundImage})`,
             }}
           >
-            <h2
-              className="text-base md:text-2xl font-bold font-mono text-white orbitran"
-            >
+            <h2 className="text-base md:text-2xl font-bold font-mono text-white orbitran">
               {title}
             </h2>
           </div>
@@ -141,13 +160,11 @@ export const Home = () => {
       </div>
       <div className="flex-1 relative bg-white dark:bg-[#3C4043]">
         <div className="absolute inset-0 z-0">
-          <Squares
-            speed={0.1}
-            direction="diagonal"
-            hoverFillColor="#81A4CD"
-          />
+          <Squares speed={0.1} direction="diagonal" hoverFillColor="#81A4CD" />
         </div>
-        <ButtonAdmin />
+
+        {userPermission === "admin" ? <ButtonAdmin /> : null}
+
         <DarkModeSwitcher />
         {isLogged && (
           <MenuRight
