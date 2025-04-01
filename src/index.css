@@ -104,3 +104,48 @@
     transform: translateY(0);
   }
 }
+
+@media (min-width: 1300px) {
+  .custom\:flex-row {
+    flex-direction: row;
+  }
+  .custom\:items-center {
+    align-items: center;
+  }
+  .custom\:h-full {
+    height: 100%;
+  }
+  .custom\:gap-8 {
+    gap: 2rem;
+  }
+  .custom\:scale-105 {
+    transform: scale(1.05);
+  }
+  .custom\:w-1\/2 {
+    width: 50%;
+  }
+  .custom\:mt-25 {
+    margin-top: 6.25rem; 
+  }
+  .custom\:ml-20 {
+    margin-left: 5rem;
+  }
+  .custom\:mr-10 {
+    margin-right: 2.5rem;
+  }
+  .custom\:text-md {
+    font-size: 1.125rem;
+  }
+  .custom\:mb-1 {
+    margin-bottom: 0.25rem;
+  }
+  .custom\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .custom\:gap-8 {
+    gap: 2rem;
+  }
+  .custom\:mt-10 {
+    margin-top: 2.5rem;
+  }
+}

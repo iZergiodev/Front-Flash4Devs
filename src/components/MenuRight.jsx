@@ -19,30 +19,18 @@ export const MenuRight = ({ name, email, profileImage }) => {
   };
 
   const menuItems = [
-    {
-      to: "/auth/profile",
-      icon: FaUser,
-      text: "Perfil",
-    },
-    {
-      to: "/categorias",
-      icon: FaGraduationCap,
-      text: "Flashcards",
-    },
-    {
-      to: "/estadistica",
-      icon: FaStar,
-      text: "Estadísticas",
-    },
+    { to: "/auth/profile", icon: FaUser, text: "Perfil" },
+    { to: "/categorias", icon: FaGraduationCap, text: "Flashcards" },
+    { to: "/estadistica", icon: FaStar, text: "Estadísticas" },
   ];
 
   return (
-    <motion.nav className="fixed right-2 top-[15px] z-50 font-semibold sm:right-5 sm:top-[20px] sm:bg-card dark:sm:bg-[#919191]  sm:shadow-lg sm:rounded-full sm:p-4 sm:py-1 sm:px-4 scale-110 sm:scale-100">
+    <motion.nav className="fixed right-2 top-[15px] z-50 font-semibold md:right-5 md:top-[20px] md:bg-card dark:md:bg-[#919191] md:shadow-lg md:rounded-full md:p-4 md:py-1 md:px-4 scale-110 md:scale-100">
       <motion.div
-        className="flex flex-row items-center gap-2 sm:gap-4 transform-gpu"
+        className="flex flex-row items-center gap-2 md:gap-4 transform-gpu"
         transition={{ type: "spring", stiffness: 300 }}
       >
-        <div className="hidden sm:block">
+        <div className="hidden md:block">
           <GradientText
             colors={["#054A91", "#F17300", "#054A91", "#F17300", "#054A91"]}
             animationSpeed={3}
@@ -56,7 +44,7 @@ export const MenuRight = ({ name, email, profileImage }) => {
         <div className="relative">
           <button
             onClick={toggleDropdown}
-            className="w-7 h-7 sm:w-10 sm:h-10 rounded-full overflow-hidden border-2 border-primary dark:border-black cursor-pointer"
+            className="w-7 h-7 md:w-10 md:h-10 rounded-full overflow-hidden border-2 border-primary dark:border-black cursor-pointer"
           >
             <img
               src={profileImage || "/avatarejemplo.jpg"}
@@ -71,14 +59,14 @@ export const MenuRight = ({ name, email, profileImage }) => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="fixed right-0 mt-3 w-44 sm:w-47 bg-card dark:bg-[#919191]  rounded-lg shadow-lg border border-muted/20 z-[100] max-w-[90vw]"
+                className="fixed right-0 mt-3 w-44 md:w-47 bg-card dark:bg-[#919191] rounded-lg shadow-lg border border-muted/20 z-[100] max-w-[90vw]"
               >
                 <ul className="py-2">
                   <li className="border-b border-muted/20 mb-1 pb-2 flex flex-col items-center justify-center px-5 mt-1">
-                    <span className="text-sm sm:text-md">
+                    <span className="text-sm md:text-md">
                       <DecryptedText text="Pró-user" animateOn="view" />
                     </span>
-                    <span className="text-[0.6rem] sm:text-[0.625rem] underline decoration-solid">
+                    <span className="text-[0.6rem] md:text-[0.625rem] underline decoration-solid">
                       <DecryptedText text={email} animateOn="view" />
                     </span>
                   </li>
@@ -87,9 +75,9 @@ export const MenuRight = ({ name, email, profileImage }) => {
                     <li key={index}>
                       <Link
                         to={item.to}
-                        className="flex items-center px-3 py-2 text-text dark:text-[#202124] hover:bg-muted/30 transition-colors duration-200 font-semibold cursor-pointer text-sm sm:text-base"
+                        className="flex items-center px-3 py-2 text-text dark:text-[#202124] hover:bg-muted/30 transition-colors duration-200 font-semibold cursor-pointer text-sm md:text-base"
                       >
-                        <item.icon className="mr-2 sm:mr-3" />
+                        <item.icon className="mr-2 md:mr-3" />
                         {item.text}
                       </Link>
                     </li>
@@ -97,11 +85,11 @@ export const MenuRight = ({ name, email, profileImage }) => {
 
                   <li className="border-t border-muted/20 mt-2 pt-2 flex items-center justify-center">
                     <button
-                      className="w-24 sm:w-28 flex items-center justify-center text-white bg-accent py-1 sm:py-2 px-3 sm:px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer text-sm sm:text-base"
+                      className="w-24 md:w-28 flex items-center justify-center text-white bg-accent py-1 md:py-2 px-3 md:px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer text-sm md:text-base"
                       onClick={handleLogout}
                       type="submit"
                     >
-                      <FaSignOutAlt className="mr-1 sm:mr-2" />
+                      <FaSignOutAlt className="mr-1 md:mr-2" />
                       Logout
                     </button>
                   </li>
