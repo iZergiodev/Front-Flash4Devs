@@ -1,6 +1,6 @@
 // AdminPanel.jsx
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import {
   useReactTable,
   getCoreRowModel,
@@ -12,6 +12,7 @@ import {
 import { Modal } from "./Modal";
 import { useLoading } from "../../hooks/useLoading";
 import { ThreeDots } from "react-loader-spinner";
+import "./admin.css";
 
 export function AdminPanel() {
   const [data, setData] = useState([]);
@@ -23,15 +24,18 @@ export function AdminPanel() {
 
   useEffect(() => {
     const getData = async () => {
-      startLoading()
-      const resp = await fetch("https://back-flash4devs-production.up.railway.app/api/users", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      startLoading();
+      const resp = await fetch(
+        "https://back-flash4devs-production.up.railway.app/api/users",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       const data = await resp.json();
-      stopLoading()
+      stopLoading();
       console.log(data);
       setData(data);
     };
@@ -40,15 +44,18 @@ export function AdminPanel() {
 
   const handleDelete = async (id) => {
     try {
-      startLoading()
-      const resp = await fetch(`https://back-flash4devs-production.up.railway.app/api/user/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      stopLoading()
+      startLoading();
+      const resp = await fetch(
+        `https://back-flash4devs-production.up.railway.app/api/user/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      stopLoading();
       if (!resp.ok) throw new Error("Error deleting user");
       setData((prevData) => prevData.filter((user) => user.id !== id));
     } catch (error) {
@@ -110,7 +117,7 @@ export function AdminPanel() {
 
   return (
     <>
-    {isLoading && (
+      {isLoading && (
         <div
           className="absolute inset-0 flex items-center justify-center bg-opacity-75 z-50"
           style={{ backdropFilter: "blur(5px)" }}
@@ -127,12 +134,20 @@ export function AdminPanel() {
           />
         </div>
       )}
-      <nav
-        onClick={() => navigate("/")}
-        className="bg-accent hover:cursor-pointer w-60 mx-auto text-center rounded-2xl p-3 mb-[-80px] mt-10"
-      >
-        Volver a la aplicación
-      </nav>
+      <div className="flex justify-center gap-5 mt-20">
+        <button
+          onClick={() => navigate("/")}
+          className="p-2 bg-accent rounded-xl"
+        >
+          Volver a la aplicación
+        </button>
+        <button
+          onClick={() => navigate("/admin-flashcards")}
+          className="p-2 bg-green-400 rounded-xl"
+        >
+          Panel Flashcards
+        </button>
+      </div>
       {isModalOpen && (
         <Modal
           onClose={() => {
@@ -144,8 +159,7 @@ export function AdminPanel() {
         />
       )}
 
-      
-      <div className="p-4 w-screen h-screen flex justify-center items-center flex-col">
+      <div className="p-4 w-screen h-full flex justify-center items-center flex-col mt-10">
         <input
           className="bg-gray-300 mb-2 rounded-xl p-2 border"
           type="text"

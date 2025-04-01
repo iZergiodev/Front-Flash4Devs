@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import {
@@ -13,6 +12,7 @@ import { ModalFlashcards } from "./ModalFlashcards";
 import { useLoading } from "../../hooks/useLoading";
 import { ThreeDots } from "react-loader-spinner";
 import { ModalNewFlashcard } from "./ModalNewFlashcard";
+import "./admin.css";
 
 export function AdminFlashCards() {
   const [data, setData] = useState([]);
@@ -25,15 +25,18 @@ export function AdminFlashCards() {
 
   useEffect(() => {
     const getData = async () => {
-      startLoading()
-      const resp = await fetch("https://back-flash4devs-production.up.railway.app/card/get-all", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      startLoading();
+      const resp = await fetch(
+        "https://back-flash4devs-production.up.railway.app/card/get-all",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       const data = await resp.json();
-      stopLoading()
+      stopLoading();
       console.log(data);
       setData(data);
     };
@@ -42,17 +45,22 @@ export function AdminFlashCards() {
 
   const handleDelete = async (id) => {
     try {
-      startLoading()
-      const resp = await fetch(`https://back-flash4devs-production.up.railway.app/card/by-id/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      stopLoading()
+      startLoading();
+      const resp = await fetch(
+        `https://back-flash4devs-production.up.railway.app/card/by-id/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      stopLoading();
       if (!resp.ok) throw new Error("Error deleting flashcard");
-      setData((prevData) => prevData.filter((flashcard) => flashcard.id !== id));
+      setData((prevData) =>
+        prevData.filter((flashcard) => flashcard.id !== id)
+      );
     } catch (error) {
       console.error("Failed to delete flashcard:", error);
     }
@@ -60,7 +68,9 @@ export function AdminFlashCards() {
 
   const handleUpdate = (updateFlashcard) => {
     setData((prevData) =>
-      prevData.map((flashcard) => (flashcard.id === updateFlashcard.id ? updateFlashcard : flashcard))
+      prevData.map((flashcard) =>
+        flashcard.id === updateFlashcard.id ? updateFlashcard : flashcard
+      )
     );
   };
 
@@ -96,7 +106,7 @@ export function AdminFlashCards() {
   ];
 
   const handleNewFlashcard = (newFlashcard) => {
-    setData((prevData) => [...prevData, newFlashcard]); 
+    setData((prevData) => [...prevData, newFlashcard]);
   };
 
   const navigate = useNavigate();
@@ -117,7 +127,7 @@ export function AdminFlashCards() {
 
   return (
     <>
-    {isLoading && (
+      {isLoading && (
         <div
           className="absolute inset-0 flex items-center justify-center bg-opacity-75 z-50"
           style={{ backdropFilter: "blur(5px)" }}
@@ -134,12 +144,20 @@ export function AdminFlashCards() {
           />
         </div>
       )}
-      <nav
-        onClick={() => navigate("/")}
-        className="bg-accent hover:cursor-pointer w-60 mx-auto text-center rounded-2xl p-3 mb-[-80px] mt-10"
-      >
-        Volver a la aplicación
-      </nav>
+      <div className="flex justify-center gap-5 mt-20">
+        <button
+          onClick={() => navigate("/")}
+          className="p-2 bg-accent rounded-xl"
+        >
+          Volver a la aplicación
+        </button>
+        <button
+          onClick={() => navigate("/admin-users")}
+          className="p-2 bg-green-400 rounded-xl"
+        >
+          Panel Users
+        </button>
+      </div>
       {isModalOpen && (
         <ModalFlashcards
           onClose={() => {
@@ -153,22 +171,24 @@ export function AdminFlashCards() {
       {isNewModalOpen && (
         <ModalNewFlashcard
           onClose={() => setIsNewModalOpen(false)}
-          onUpdate={handleNewFlashcard} 
+          onUpdate={handleNewFlashcard}
         />
       )}
 
-      
-      <div className="p-4 w-screen h-screen flex justify-center items-center flex-col">
+      <div className="p-4 w-screen h-full flex justify-center items-center flex-col mt-10">
         <div className="flex flex-row gap-5">
-        <input
-          className="bg-gray-300 mb-2 rounded-xl p-2 border"
-          type="text"
-          value={filtering}
-          onChange={(e) => setFiltering(e.target.value)}
-        />
-        <button onClick={() => setIsNewModalOpen(true)} className="bg-green-400 p-4 mb-2 rounded">
+          <input
+            className="bg-gray-300 mb-2 rounded-xl p-2 border"
+            type="text"
+            value={filtering}
+            onChange={(e) => setFiltering(e.target.value)}
+          />
+          <button
+            onClick={() => setIsNewModalOpen(true)}
+            className="bg-green-400 p-4 mb-2 rounded"
+          >
             +
-        </button>
+          </button>
         </div>
         <table className="border-collapse border w-full max-w-4xl max-h-[700px]">
           <thead className="border">
