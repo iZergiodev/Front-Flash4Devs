@@ -190,15 +190,15 @@ export const Home = () => {
         <div className="md:hidden">
           <SideBar isOpen={isSideBarOpen} setIsOpen={setIsSideBarOpen} />
         </div>
-        <div className="flex flex-col items-center w-full p-2 gap-1 md:flex-row md:items-center md:h-full md:gap-1 relative z-10">
-          <div className="flex justify-center items-center w-full md:scale-105 mt-20 md:w-1/2 md:mt-25 md:ml-20">
+        <div className="flex flex-col items-center w-full p-2 gap-4 custom:flex-row custom:items-center custom:h-full custom:gap-8 relative z-10">
+          <div className="flex justify-center items-center w-full custom:scale-105 mt-30 custom:w-1/2 custom:mt-10 custom:ml-20">
             <HeroSection />
           </div>
-          <div className="w-full flex flex-col items-center mt-8 md:w-1/2 md:mt-25 md:mr-30">
-            <p className="orbitron text-sm text-center md:text-md md:mb-1 lg:block xl:block md:mr-4">
+          <div className="w-full flex flex-col items-center mt-8 custom:w-1/2 custom:mt-25 custom:mr-10">
+            <p className="orbitron text-sm text-center custom:text-md custom:mb-1">
               ¿Qué vamos a estudiar primero?
             </p>
-            <div className="grid grid-cols-1 gap-6 mt-6 md:grid-cols-2 md:gap-14 md:mt-10 md:mr-10 last:pb-20">
+            <div className="grid grid-cols-1 gap-6 mt-6 custom:grid-cols-2 custom:gap-8 custom:mt-8 custom:mr-10 last:pb-20">
               {cardData.map((data, index) => renderCard(index, data))}
             </div>
           </div>

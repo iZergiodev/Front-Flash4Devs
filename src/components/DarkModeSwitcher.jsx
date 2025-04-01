@@ -9,7 +9,7 @@ export const DarkModeSwitcher = () => {
   };
 
   return (
-    <div className="flex items-center justify-center fixed bottom-4 right-4 md:top-7 md:right-40 md:bottom-auto z-20">
+    <div className="flex items-center justify-center fixed bottom-4 right-4 md:top-7 md:right-44 md:bottom-auto z-20">
       <input
         type="checkbox"
         id="darkmode-toggle"
