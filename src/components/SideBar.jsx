@@ -84,7 +84,7 @@ export const SideBar = ({ isOpen, setIsOpen }) => {
             transition={{ duration: 0.3 }}
           >
             <motion.img
-              src="/Logo.png"
+              src="/Logo.webp"
               alt="Logo"
               className="w-50 h-50 rounded-full mb-2"
               whileHover={{ scale: 1.1 }}
