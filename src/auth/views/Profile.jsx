@@ -227,11 +227,7 @@ export const Profile = () => {
   return (
     <div className="min-h-screen relative overflow-hidden">
       <div className="absolute inset-0 z-0 bg-white dark:bg-[#3C4043]">
-        <Squares
-          speed={0.1}
-          direction="diagonal"
-          hoverFillColor="#81A4CD"
-        />
+        <Squares speed={0.1} direction="diagonal" hoverFillColor="#81A4CD" />
       </div>
       <Navbar />
       <Footer />
@@ -245,7 +241,7 @@ export const Profile = () => {
               <div className="flex justify-center">
                 <div className="relative">
                   <img
-                    src={avatar}
+                    src={avatar || "/avatarejemplo.jpg"}
                     alt="Avatar"
                     className="w-40 h-40 rounded-full border-4 border-primary dark:border-black"
                   />
