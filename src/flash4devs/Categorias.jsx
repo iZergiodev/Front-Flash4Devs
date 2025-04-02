@@ -89,11 +89,7 @@ export const Categorias = () => {
   return (
     <div className="relative w-full min-h-screen flex flex-col dark:bg-[#3C4043]">
       <div className="absolute inset-0 z-0">
-        <Squares
-          speed={0.1}
-          direction="diagonal"
-          hoverFillColor="#81A4CD"
-        />
+        <Squares speed={0.1} direction="diagonal" hoverFillColor="#81A4CD" />
       </div>
       <div className="relative z-40">
         <Navbar />

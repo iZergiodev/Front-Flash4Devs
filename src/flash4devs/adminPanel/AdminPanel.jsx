@@ -12,7 +12,6 @@ import {
 import { Modal } from "./Modal";
 import { useLoading } from "../../hooks/useLoading";
 import { ThreeDots } from "react-loader-spinner";
-import "./admin.css";
 
 export function AdminPanel() {
   const [data, setData] = useState([]);
@@ -117,117 +116,122 @@ export function AdminPanel() {
 
   return (
     <>
-      {isLoading && (
-        <div
-          className="absolute inset-0 flex items-center justify-center bg-opacity-75 z-50"
-          style={{ backdropFilter: "blur(5px)" }}
-        >
-          <ThreeDots
-            visible={true}
-            height="80"
-            width="80"
-            color="#054A91"
-            radius="9"
-            ariaLabel="three-dots-loading"
-            wrapperStyle={{}}
-            wrapperClass=""
-          />
+      <div className="min-h-screen" style={{ background: "#FAFAFF" }}>
+        {isLoading && (
+          <div
+            className="absolute inset-0 flex items-center justify-center bg-opacity-75 z-50"
+            style={{ backdropFilter: "blur(5px)" }}
+          >
+            <ThreeDots
+              visible={true}
+              height="80"
+              width="80"
+              color="#054A91"
+              radius="9"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+            />
+          </div>
+        )}
+        <div className="flex justify-center gap-5 pt-20">
+          <button
+            onClick={() => navigate("/")}
+            className="p-2 bg-accent rounded-xl"
+          >
+            Volver a la aplicación
+          </button>
+          <button
+            onClick={() => navigate("/admin-flashcards")}
+            className="p-2 bg-green-400 rounded-xl"
+          >
+            Panel Flashcards
+          </button>
         </div>
-      )}
-      <div className="flex justify-center gap-5 mt-20">
-        <button
-          onClick={() => navigate("/")}
-          className="p-2 bg-accent rounded-xl"
-        >
-          Volver a la aplicación
-        </button>
-        <button
-          onClick={() => navigate("/admin-flashcards")}
-          className="p-2 bg-green-400 rounded-xl"
-        >
-          Panel Flashcards
-        </button>
-      </div>
-      {isModalOpen && (
-        <Modal
-          onClose={() => {
-            setIsModalOpen(false);
-            setSelectedUser(null);
-          }}
-          user={selectedUser}
-          onUpdate={handleUpdate}
-        />
-      )}
+        {isModalOpen && (
+          <Modal
+            onClose={() => {
+              setIsModalOpen(false);
+              setSelectedUser(null);
+            }}
+            user={selectedUser}
+            onUpdate={handleUpdate}
+          />
+        )}
 
-      <div className="p-4 w-screen h-full flex justify-center items-center flex-col mt-10">
-        <input
-          className="bg-gray-300 mb-2 rounded-xl p-2 border"
-          type="text"
-          value={filtering}
-          onChange={(e) => setFiltering(e.target.value)}
-        />
-        <table className="border-collapse border w-full max-w-4xl max-h-[700px]">
-          <thead className="border">
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <th
-                    className="p-2 border hover:cursor-pointer"
-                    key={header.id}
-                    onClick={header.column.getToggleSortingHandler()}
-                  >
-                    {flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
-                    {
+        <div className="p-4 w-screen h-full flex justify-center items-center flex-col mt-10">
+          <input
+            className="bg-gray-300 mb-2 rounded-xl p-2 border"
+            type="text"
+            value={filtering}
+            onChange={(e) => setFiltering(e.target.value)}
+          />
+          <table className="border-collapse border w-full max-w-4xl max-h-[700px]">
+            <thead className="border">
+              {table.getHeaderGroups().map((headerGroup) => (
+                <tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <th
+                      className="p-2 border hover:cursor-pointer"
+                      key={header.id}
+                      onClick={header.column.getToggleSortingHandler()}
+                    >
+                      {flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
                       {
-                        asc: "⬆️",
-                        desc: "⬇️",
-                      }[header.column.getIsSorted() ?? null]
-                    }
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody className="border">
-            {table.getRowModel().rows.map((row) => (
-              <tr className="border" key={row.id}>
-                {row.getVisibleCells().map((cell) => (
-                  <td className="p-2 border" key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <div className="flex gap-3">
-          <button
-            onClick={() => table.setPageIndex(0)}
-            className="border rounded p-1 mt-2"
-          >
-            Primera Página
-          </button>
-          <button
-            onClick={() => table.previousPage()}
-            className="border rounded p-1 mt-2"
-          >
-            Anterior
-          </button>
-          <button
-            onClick={() => table.nextPage()}
-            className="border rounded p-1 mt-2"
-          >
-            Siguiente
-          </button>
-          <button
-            onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-            className="border rounded p-1 mt-2"
-          >
-            Última página
-          </button>
+                        {
+                          asc: "⬆️",
+                          desc: "⬇️",
+                        }[header.column.getIsSorted() ?? null]
+                      }
+                    </th>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+            <tbody className="border">
+              {table.getRowModel().rows.map((row) => (
+                <tr className="border" key={row.id}>
+                  {row.getVisibleCells().map((cell) => (
+                    <td className="p-2 border" key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div className="flex gap-3">
+            <button
+              onClick={() => table.setPageIndex(0)}
+              className="border rounded p-1 mt-2"
+            >
+              Primera Página
+            </button>
+            <button
+              onClick={() => table.previousPage()}
+              className="border rounded p-1 mt-2"
+            >
+              Anterior
+            </button>
+            <button
+              onClick={() => table.nextPage()}
+              className="border rounded p-1 mt-2"
+            >
+              Siguiente
+            </button>
+            <button
+              onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+              className="border rounded p-1 mt-2"
+            >
+              Última página
+            </button>
+          </div>
         </div>
       </div>
     </>

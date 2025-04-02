@@ -14,6 +14,7 @@ import useExtractInfo from "./src/hooks/useExtractInfo";
 import { DarkModeSwitcher } from "./src/components/DarkModeSwitcher";
 import { decodeToken } from "./src/utils/decodeToken";
 
+
 export const Home = () => {
   const { isLogged } = useUserStore();
   const { emailState, nameState, avatar } = useExtractInfo();
