@@ -10,7 +10,6 @@ import { ThreeDots } from "react-loader-spinner";
 import { FaTimes } from "react-icons/fa";
 
 export const CustomCard = () => {
-
   const { tech } = useParams();
   const { emailState, nameState, avatar } = useExtractInfo();
   const [questions, setQuestions] = useState([]);
@@ -26,11 +25,12 @@ export const CustomCard = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await fetch(
-          `https://back-flash4devs-production.up.railway.app/card/custom-questions?tech=${tech}&limit=10`, {
+          `https://back-flash4devs-production.up.railway.app/card/custom-questions?tech=${tech}&limit=10`,
+          {
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
-            }
+            },
           }
         );
 
@@ -45,11 +45,12 @@ export const CustomCard = () => {
         alert(
           "Hubo un error al cargar las preguntas. Por favor, intenta de nuevo."
         );
-      } 
+        navigate("/");
+      }
     };
 
     fetchQuestions();
-  }, [tech]);
+  }, [tech, navigate]);
 
   useEffect(() => {
     if (questions.length > 0 && currentQuestionIndex === questions.length) {
@@ -108,11 +109,7 @@ export const CustomCard = () => {
   return (
     <div className="relative w-full h-screen overflow-hidden z-10">
       <div className="absolute inset-0 -z-10 bg-white dark:bg-[#3C4043]">
-        <Squares
-          speed={0}
-          direction="diagonal"
-          hoverFillColor="#81A4CD"
-        />
+        <Squares speed={0} direction="diagonal" hoverFillColor="#81A4CD" />
       </div>
       <Navbar />
       <MenuRight name={nameState} email={emailState} profileImage={avatar} />
