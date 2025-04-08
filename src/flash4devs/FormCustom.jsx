@@ -67,29 +67,24 @@ export const FormCustom = () => {
       const data = await resp.json();
       console.log("Card creada", data);
       clearForm();
-
     } else {
       console.error("Error", resp.statusText);
     }
   };
 
   const clearForm = () => {
-    console.log('limpiando formulario')
-    setQuestion('');
-    setSolution('');
-    setCategory('');
-    setDifficult('');
-  }
+    console.log("limpiando formulario");
+    setQuestion("");
+    setSolution("");
+    setCategory("");
+    setDifficult("");
+  };
 
   return (
     <>
       <div className="relative w-full h-screen overflow-hidden z-10">
         <div className="absolute inset-0 -z-10 bg-white dark:bg-[#3C4043]">
-          <Squares
-            speed={0.1}
-            direction="diagonal"
-            hoverFillColor="#81A4CD"
-          />
+          <Squares speed={0.1} direction="diagonal" hoverFillColor="#81A4CD" />
         </div>
         <Navbar />
         <Footer />
@@ -137,15 +132,29 @@ export const FormCustom = () => {
                   Category
                 </label>
               </div>
-              <input
+              <select
                 onChange={handleState}
-                type="text"
                 value={category}
                 id="category"
                 name="category"
                 className="w-full p-2 border bg-gray-50 dark:bg-gray-200 border-muted rounded-md focus:outline-none focus:border-accent"
-                placeholder="Ingresar categoría"
-              />
+              >
+                <option value="" disabled>
+                  Select a category
+                </option>
+                <option value="react">React</option>
+                <option value="html">HTML</option>
+                <option value="css">CSS</option>
+                <option value="javascript">JavaScript</option>
+                <option value="typescript">TypeScript</option>
+                <option value="angular">Angular</option>
+                <option value="python">Python</option>
+                <option value="git">Git</option>
+                <option value="node.js">Node.js</option>
+                <option value="fastapi">FastAPI</option>
+                <option value="sql">SQL</option>
+                <option value="mongodb">MongoDB</option>
+              </select>
 
               <div className="flex items-center space-x-2">
                 <FaChartLine className="text-accent" size={20} />
