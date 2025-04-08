@@ -95,12 +95,13 @@ export const CodingCard = () => {
           alert(
             "Hubo un error al cargar las preguntas. Por favor, intenta de nuevo."
           );
+          navigate("/");
         }
       }
     };
 
     fetchQuestions();
-  }, [tech, selectedDifficulty]);
+  }, [tech, selectedDifficulty, navigate]);
 
   useEffect(() => {
     if (questions.length > 0 && currentQuestionIndex === questions.length) {
@@ -211,11 +212,7 @@ export const CodingCard = () => {
   return (
     <div className="relative w-full h-screen overflow-hidden z-10">
       <div className="absolute inset-0 -z-10 bg-white dark:bg-[#3C4043]">
-        <Squares
-
-          direction="diagonal"
-          hoverFillColor="#81A4CD"
-        />
+        <Squares direction="diagonal" hoverFillColor="#81A4CD" />
       </div>
       <Navbar />
       <Footer />
