@@ -139,9 +139,6 @@ export const FormCustom = () => {
                 name="category"
                 className="w-full p-2 border bg-gray-50 dark:bg-gray-200 border-muted rounded-md focus:outline-none focus:border-accent"
               >
-                <option value="" disabled>
-                  Select a category
-                </option>
                 <option value="react">React</option>
                 <option value="html">HTML</option>
                 <option value="css">CSS</option>
