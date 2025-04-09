@@ -162,15 +162,17 @@ export const FormCustom = () => {
                   Difficult
                 </label>
               </div>
-              <textarea
+              <select
                 onChange={handleState}
                 id="difficult"
                 value={difficult}
                 name="difficult"
                 className="w-full p-2 border bg-gray-50 dark:bg-gray-200 border-muted rounded-md focus:outline-none focus:border-accent"
-                placeholder="Introduzca la dificultad"
-                rows={1}
-              ></textarea>
+              >
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+              </select>
 
               <div className="flex justify-center">
                 <button
