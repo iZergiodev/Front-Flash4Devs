@@ -22,7 +22,7 @@ export const StatisticsCard = ({ correctAnswers, wrongAnswers, answers }) => {
   useEffect(() => {
     const fetchChatGPT = async () => {
       try {
-        console.log(answers)
+        console.log(answers, correctAnswers, wrongAnswers);
         const response = await fetch(
           "https://back-flash4devs-production.up.railway.app/chat/",
           {

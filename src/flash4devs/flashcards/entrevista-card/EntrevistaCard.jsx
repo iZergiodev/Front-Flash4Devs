@@ -37,6 +37,22 @@ export const EntrevistaCard = () => {
     }${secs}`;
   };
 
+  function parsearRespuesta(texto) {
+    const contieneBien = texto.includes("BIEN¬");
+    const contieneMal = texto.includes("MAL¬");
+
+    const palabraClave = contieneBien ? "BIEN¬" : contieneMal ? "MAL¬" : null;
+
+    const textoLimpio = palabraClave
+      ? texto.replace(palabraClave, "").trim()
+      : texto;
+
+    return {
+      palabraClave,
+      textoLimpio,
+    };
+  }
+
   useEffect(() => {
     if (timeLeft === 0) {
       setIsTimeUp(true);
@@ -77,20 +93,60 @@ export const EntrevistaCard = () => {
     }
   };
 
-  const handleSaveAnswer = () => {
+  const handleSaveAnswer = async () => {
     if (answer.trim() === "") {
       alert("Por favor, ingresa una respuesta.");
       return;
     }
 
-    setAnswers((prevAnswers) => [
-      ...prevAnswers,
-      {
-        question: questions[currentQuestionIndex].question,
-        answer,
-        isCorrect: false,
-      },
-    ]);
+    const reviewQuestion = async () => {
+      const url = "https://back-flash4devs-production.up.railway.app/chat/";
+      const data = {
+        system_prompt: `Responde únicamente con "BIEN¬" si está correcto, o "MAL¬" si está incorrecto. Si la respuesta no tiene sentido o no está relacionada con la pregunta, indícalo claramente con un "MAL¬".`,
+        user_message: answer,
+      };
+
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        const { palabraClave } = parsearRespuesta(result.generated_text);
+
+        if (palabraClave === "BIEN¬") {
+          setAnswers((prevAnswers) => [
+            ...prevAnswers,
+            {
+              question: questions[currentQuestionIndex].question,
+              answer,
+              isCorrect: true,
+            },
+          ]);
+        } else if (palabraClave === "MAL¬") {
+          setAnswers((prevAnswers) => [
+            ...prevAnswers,
+            {
+              question: questions[currentQuestionIndex].question,
+              answer,
+              isCorrect: false,
+            },
+          ]);
+        }
+      } catch (error) {
+        console.error("Error posting data:", error);
+      }
+    };
+
+    await reviewQuestion();
 
     handleNextQuestion();
   };
@@ -136,11 +192,7 @@ export const EntrevistaCard = () => {
   return (
     <div className="relative w-full h-screen overflow-hidden z-10">
       <div className="absolute inset-0 -z-10 bg-white dark:bg-[#3C4043]">
-        <Squares
-          speed={0}
-          direction="diagonal"
-          hoverFillColor="#81A4CD"
-        />
+        <Squares speed={0} direction="diagonal" hoverFillColor="#81A4CD" />
       </div>
       <Navbar />
       <Footer />
