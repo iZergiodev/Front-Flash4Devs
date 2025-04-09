@@ -229,7 +229,7 @@ export const EntrevistaCard = () => {
                 rows={4}
               />
               <p
-                className={`text-red-500 text-sm mt-1 transition-opacity duration-200 mb-[-10px] ${
+                className={`text-red-500 text-sm mt-1 transition-opacity duration-200 ${
                   answer.length > 0 && answer.length < 10
                     ? "opacity-100"
                     : "opacity-0"
@@ -239,7 +239,7 @@ export const EntrevistaCard = () => {
               </p>
               <button
                 onClick={handleSaveAnswer}
-                className="w-[60%] mx-auto text-sm mt-5 border-t-1 shadow-lg border-gray-300 dark:border-black text-white dark:text-black bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-[60%] mx-auto text-sm mt-2 border-t-1 shadow-lg border-gray-300 dark:border-black text-white dark:text-black bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
                 disabled={!answer || answer.length < 10}
               >
                 Siguiente
