@@ -228,11 +228,15 @@ export const EntrevistaCard = () => {
                 className="w-full p-3 border border-gray-300 dark:border-black/60 dark:bg-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-700/30 resize-none"
                 rows={4}
               />
-              {answer.length > 0 && answer.length < 10 && (
-                <p className="text-red-500 text-sm mt-1">
-                  La respuesta debe tener al menos 10 caracteres.
-                </p>
-              )}
+              <p
+                className={`text-red-500 text-sm mt-1 transition-opacity duration-200 ${
+                  answer.length > 0 && answer.length < 10
+                    ? "opacity-100"
+                    : "opacity-0"
+                }`}
+              >
+                La respuesta debe tener al menos 10 caracteres.
+              </p>
               <button
                 onClick={handleSaveAnswer}
                 className="w-[60%] mx-auto text-sm mt-5 border-t-1 shadow-lg border-gray-300 dark:border-black text-white dark:text-black bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
