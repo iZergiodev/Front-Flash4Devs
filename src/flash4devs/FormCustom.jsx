@@ -125,6 +125,7 @@ export const FormCustom = () => {
                 className="w-full p-2 border bg-gray-50 dark:bg-gray-200 border-muted rounded-md focus:outline-none focus:border-accent"
                 placeholder="Introduzca la respuesta"
                 rows={3}
+                style={{ resize: "none" }}
               ></textarea>
               <div className="flex items-center space-x-2">
                 <FaTags className="text-accent" size={20} />
