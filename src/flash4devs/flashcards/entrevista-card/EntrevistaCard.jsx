@@ -229,7 +229,7 @@ export const EntrevistaCard = () => {
                 rows={4}
               />
               <p
-                className={`text-red-500 text-sm mt-1 transition-opacity duration-200 ${
+                className={`text-red-500 text-sm mt-1 transition-opacity duration-200 mb-[-10px] ${
                   answer.length > 0 && answer.length < 10
                     ? "opacity-100"
                     : "opacity-0"
