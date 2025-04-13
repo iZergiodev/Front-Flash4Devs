@@ -10,6 +10,9 @@ import { useState, useEffect } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import { FaTimes } from "react-icons/fa";
 import Editor from "@monaco-editor/react";
+import { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
+import { waitOneSecond } from "../../../utils/waitOneSecond";
 
 export const CodingCard = () => {
   const [selectedDifficulty, setSelectedDifficulty] = useState(null);
@@ -88,7 +91,6 @@ export const CodingCard = () => {
           }
 
           const data = await response.json();
-          console.log(data);
           setQuestions(data);
         } catch (err) {
           console.error(err);
@@ -105,9 +107,10 @@ export const CodingCard = () => {
 
   useEffect(() => {
     if (questions.length > 0 && currentQuestionIndex === questions.length) {
-      alert(
-        `Cuestionario completado!\nBuenas: ${score.good}\nRegulares: ${score.regular}\nMalas: ${score.bad}`
-      );
+      toast("No hay más flashcards disponibles", {
+        icon: "😿",
+      });
+      waitOneSecond();
       navigate("/");
     }
   }, [currentQuestionIndex, navigate, questions.length, score]);
@@ -122,8 +125,6 @@ export const CodingCard = () => {
       system_prompt: `Eres un profesor que evalúa una respuesta de código sobre la tecnología ${tech}. La pregunta es: "${currentQuestion.question}". El alumno ha respondido con el siguiente código: "${code}". Evalúa estrictamente este código y determina si está correcto o incorrecto. Responde únicamente con "BIEN¬" si está correcto, seguido de un breve mensaje de felicitación, o "MAL¬" si está incorrecto, seguido de una explicación breve y específica de qué está mal y cómo corregirlo. No proporciones ejemplos adicionales, código de prueba ni soluciones completas, solo corrige el código enviado por el alumno si es necesario. Si la respuesta no tiene sentido o no está relacionada con la pregunta, indícalo claramente después de "MAL¬".`,
       user_message: code,
     };
-
-    console.log(currentQuestion.question);
 
     try {
       const response = await fetch(url, {
@@ -169,16 +170,17 @@ export const CodingCard = () => {
     setSelectedDifficulty(difficulty);
   };
 
-  const handleSkip = () => {
+  const handleSkip = async () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
       setIsFlipped(false);
       setShowSolution(false);
       setCode("");
     } else {
-      alert(
-        `Cuestionario completado!\nBuenas: ${score.good}\nRegulares: ${score.regular}\nMalas: ${score.bad}`
-      );
+      toast("No hay más flashcards disponibles", {
+        icon: "😿",
+      });
+      await waitOneSecond();
       navigate("/");
     }
   };
@@ -211,6 +213,7 @@ export const CodingCard = () => {
 
   return (
     <div className="relative w-full h-screen overflow-hidden z-10">
+      <Toaster position="bottom-right" reverseOrder={false} />
       <div className="absolute inset-0 -z-10 bg-white dark:bg-[#3C4043]">
         <Squares direction="diagonal" hoverFillColor="#81A4CD" />
       </div>
@@ -223,7 +226,7 @@ export const CodingCard = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <div className={`flip-card ${isFlipped ? "flipped" : ""}`}>
             <div className="flip-card-inner">
-              <div className="flex flex-col flip-card-front w-[800px] h-[500px] bg-white dark:bg-[#919191] border-1 border-gray-200 dark:border-black rounded-lg shadow-lg">
+              <div className="flex flex-col flip-card-front w-[400px] max-h-[80vh] bg-white dark:bg-[#919191] border-1 border-gray-200 dark:border-black rounded-lg shadow-lg">
                 <div className="w-full flex relative items-center text-center text-text dark:text-black mb-4 bg-card dark:bg-accent dark:border-black p-3 border-b-1 border-gray-300 rounded-md">
                   <div className="absolute left-1/2 transform -translate-x-1/2">
                     {tech.toUpperCase()}
@@ -235,13 +238,13 @@ export const CodingCard = () => {
                     <FaTimes size={20} />
                   </button>
                 </div>
-                <div className="text-xl font-bold text-text dark:text-black w-full flex flex-col justify-center items-center rounded-lg gap-3">
+                <div className="p-4 max-h-[120px] text-center">
                   <p>PREGUNTA</p>
-                  <p className="text-gray-400 dark:text-black">
+                  <p className="text-gray-400 dark:text-black text-sm">
                     {currentQuestion.question}
                   </p>
                 </div>
-                <div className="max-w-3xl w-[400px] mt-5 mx-auto shadow-lg">
+                <div className="max-w-3xl w-full p-4 overflow-hidden">
                   <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
                     Respuesta
                   </label>
@@ -266,8 +269,18 @@ export const CodingCard = () => {
                       La respuesta debe tener al menos 10 caracteres.
                     </p>
                   )}
+
+                  <p
+                    className={`text-red text-sm mt-1 ${
+                      code.length > 0 && code.length < 10
+                        ? "display:block"
+                        : "invisible"
+                    }`}
+                  >
+                    La respuesta debe tener al menos 10 carácteres.
+                  </p>
                 </div>
-                <div className="flex justify-center gap-4 mt-5">
+                <div className="flex justify-center gap-4 mt-5 pb-3">
                   <button
                     className="w-50 border-t-1 border-gray-300 dark:border-black text-white dark:text-black bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary disabled:bg-gray-400 disabled:cursor-not-allowed"
                     onClick={handleFlip}
@@ -284,7 +297,7 @@ export const CodingCard = () => {
                 </div>
               </div>
 
-              <div className="flip-card-back flex flex-col flip-card-front w-[400px] h-[300px] bg-white dark:bg-[#919191] rounded-lg shadow-lg">
+              <div className="flip-card-back flex flex-col flip-card-front w-[400px] max-h-[80vh] overflow-y-auto bg-white dark:bg-[#919191] rounded-lg shadow-lg">
                 <div className="w-full flex relative items-center text-center text-text dark:text-black mb-4 bg-card dark:bg-accent p-3 border-b-1 border-gray-300 dark:border-black rounded-md">
                   <div className="absolute left-1/2 transform -translate-x-1/2">
                     Respuesta
@@ -296,7 +309,7 @@ export const CodingCard = () => {
                     <FaTimes size={20} />
                   </button>
                 </div>
-                <div className="text-xl font-bold text-text dark:text-black w-full my-auto flex flex-col justify-center items-center mt-10 rounded-lg gap-3">
+                <div className="p-4 text-sm text-center overflow-y-auto max-h-[250px]">
                   <p>{resIA}</p>
                 </div>
                 <button
@@ -308,9 +321,9 @@ export const CodingCard = () => {
                       setShowSolution(false);
                       setCode("");
                     } else {
-                      alert(
-                        `Cuestionario completado!\nBuenas: ${score.good}\nRegulares: ${score.regular}\nMalas: ${score.bad}`
-                      );
+                      toast("No hay más flashcards disponibles", {
+                        icon: "😿",
+                      });
                       navigate("/");
                     }
                   }}
