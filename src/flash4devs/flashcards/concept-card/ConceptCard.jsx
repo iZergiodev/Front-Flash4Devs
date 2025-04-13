@@ -9,6 +9,9 @@ import "./Card.css";
 import { useState, useEffect } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import { FaTimes } from "react-icons/fa";
+import { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
+import { waitOneSecond } from "../../../utils/waitOneSecond";
 
 export const ConceptCard = () => {
   const [selectedDifficulty, setSelectedDifficulty] = useState(null);
@@ -71,9 +74,9 @@ export const ConceptCard = () => {
 
   useEffect(() => {
     if (questions.length > 0 && currentQuestionIndex === questions.length) {
-      alert(
-        `Cuestionario completado!\nBuenas: ${score.good}\nRegulares: ${score.regular}\nMalas: ${score.bad}`
-      );
+      toast("No hay más flashcards disponibles", {
+        icon: "😿",
+      });
       navigate("/");
     }
   }, [currentQuestionIndex, navigate, questions.length, score]);
@@ -151,16 +154,17 @@ export const ConceptCard = () => {
     );
   }
 
-  const handleSkip = () => {
+  const handleSkip = async () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
       setIsFlipped(false);
       setShowSolution(false);
       setMessage("");
     } else {
-      alert(
-        `Cuestionario completado!\nBuenas: ${score.good}\nRegulares: ${score.regular}\nMalas: ${score.bad}`
-      );
+      toast("No hay más flashcards disponibles", {
+        icon: "😿",
+      });
+      await waitOneSecond();
       navigate("/");
     }
   };
@@ -201,6 +205,7 @@ export const ConceptCard = () => {
 
   return (
     <div className="relative w-full h-screen overflow-hidden z-10">
+      <Toaster position="bottom-right" reverseOrder={false} />
       <div className="absolute inset-0 -z-10 bg-white dark:bg-[#3C4043]">
         <Squares speed={0} direction="diagonal" hoverFillColor="#81A4CD" />
       </div>
@@ -213,51 +218,64 @@ export const ConceptCard = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <div className={`flip-card ${isFlipped ? "flipped" : ""}`}>
             <div className="flip-card-inner">
-              <div className="flex flex-col flip-card-front w-[400px] h-[300px] bg-white dark:bg-[#919191] dark:border-black rounded-lg shadow-lg">
-                <div className="w-full flex relative items-center text-center text-text dark:text-black mb-4 dark:bg-accent bg-card dark:border-black p-3 border-b-1 border-gray-300 rounded-md">
-                  <div className="absolute left-1/2 transform -translate-x-1/2">
+              <div className="flip-card-front w-[400px] h-[550px] bg-white dark:bg-[#919191] rounded-2xl shadow-xl overflow-hidden flex flex-col">
+                {/* Header */}
+                <div className="w-full flex relative items-center justify-center text-text dark:text-black bg-card dark:bg-accent border-b border-gray-300 dark:border-black p-4">
+                  <span className="text-lg font-semibold">
                     {tech.toUpperCase()}
-                  </div>
+                  </span>
                   <button
                     onClick={handleGoBack}
-                    className="ml-auto text-red-500 hover:text-red-700 transition-colors"
+                    className="absolute right-4 text-red-500 hover:text-red-700 transition-colors"
                   >
-                    <FaTimes size={20} />
+                    <FaTimes size={18} />
                   </button>
                 </div>
-                <div className="text-xl font-bold text-text dark:text-black w-full flex flex-col justify-center items-center mt-5 rounded-lg gap-3">
-                  <p>PREGUNTA</p>
-                  <p className="text-gray-400 dark:text-black">
+
+                {/* Pregunta */}
+                <div className="px-4 py-3 flex flex-col gap-2 text-center">
+                  <p className="text-base font-bold text-text dark:text-black">
+                    PREGUNTA
+                  </p>
+                  <p className="text-gray-500 dark:text-black text-sm">
                     {currentQuestion.question}
                   </p>
                 </div>
-                <div className="max-w-3xl w-[400px] mt-25 mx-auto">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
-                    Respuesta
+
+                {/* Respuesta input */}
+                <div className="px-4 flex flex-col flex-grow">
+                  <label className="block text-sm font-medium text-gray-900 dark:text-black mt-2">
+                    Tu respuesta
                   </label>
                   <textarea
-                    rows="5"
-                    className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-200 dark:border-gray-300 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none"
-                    placeholder="Tu respuesta ..."
+                    rows="4"
+                    className="mt-1 p-2 w-full h-[30vh] text-sm text-gray-900 bg-gray-50 rounded-md border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-200 dark:border-gray-300 dark:text-gray-900 resize-none"
+                    placeholder="Escribe tu respuesta aquí..."
                     onChange={handleMessageChange}
                     value={message}
-                  ></textarea>
-                  {message.length > 0 && message.length < 10 && (
-                    <p className="text-red-500 text-sm mt-1">
-                      La respuesta debe tener al menos 10 caracteres.
-                    </p>
-                  )}
+                  />
+                  <p
+                    className={`text-red-500 text-sm mt-1 min-h-[20px] ${
+                      message.length > 0 && message.length < 10
+                        ? "visible"
+                        : "invisible"
+                    }`}
+                  >
+                    La respuesta debe tener al menos 10 caracteres.
+                  </p>
                 </div>
-                <div className="flex justify-center gap-4 mt-5">
+
+                {/* Botones */}
+                <div className="flex justify-center gap-4 p-4 border-t border-gray-200 dark:border-black">
                   <button
-                    className="w-50 border-t-1 border-gray-300 text-white bg-accent dark:border-black py-2 px-4 dark:text-black rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary disabled:bg-gray-400 disabled:cursor-not-allowed"
+                    className="w-1/2 text-white bg-accent dark:text-black py-2 rounded-xl hover:bg-secondary transition"
                     onClick={handleFlip}
                     disabled={!message || message.length < 10}
                   >
                     Mostrar Respuesta
                   </button>
                   <button
-                    className="w-50 border-t-1 border-gray-300 text-white bg-gray-500 dark:border-black py-2 px-4 rounded-lg dark:text-black hover:bg-gray-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400"
+                    className="w-1/2 text-white bg-gray-500 dark:text-black py-2 rounded-xl hover:bg-gray-600 transition"
                     onClick={handleSkip}
                   >
                     Skip
@@ -265,7 +283,7 @@ export const ConceptCard = () => {
                 </div>
               </div>
 
-              <div className="flip-card-back flex flex-col flip-card-front w-[400px] h-[300px] bg-white dark:bg-[#919191] rounded-lg shadow-lg">
+              <div className="flip-card-back flex flex-col flip-card-front w-[400px] max-h-[80vh] overflow-y-auto bg-white dark:bg-[#919191] rounded-lg shadow-lg">
                 <div className="w-full flex relative items-center text-center text-text mb-4 bg-card dark:bg-accent p-3 border-b-1 border-gray-300 dark:border-black rounded-md">
                   <div className="absolute left-1/2 transform -translate-x-1/2 dark:text-black dark:bg-accent">
                     Respuesta
@@ -277,7 +295,7 @@ export const ConceptCard = () => {
                     <FaTimes size={20} />
                   </button>
                 </div>
-                <div className="text-xl font-bold text-text dark:text-black w-full my-auto flex flex-col justify-center items-center mt-10 rounded-lg gap-3">
+                <div className="text-lg font-bold text-text dark:text-black w-full my-auto flex flex-col justify-center items-center mt-10 rounded-lg gap-3">
                   <p>{resIA}</p>
                 </div>
                 <button
