@@ -1,23 +1,23 @@
 import { Navigate } from "react-router";
 import { useState, useEffect } from "react";
-import { decodeToken } from "../utils/decodeToken";
+import { useAuth0 } from "@auth0/auth0-react";
 import { ThreeDots } from "react-loader-spinner";
 
 export const AdminRoutes = ({ children }) => {
+  const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
   const [isAdmin, setIsAdmin] = useState(null);
-  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const checkAdmin = async () => {
-      if (!token) {
-        setIsAdmin(false); 
+      if (!isAuthenticated || !user) {
+        setIsAdmin(false);
         return;
       }
 
       try {
-        const { id } = decodeToken(token);
+        const token = await getAccessTokenSilently();
         const resp = await fetch(
-          `https://back-flash4devs-production.up.railway.app/api/user/${id}`,
+          `https://back-flash4devs-production.up.railway.app/api/user/${user.sub}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -34,12 +34,12 @@ export const AdminRoutes = ({ children }) => {
         setIsAdmin(role === "admin");
       } catch (error) {
         console.error("Error al verificar admin:", error);
-        setIsAdmin(false); 
+        setIsAdmin(false);
       }
     };
 
     checkAdmin();
-  }, [token]);
+  }, [isAuthenticated, user, getAccessTokenSilently]);
 
   if (isAdmin === null) {
     return (
@@ -61,9 +61,5 @@ export const AdminRoutes = ({ children }) => {
     );
   }
 
-  if (!isAdmin) {
-    return <Navigate to="/" replace />;
-  }
-
-  return <>{children}</>;
+  return isAuthenticated && isAdmin ? children : <Navigate to="/" replace />;
 };

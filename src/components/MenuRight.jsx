@@ -1,20 +1,27 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import GradientText from "./effectcomponents/GradientText";
 import { FaUser, FaGraduationCap, FaStar, FaSignOutAlt } from "react-icons/fa";
 import DecryptedText from "./effectcomponents/DecryptedText";
 import { useUserStore } from "../store/userStore";
+import { useAuth0 } from "@auth0/auth0-react";
 import { Link, useNavigate } from "react-router";
 
 export const MenuRight = ({ name, email, profileImage }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
-  const { logout } = useUserStore();
+  const { logout: logoutStore } = useUserStore();
+  const { logout: logoutAuth0 } = useAuth0();
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
   const handleLogout = () => {
-    logout();
+    logoutStore(); // Limpa useUserStore
+    logoutAuth0({
+      logoutParams: {
+        returnTo: "http://localhost:5173",
+      },
+    }); // Encerra sessão no Auth0
     navigate("/");
   };
 
@@ -87,7 +94,7 @@ export const MenuRight = ({ name, email, profileImage }) => {
                     <button
                       className="w-24 md:w-28 flex items-center justify-center text-white bg-accent py-1 md:py-2 px-3 md:px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer text-sm md:text-base"
                       onClick={handleLogout}
-                      type="submit"
+                      type="button"
                     >
                       <FaSignOutAlt className="mr-1 md:mr-2" />
                       Logout

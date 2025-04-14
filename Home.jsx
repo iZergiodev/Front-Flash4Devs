@@ -10,14 +10,10 @@ import { useUserStore } from "./src/store/userStore";
 import { motion } from "framer-motion";
 import { Link } from "react-router";
 import { useState, useEffect, useRef } from "react";
-import useExtractInfo from "./src/hooks/useExtractInfo";
 import { DarkModeSwitcher } from "./src/components/DarkModeSwitcher";
-import { decodeToken } from "./src/utils/decodeToken";
-
 
 export const Home = () => {
-  const { isLogged } = useUserStore();
-  const { emailState, nameState, avatar } = useExtractInfo();
+  const { isLogged, user } = useUserStore();
   const [hoveredCards, setHoveredCards] = useState([
     false,
     false,
@@ -58,26 +54,32 @@ export const Home = () => {
 
   const fetchUser = async () => {
     const token = localStorage.getItem("token");
-    const { id } = decodeToken(localStorage.getItem("token"));
-    const resp = await fetch(
-      `https://back-flash4devs-production.up.railway.app/api/user/${id}`,
-      {
+    if (!token || !user?.id) return;
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
+      const resp = await fetch(`${apiUrl}/api/user/${user.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+      });
+      if (resp.ok) {
+        const { role } = await resp.json();
+        setUserPermission(role);
+      } else {
+        console.error("Erro ao buscar usuário");
       }
-    );
-    const { role } = await resp.json();
-    setUserPermission(role);
+    } catch (error) {
+      console.error("Erro ao buscar usuário:", error);
+    }
   };
 
   useEffect(() => {
-    fetchUser();
-
-    if (!isLogged) {
+    if (isLogged) {
+      fetchUser();
+    } else {
       setUserPermission(null);
     }
-  }, [userPermission, isLogged]);
+  }, [isLogged]);
 
   const cardData = [
     {
@@ -169,9 +171,9 @@ export const Home = () => {
         <DarkModeSwitcher />
         {isLogged && (
           <MenuRight
-            name={nameState}
-            email={emailState}
-            profileImage={avatar}
+            name={user?.name || "Usuário"}
+            email={user?.email || "email@exemplo.com"}
+            profileImage={user?.avatar || "/avatarejemplo.jpg"}
             className="relative z-50 pointer-events-auto"
           />
         )}

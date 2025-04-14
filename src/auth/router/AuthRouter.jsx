@@ -4,32 +4,36 @@ import { Register } from "../views/Register.jsx";
 import { Profile } from "../views/Profile.jsx";
 import { AboutUs } from "../views/AboutUs.jsx";
 import { PublicRoutes } from "../../router/PublicRoutes.jsx";
-
-
+import { ProtectedRoutes } from "../../router/ProtectedRoutes.jsx";
 
 export const AuthRouter = () => {
   return (
     <Routes>
       <Route
-        path="/login"
+        path="login"
         element={
           <PublicRoutes>
-            {" "}
-            <Login />{" "}
+            <Login />
           </PublicRoutes>
         }
       />
       <Route
-        path="/register"
+        path="register"
         element={
           <PublicRoutes>
             <Register />
           </PublicRoutes>
         }
       />
-
-      <Route path="/about-us" element={<AboutUs />} />
-      <Route path="/profile" element={<Profile />} />
+      <Route path="about-us" element={<AboutUs />} />
+      <Route
+        path="profile"
+        element={
+          <ProtectedRoutes>
+            <Profile />
+          </ProtectedRoutes>
+        }
+      />
     </Routes>
   );
 };

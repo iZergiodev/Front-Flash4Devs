@@ -8,18 +8,18 @@ import {
   FaTwitter,
   FaEnvelope,
   FaUser,
-  FaClock,
   FaInfoCircle,
   FaBrain,
 } from "react-icons/fa";
+import { useAuth0 } from "@auth0/auth0-react";
 import Squares from "../../components/effectcomponents/Squares";
 import { Navbar } from "../../components/Navbar";
 import { Footer } from "../../components/Footer";
 import { useLoading } from "../../hooks/useLoading";
 import { ThreeDots } from "react-loader-spinner";
-import { decodeToken } from "../../utils/decodeToken";
 
 export const Profile = () => {
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [originalData, setOriginalData] = useState({});
   const [avatar, setAvatar] = useState("/avatarejemplo.jpg");
   const [firstName, setFirstName] = useState("");
@@ -39,14 +39,14 @@ export const Profile = () => {
   const navigate = useNavigate();
 
   const getUserInfo = async () => {
-    const token = localStorage.getItem("token");
-    const decodedToken = token ? decodeToken(token) : null;
-    const idFromToken = decodedToken ? decodedToken.id : null;
+    if (!isAuthenticated || !user) return;
 
     startLoading();
     try {
+      const token = await getAccessTokenSilently();
+      const userId = user.sub; // ID do usuário fornecido pelo Auth0
       const resp = await fetch(
-        `https://back-flash4devs-production.up.railway.app/api/user/${idFromToken}`,
+        `https://back-flash4devs-production.up.railway.app/api/user/${userId}`,
         {
           method: "GET",
           headers: {
@@ -56,28 +56,49 @@ export const Profile = () => {
         }
       );
 
+      if (!resp.ok) throw new Error("Erro ao buscar informações do usuário");
+
       const { profile_image, email, name, last_name } = await resp.json();
       const userData = {
-        avatar: profile_image,
-        firstName: name,
-        lastName: last_name,
-        email: email,
+        avatar: profile_image || user.picture || "/avatarejemplo.jpg",
+        firstName: name || user.given_name || "",
+        lastName: last_name || user.family_name || "",
+        email: email || user.email || "",
         description: "",
         github: "",
         linkedin: "",
         twitter: "",
       };
 
-      setAvatar(profile_image);
-      setFirstName(name);
-      setLastName(last_name);
-      setEmail(email);
-      setDescription("");
-      setGithub("");
-      setLinkedin("");
-      setTwitter("");
+      setAvatar(userData.avatar);
+      setFirstName(userData.firstName);
+      setLastName(userData.lastName);
+      setEmail(userData.email);
+      setDescription(userData.description);
+      setGithub(userData.github);
+      setLinkedin(userData.linkedin);
+      setTwitter(userData.twitter);
       setOriginalData(userData);
     } catch (error) {
+      // Fallback para dados do Auth0 se o backend falhar
+      setAvatar(user.picture || "/avatarejemplo.jpg");
+      setFirstName(user.given_name || user.name || "");
+      setLastName(user.family_name || "");
+      setEmail(user.email || "");
+      setDescription("");
+      setGithub(user.github || "");
+      setLinkedin(user.linkedin || "");
+      setTwitter(user.twitter || "");
+      setOriginalData({
+        avatar: user.picture || "/avatarejemplo.jpg",
+        firstName: user.given_name || user.name || "",
+        lastName: user.family_name || "",
+        email: user.email || "",
+        description: "",
+        github: user.github || "",
+        linkedin: user.linkedin || "",
+        twitter: user.twitter || "",
+      });
       console.error("Error fetching user info:", error);
     } finally {
       stopLoading();
@@ -89,7 +110,7 @@ export const Profile = () => {
     if (file) {
       startLoading();
       try {
-        const token = localStorage.getItem("token");
+        const token = await getAccessTokenSilently();
         const formData = new FormData();
         formData.append("file", file);
 
@@ -114,8 +135,8 @@ export const Profile = () => {
   };
 
   const fetchUserStats = async () => {
-    const token = localStorage.getItem("token");
     try {
+      const token = await getAccessTokenSilently();
       const response = await fetch(
         "https://back-flash4devs-production.up.railway.app/card/user-stats",
         {
@@ -156,9 +177,11 @@ export const Profile = () => {
   };
 
   useEffect(() => {
-    getUserInfo();
-    fetchUserStats();
-  }, []);
+    if (isAuthenticated) {
+      getUserInfo();
+      fetchUserStats();
+    }
+  }, [isAuthenticated]);
 
   const handleCancel = () => {
     setAvatar(originalData.avatar);
@@ -180,7 +203,7 @@ export const Profile = () => {
     }
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setIsEditing(false);
     setOriginalData({
       avatar,
@@ -192,8 +215,34 @@ export const Profile = () => {
       linkedin,
       twitter,
     });
+
+    try {
+      const token = await getAccessTokenSilently();
+      await fetch(
+        `https://back-flash4devs-production.up.railway.app/api/user/${user.sub}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            profile_image: avatar,
+            name: firstName,
+            last_name: lastName,
+            email,
+            github,
+            linkedin,
+            twitter,
+            description,
+          }),
+        }
+      );
+    } catch (error) {
+      console.error("Error saving user data:", error);
+    }
+
     navigate("/");
-    // Adicione lógica de salvamento para o backend aqui se necessário
   };
 
   const renderInputField = (
@@ -223,6 +272,10 @@ export const Profile = () => {
       </div>
     </div>
   );
+
+  if (!isAuthenticated) {
+    return <div>Por favor, faça login para ver seu perfil.</div>;
+  }
 
   return (
     <div className="min-h-screen relative overflow-hidden">
