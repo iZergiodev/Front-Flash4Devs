@@ -17,9 +17,11 @@ import { Navbar } from "../../components/Navbar";
 import { Footer } from "../../components/Footer";
 import { useLoading } from "../../hooks/useLoading";
 import { ThreeDots } from "react-loader-spinner";
+import { useUserStore } from "../../store/userStore";
 
 export const Profile = () => {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { user: storedUser, login } = useUserStore();
   const [originalData, setOriginalData] = useState({});
   const [avatar, setAvatar] = useState("/avatarejemplo.jpg");
   const [firstName, setFirstName] = useState("");
@@ -31,8 +33,8 @@ export const Profile = () => {
   const [github, setGithub] = useState("");
   const [linkedin, setLinkedin] = useState("");
   const [twitter, setTwitter] = useState("");
-  const [frontEndRating, setFrontEndRating] = useState("");
-  const [backEndRating, setBackEndRating] = useState("");
+  const [frontEndRating, setFrontEndRating] = useState("N/A");
+  const [backEndRating, setBackEndRating] = useState("N/A");
   const [isEditing, setIsEditing] = useState(false);
 
   const { isLoading, startLoading, stopLoading } = useLoading();
@@ -43,8 +45,17 @@ export const Profile = () => {
 
     startLoading();
     try {
-      const token = await getAccessTokenSilently();
-      const userId = user.sub; // ID do usuário fornecido pelo Auth0
+      const token = await getAccessTokenSilently({
+        authorizationParams: {
+          audience: "https://flash4devs/api",
+          scope: "openid profile email",
+        },
+      });
+
+      // Atualiza userStore com dados do Auth0
+      login(user, token);
+
+      const userId = user.sub;
       const resp = await fetch(
         `https://back-flash4devs-production.up.railway.app/api/user/${userId}`,
         {
@@ -56,19 +67,32 @@ export const Profile = () => {
         }
       );
 
-      if (!resp.ok) throw new Error("Erro ao buscar informações do usuário");
-
-      const { profile_image, email, name, last_name } = await resp.json();
-      const userData = {
-        avatar: profile_image || user.picture || "/avatarejemplo.jpg",
-        firstName: name || user.given_name || "",
-        lastName: last_name || user.family_name || "",
-        email: email || user.email || "",
-        description: "",
-        github: "",
-        linkedin: "",
-        twitter: "",
-      };
+      let userData;
+      if (resp.ok) {
+        const data = await resp.json();
+        userData = {
+          avatar: data.profile_image || user.picture || "/avatarejemplo.jpg",
+          firstName: data.name || user.given_name || user.name || "",
+          lastName: data.last_name || user.family_name || "",
+          email: data.email || user.email || "",
+          description: data.description || "",
+          github: data.github || "",
+          linkedin: data.linkedin || "",
+          twitter: data.twitter || "",
+        };
+      } else {
+        // Fallback para Auth0
+        userData = {
+          avatar: user.picture || "/avatarejemplo.jpg",
+          firstName: user.given_name || user.name || "",
+          lastName: user.family_name || "",
+          email: user.email || "",
+          description: "",
+          github: user.github || "",
+          linkedin: user.linkedin || "",
+          twitter: user.twitter || "",
+        };
+      }
 
       setAvatar(userData.avatar);
       setFirstName(userData.firstName);
@@ -80,25 +104,6 @@ export const Profile = () => {
       setTwitter(userData.twitter);
       setOriginalData(userData);
     } catch (error) {
-      // Fallback para dados do Auth0 se o backend falhar
-      setAvatar(user.picture || "/avatarejemplo.jpg");
-      setFirstName(user.given_name || user.name || "");
-      setLastName(user.family_name || "");
-      setEmail(user.email || "");
-      setDescription("");
-      setGithub(user.github || "");
-      setLinkedin(user.linkedin || "");
-      setTwitter(user.twitter || "");
-      setOriginalData({
-        avatar: user.picture || "/avatarejemplo.jpg",
-        firstName: user.given_name || user.name || "",
-        lastName: user.family_name || "",
-        email: user.email || "",
-        description: "",
-        github: user.github || "",
-        linkedin: user.linkedin || "",
-        twitter: user.twitter || "",
-      });
       console.error("Error fetching user info:", error);
     } finally {
       stopLoading();
@@ -113,21 +118,38 @@ export const Profile = () => {
         const token = await getAccessTokenSilently();
         const formData = new FormData();
         formData.append("file", file);
+        formData.append("upload_preset", "flash4devs"); // Substitua pelo seu upload preset do Cloudinary
 
         const response = await fetch(
-          "https://back-flash4devs-production.up.railway.app/api/upload/",
+          "https://api.cloudinary.com/v1_1/seu-cloud-name/image/upload", // Substitua por seu cloud name
           {
             method: "POST",
-            headers: { Authorization: `Bearer ${token}` },
             body: formData,
           }
         );
 
-        if (!response.ok) throw new Error("Error al subir la imagen");
+        if (!response.ok) throw new Error("Erro ao subir a imagem");
         const data = await response.json();
-        setAvatar(data.url);
+        const imageUrl = data.secure_url;
+        setAvatar(imageUrl);
+
+        // Atualiza backend
+        await fetch(
+          `https://back-flash4devs-production.up.railway.app/api/user/${user.sub}`,
+          {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ profile_image: imageUrl }),
+          }
+        );
+
+        // Atualiza userStore
+        login({ ...user, picture: imageUrl }, token);
       } catch (error) {
-        console.error("Error:", error);
+        console.error("Error uploading image:", error);
       } finally {
         stopLoading();
       }
@@ -145,25 +167,24 @@ export const Profile = () => {
       );
 
       if (!response.ok) {
-        throw new Error("Error al obtener estadísticas del usuario");
+        throw new Error("Erro ao obter estatísticas do usuário");
       }
 
       const {
         good_answers,
-        bad_answer,
+        bad_answers,
         level,
         rating_interview_front_react,
         rating_interview_backend_python,
       } = await response.json();
 
       const goodAnswersNum = Number(good_answers) || 0;
-      const badAnswersNum = Number(bad_answer) || 0;
-
+      const badAnswersNum = Number(bad_answers) || 0;
       const totalAnswers = goodAnswersNum + badAnswersNum;
       const calculatedPorcentage =
         totalAnswers === 0 ? 0 : (goodAnswersNum / totalAnswers) * 100;
 
-      setPorcentage(calculatedPorcentage);
+      setPorcentage(calculatedPorcentage.toFixed(2));
       setRank(level || "Beginner");
       setFrontEndRating(rating_interview_front_react || "N/A");
       setBackEndRating(rating_interview_backend_python || "N/A");
@@ -218,7 +239,20 @@ export const Profile = () => {
 
     try {
       const token = await getAccessTokenSilently();
-      await fetch(
+      const updatedData = {
+        profile_image: avatar,
+        name: firstName,
+        last_name: lastName,
+        email: email || null,
+        description,
+        github,
+        linkedin,
+        twitter,
+      };
+
+      console.log("Salvando dados:", updatedData);
+
+      const response = await fetch(
         `https://back-flash4devs-production.up.railway.app/api/user/${user.sub}`,
         {
           method: "PUT",
@@ -226,23 +260,21 @@ export const Profile = () => {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            profile_image: avatar,
-            name: firstName,
-            last_name: lastName,
-            email,
-            github,
-            linkedin,
-            twitter,
-            description,
-          }),
+          body: JSON.stringify(updatedData),
         }
       );
+
+      if (!response.ok) {
+        throw new Error("Erro ao salvar dados do usuário");
+      }
+
+      // Atualiza userStore
+      login({ ...user, ...updatedData, picture: avatar }, token);
     } catch (error) {
       console.error("Error saving user data:", error);
     }
 
-    navigate("/");
+    navigate("/auth/profile");
   };
 
   const renderInputField = (
@@ -294,7 +326,7 @@ export const Profile = () => {
               <div className="flex justify-center">
                 <div className="relative">
                   <img
-                    src={avatar || "/avatarejemplo.jpg"}
+                    src={avatar}
                     alt="Avatar"
                     className="w-40 h-40 rounded-full border-4 border-primary dark:border-black"
                   />
