@@ -52,7 +52,6 @@ export const Profile = () => {
         },
       });
 
-      // Atualiza userStore com dados do Auth0
       login(user, token);
 
       const userId = user.sub;
@@ -81,7 +80,7 @@ export const Profile = () => {
           twitter: data.twitter || "",
         };
       } else {
-        // Fallback para Auth0
+
         userData = {
           avatar: user.picture || "/avatarejemplo.jpg",
           firstName: user.given_name || user.name || "",
@@ -121,7 +120,7 @@ export const Profile = () => {
         formData.append("upload_preset", "flash4devs"); // Substitua pelo seu upload preset do Cloudinary
 
         const response = await fetch(
-          "https://api.cloudinary.com/v1_1/seu-cloud-name/image/upload", // Substitua por seu cloud name
+          "https://api.cloudinary.com/v1_1/seu-cloud-name/image/upload", 
           {
             method: "POST",
             body: formData,
@@ -146,7 +145,6 @@ export const Profile = () => {
           }
         );
 
-        // Atualiza userStore
         login({ ...user, picture: imageUrl }, token);
       } catch (error) {
         console.error("Error uploading image:", error);
@@ -268,7 +266,6 @@ export const Profile = () => {
         throw new Error("Erro ao salvar dados do usuário");
       }
 
-      // Atualiza userStore
       login({ ...user, ...updatedData, picture: avatar }, token);
     } catch (error) {
       console.error("Error saving user data:", error);
