@@ -1,124 +1,59 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import { Link, useNavigate } from "react-router";
 import toast, { Toaster } from "react-hot-toast";
-import { ThreeDots } from "react-loader-spinner";
-import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import SplitText from "../../components/effectcomponents/SplitText";
 import Squares from "../../components/effectcomponents/Squares";
-import { useLoading } from "../../hooks/useLoading";
-import { useUserStore } from "../../store/userStore";
+import { FaGoogle, FaLinkedin, FaFacebook } from "react-icons/fa";
+import XIcon from "../../components/icons/XIcon";
 
 export const Login = () => {
-  const [formData, setFormData] = useState({ email: "", password: "" });
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [eyeIsClosed, setEyeState] = useState(false);
-  const inputRef = useRef(null);
+  const { loginWithRedirect } = useAuth0();
   const navigate = useNavigate();
-  const { loginAuthorized } = useUserStore();
-  const { isLoading, startLoading, stopLoading } = useLoading();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  // const validateEmail = (email) => {
-  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  //   return emailRegex.test(email);
-  // };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-
-    if (name === "email") {
-      if (!value) {
-        setEmailError("El correo electrónico es obligatorio");
-      // } else if (!validateEmail(value)) {
-      //   setEmailError("Por favor, introduce un correo electrónico válido");
-      } else {
-        setEmailError("");
-      }
-    }
-
-    if (name === "password") {
-      if (!value) {
-        setPasswordError("La contraseña es obligatoria");
-      } else {
-        setPasswordError("");
-      }
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    let hasError = false;
-
-    if (!formData.email) {
-      setEmailError("El correo electrónico es obligatorio");
-      hasError = true;
-    } 
-    // else if (!validateEmail(formData.email)) {
-    //   setEmailError("Por favor, introduce un correo electrónico válido");
-    //   hasError = true;
-    // }
-
-    if (!formData.password) {
-      setPasswordError("La contraseña es obligatoria");
-      hasError = true;
-    }
-
-    if (hasError) {
-      toast.error("Corrige los errores en el formulario");
-      return;
-    }
-
-    const url = "https://back-flash4devs-production.up.railway.app/api/login";
-
+  const handleSocialLogin = async (connection) => {
+    const state = Math.random().toString(36).substring(7);
+    console.log(
+      `Iniciando login com ${connection}, redirect_uri: http://localhost:5173/callback, state: ${state}`
+    );
     try {
-      startLoading();
-      console.log("Enviando requisição para:", url);
-      console.log("Dados enviados:", formData);
-
-      const response = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+      await loginWithRedirect({
+        authorizationParams: {
+          connection,
+          redirect_uri: "http://localhost:5173/callback",
+          scope: "openid profile email",
+          audience: "https://flash4devs/api",
+          state,
+        },
       });
-
-      console.log("Status da resposta:", response.status);
-
-      if (response.status === 401) {
-        console.log("Credenciais incorretas detectadas (401)");
-        setPasswordError("Correo o contraseña incorrectos");
-        stopLoading();
-        return;
-      }
-
-      if (!response.ok) {
-        console.log("Resposta não OK, status:", response.status);
-        throw new Error(
-          `Error en la respuesta del servidor: ${response.status}`
-        );
-      }
-
-      console.log("Login bem-sucedido");
-      const { access_token } = await response.json();
-      localStorage.setItem("token", access_token);
-      loginAuthorized();
-      navigate("/");
     } catch (error) {
-      console.log("Erro capturado no catch:", error.message);
-      setEmailError("");
-      setPasswordError("");
-      toast.error("Error al conectar con el servidor");
-      console.error("Erro de conexão:", error.message);
-    } finally {
-      stopLoading();
+      console.error(`Erro no login com ${connection}:`, error);
+      toast.error(`Erro ao iniciar login com ${connection}: ${error.message}`);
     }
   };
 
-  const toggleShow = () => {
-    const input = inputRef.current;
-    input.type = input.type === "password" ? "text" : "password";
-    setEyeState((prev) => !prev);
+  const handleTraditionalLogin = async (e) => {
+    e.preventDefault();
+    const state = Math.random().toString(36).substring(7);
+    console.log("Tentando login tradicional com:", email, `state: ${state}`);
+    try {
+      await loginWithRedirect({
+        authorizationParams: {
+          connection: "Username-Password-Authentication",
+          redirect_uri: "http://localhost:5173/callback",
+          email,
+          password,
+          scope: "openid profile email",
+          audience: "https://flash4devs/api",
+          state,
+        },
+      });
+    } catch (error) {
+      console.error("Erro no login tradicional:", error);
+      toast.error("Email ou senha inválidos");
+    }
   };
 
   return (
@@ -126,11 +61,7 @@ export const Login = () => {
       <Toaster position="bottom-right" reverseOrder={false} />
       <div className="relative w-full h-screen overflow-hidden">
         <div className="absolute inset-0 z-0 bg-white dark:bg-[#3C4043]">
-          <Squares
-            speed={0.1}
-            direction="diagonal"
-            hoverFillColor="#81A4CD"
-          />
+          <Squares speed={0.1} direction="diagonal" hoverFillColor="#81A4CD" />
         </div>
         <div className="relative z-10 flex items-center justify-center w-full h-full pointer-events-none">
           <div className="bg-card dark:bg-[#919191] p-8 rounded-lg shadow-lg w-full max-w-md pointer-events-auto">
@@ -149,81 +80,73 @@ export const Login = () => {
                 rootMargin="-50px"
               />
             </h2>
-            <form onSubmit={handleSubmit}>
-              <div className="mb-4">
-                <label
-                  htmlFor="email"
-                  className="block text-primary dark:text-black text-sm font-bold mb-2"
-                >
+            <form onSubmit={handleTraditionalLogin} className="space-y-4">
+              <div>
+                <label className="block text-sm text-text dark:text-black mb-1">
                   Email
                 </label>
                 <input
                   type="email"
-                  id="email"
-                  name="email"
-                  placeholder="Ingresa tu correo electrónico"
-                  className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent ${
-                    emailError
-                      ? "border-red-500 dark:border-red-800"
-                      : "border-muted dark:border-black"
-                  }`}
-                  value={formData.email}
-                  onChange={handleInputChange}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-3 py-2 rounded-lg bg-white dark:bg-[#BDC1C6] text-text dark:text-black border border-muted/20 focus:outline-none focus:ring-2 focus:ring-primary"
+                  required
                 />
-                {emailError && (
-                  <p className="text-red-500 dark:text-red-800 text-xs mt-1">
-                    {emailError}
-                  </p>
-                )}
               </div>
-              <div className="mb-6">
-                <label
-                  htmlFor="password"
-                  className="block text-primary dark:text-black text-sm font-bold mb-2"
-                >
+              <div>
+                <label className="block text-sm text-text dark:text-black mb-1">
                   Contraseña
                 </label>
-                <div className="relative w-full">
-                  <input
-                    ref={inputRef}
-                    type="password"
-                    id="password"
-                    name="password"
-                    placeholder="Ingresa tu contraseña"
-                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent ${
-                      passwordError
-                        ? "border-red-500 dark:border-red-800"
-                        : "border-muted dark:border-black"
-                    }`}
-                    value={formData.password}
-                    onChange={handleInputChange}
-                  />
-                  <button
-                    type="button"
-                    onClick={toggleShow}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:hover:text-accent focus:outline-none cursor-pointer"
-                  >
-                    {eyeIsClosed ? (
-                      <VscEye size={20} />
-                    ) : (
-                      <VscEyeClosed size={20} />
-                    )}
-                  </button>
-                </div>
-                {passwordError && (
-                  <p className="text-red-500 dark:text-red-800 text-xs mt-1">
-                    {passwordError}
-                  </p>
-                )}
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-3 py-2 rounded-lg bg-white dark:bg-[#BDC1C6] text-text dark:text-black border border-muted/20 focus:outline-none focus:ring-2 focus:ring-primary"
+                  required
+                />
               </div>
               <button
-                className="w-full text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
                 type="submit"
-                disabled={isLoading || emailError || passwordError}
+                className="w-full text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
               >
-                Entrar
+                Acceder
               </button>
             </form>
+            <div className="mt-6">
+              <p className="text-center text-sm text-text dark:text-black mb-4">
+                Ou entrar con:
+              </p>
+              <div className="flex justify-center gap-4">
+                <button
+                  onClick={() => handleSocialLogin("google-oauth2")}
+                  className="p-2 rounded-full bg-white dark:bg-[#BDC1C6] shadow-md hover:bg-muted/30 transition-colors duration-200"
+                  title="Google"
+                >
+                  <FaGoogle className="text-xl text-accent" />
+                </button>
+                <button
+                  onClick={() => handleSocialLogin("linkedin")}
+                  className="p-2 rounded-full bg-white dark:bg-[#BDC1C6] shadow-md hover:bg-muted/30 transition-colors duration-200"
+                  title="LinkedIn"
+                >
+                  <FaLinkedin className="text-xl text-accent" />
+                </button>
+                <button
+                  onClick={() => handleSocialLogin("twitter")}
+                  className="p-2 rounded-full bg-white dark:bg-[#BDC1C6] shadow-md hover:bg-muted/30 transition-colors duration-200"
+                  title="X"
+                >
+                  <XIcon className="w-5 h-5 text-accent" />
+                </button>
+                <button
+                  onClick={() => handleSocialLogin("facebook")}
+                  className="p-2 rounded-full bg-white dark:bg-[#BDC1C6] shadow-md hover:bg-muted/30 transition-colors duration-200"
+                  title="Facebook"
+                >
+                  <FaFacebook className="text-xl text-accent" />
+                </button>
+              </div>
+            </div>
             <p className="mt-4 text-center text-muted dark:text-gray-700">
               ¿No tienes una cuenta?{" "}
               <Link
@@ -235,23 +158,6 @@ export const Login = () => {
             </p>
           </div>
         </div>
-        {isLoading && (
-          <div
-            className="absolute inset-0 flex items-center justify-center bg-opacity-75 z-50"
-            style={{ backdropFilter: "blur(5px)" }}
-          >
-            <ThreeDots
-              visible={true}
-              height="80"
-              width="80"
-              color="#054A91"
-              radius="9"
-              ariaLabel="three-dots-loading"
-              wrapperStyle={{}}
-              wrapperClass=""
-            />
-          </div>
-        )}
       </div>
     </>
   );

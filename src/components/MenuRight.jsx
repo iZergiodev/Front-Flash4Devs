@@ -1,20 +1,32 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import GradientText from "./effectcomponents/GradientText";
 import { FaUser, FaGraduationCap, FaStar, FaSignOutAlt } from "react-icons/fa";
 import DecryptedText from "./effectcomponents/DecryptedText";
 import { useUserStore } from "../store/userStore";
+import { useAuth0 } from "@auth0/auth0-react";
 import { Link, useNavigate } from "react-router";
 
-export const MenuRight = ({ name, email, profileImage }) => {
+export const MenuRight = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
-  const { logout } = useUserStore();
+  const { user, isLogged, logout: logoutStore } = useUserStore();
+  const { logout: logoutAuth0 } = useAuth0();
+
+ 
+  if (!isLogged || !user) {
+    return null;
+  }
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
   const handleLogout = () => {
-    logout();
+    logoutStore();
+    logoutAuth0({
+      logoutParams: {
+        returnTo: "http://localhost:5173",
+      },
+    });
     navigate("/");
   };
 
@@ -23,6 +35,13 @@ export const MenuRight = ({ name, email, profileImage }) => {
     { to: "/categorias", icon: FaGraduationCap, text: "Flashcards" },
     { to: "/estadistica", icon: FaStar, text: "Estadísticas" },
   ];
+
+  // Dados do usuário
+  const displayName =
+    user.name || user.nickname || user.given_name || "Usuário";
+  const displayEmail = user.email || "Sem email";
+  const profileImage =
+    user.picture || user.profile_image || "/avatarejemplo.jpg";
 
   return (
     <motion.nav className="fixed right-2 top-[15px] z-50 font-semibold md:right-5 md:top-[20px] md:bg-card dark:md:bg-[#919191] md:shadow-lg md:rounded-full md:p-4 md:py-1 md:px-4 scale-110 md:scale-100">
@@ -37,22 +56,20 @@ export const MenuRight = ({ name, email, profileImage }) => {
             showBorder={false}
             className="custom-class"
           >
-            {name}
+            {displayName}
           </GradientText>
         </div>
-
         <div className="relative">
           <button
             onClick={toggleDropdown}
             className="w-7 h-7 md:w-10 md:h-10 rounded-full overflow-hidden border-2 border-primary dark:border-black cursor-pointer"
           >
             <img
-              src={profileImage || "/avatarejemplo.jpg"}
+              src={profileImage}
               alt="Avatar"
               className="w-full h-full object-cover"
             />
           </button>
-
           <AnimatePresence>
             {isDropdownOpen && (
               <motion.div
@@ -67,10 +84,9 @@ export const MenuRight = ({ name, email, profileImage }) => {
                       <DecryptedText text="Pró-user" animateOn="view" />
                     </span>
                     <span className="text-[0.6rem] md:text-[0.625rem] underline decoration-solid">
-                      <DecryptedText text={email} animateOn="view" />
+                      <DecryptedText text={displayEmail} animateOn="view" />
                     </span>
                   </li>
-
                   {menuItems.map((item, index) => (
                     <li key={index}>
                       <Link
@@ -82,12 +98,11 @@ export const MenuRight = ({ name, email, profileImage }) => {
                       </Link>
                     </li>
                   ))}
-
                   <li className="border-t border-muted/20 mt-2 pt-2 flex items-center justify-center">
                     <button
                       className="w-24 md:w-28 flex items-center justify-center text-white bg-accent py-1 md:py-2 px-3 md:px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer text-sm md:text-base"
                       onClick={handleLogout}
-                      type="submit"
+                      type="button"
                     >
                       <FaSignOutAlt className="mr-1 md:mr-2" />
                       Logout

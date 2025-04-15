@@ -114,7 +114,7 @@ export const SideBar = ({ isOpen, setIsOpen }) => {
                   <Link
                     key={index}
                     to={link.to}
-                    className="flex items-center p-2 text-text dark:text-black  hover:bg-secondary dark:hover:bg-[#5d6368] transition-colors hover:text-white duration-200 focus:outline-none focus:ring-2 focus:ring-primary rounded-lg"
+                    className="flex items-center p-2 text-text dark:text-black hover:bg-secondary dark:hover:bg-[#5d6368] transition-colors hover:text-white duration-200 focus:outline-none focus:ring-2 focus:ring-primary rounded-lg"
                   >
                     <motion.div
                       className="flex"
@@ -138,7 +138,7 @@ export const SideBar = ({ isOpen, setIsOpen }) => {
               {statistics.map((stat, index) => (
                 <p
                   key={index}
-                  className="p-2 text-text dark:text-black  flex items-center text-sm"
+                  className="p-2 text-text dark:text-black flex items-center text-sm"
                 >
                   <stat.icon className="mr-2 text-2xl text-accent" />
                   {stat.text}
@@ -148,10 +148,10 @@ export const SideBar = ({ isOpen, setIsOpen }) => {
 
             <div className="space-y-2 border-t border-gray-400 dark:border-t dark:border-black p-2 flex flex-col items-center">
               <FaUsers className="text-4xl text-accent mx-auto mb-4 mt-4 animate-bounce" />
-              <h2 className="text-md font-bold text-primary dark:text-black  mb-2">
+              <h2 className="text-md font-bold text-primary dark:text-black mb-2">
                 1000+ Usuarios
               </h2>
-              <p className="text-md text-center mt-2 text-muted dark:text-black ">
+              <p className="text-md text-center mt-2 text-muted dark:text-black">
                 ¡Ya han mejorado sus habilidades con nuestras flashcards!
               </p>
               <div className="my-3"></div>

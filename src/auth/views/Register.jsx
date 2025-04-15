@@ -1,106 +1,68 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
-import { useUserStore } from "../../store/userStore";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Link } from "react-router";
 import toast, { Toaster } from "react-hot-toast";
-import { Navbar } from "../../components/Navbar";
-import { Footer } from "../../components/Footer";
-import { useLoading } from "../../hooks/useLoading";
-import { ThreeDots } from "react-loader-spinner";
 import SplitText from "../../components/effectcomponents/SplitText";
 import AnimatedContent from "../../components/effectcomponents/AnimatedContent";
 import Squares from "../../components/effectcomponents/Squares";
+import { FaGoogle, FaLinkedin, FaFacebook } from "react-icons/fa";
+import XIcon from "../../components/icons/XIcon";
 
 export const Register = () => {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    acceptTerms: false,
-  });
-  const [emailError, setEmailError] = useState("");
+  const { loginWithRedirect } = useAuth0();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  let navigate = useNavigate();
-  const { loginAuthorized } = useUserStore();
-  const { isLoading, startLoading, stopLoading } = useLoading();
-
-  const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    const newValue = type === "checkbox" ? checked : value;
-
-    setFormData({
-      ...formData,
-      [name]: newValue,
-    });
-
-    if (name === "email") {
-      if (!value) {
-        setEmailError("El correo electrónico es obligatorio");
-      } else if (!validateEmail(value)) {
-        setEmailError("Por favor, introduce un correo electrónico válido");
-      } else {
-        setEmailError("");
-      }
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!formData.email || !validateEmail(formData.email)) {
-      setEmailError("Por favor, introduce un correo electrónico válido");
-      toast.error("Corrige el campo de correo electrónico");
-      return;
-    }
-
-    if (!formData.acceptTerms) {
-      alert("Você deve aceitar os termos e condições para se registrar.");
-      return;
-    }
-
-    const url =
-      "https://back-flash4devs-production.up.railway.app/api/register";
-
+  const handleSocialRegister = async (connection) => {
+    const state = Math.random().toString(36).substring(7);
+    console.log(
+      `Iniciando registro com ${connection}, redirect_uri: http://localhost:5173/callback, state: ${state}`
+    );
     try {
-      startLoading();
-      const response = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-          name: formData.firstName,
-          last_name: formData.lastName,
-        }),
-        headers: {
-          "Content-Type": "application/json",
+      await loginWithRedirect({
+        authorizationParams: {
+          connection,
+          redirect_uri: "http://localhost:5173/callback",
+          screen_hint: "signup",
+          scope: "openid profile email",
+          audience: "https://flash4devs/api",
+          state,
         },
       });
-
-      if (response.status === 400) {
-        toast.error("El email ya está registrado");
-        return;
-      }
-
-      if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log(data);
-      if (response.ok) {
-        navigate("/auth/login");
-      }
     } catch (error) {
-      toast.error("Error al conectar con el servidor");
-      console.error(error.message);
-    } finally {
-      stopLoading();
+      console.error(`Erro no registro com ${connection}:`, error);
+      toast.error(
+        `Erro ao iniciar registro com ${connection}: ${error.message}`
+      );
+    }
+  };
+
+  const handleTraditionalRegister = async (e) => {
+    e.preventDefault();
+    const state = Math.random().toString(36).substring(7);
+    console.log(
+      "Tentando registro tradicional com:",
+      { name, email },
+      `state: ${state}`
+    );
+    try {
+      await loginWithRedirect({
+        authorizationParams: {
+          connection: "Username-Password-Authentication",
+          redirect_uri: "http://localhost:5173/callback",
+          screen_hint: "signup",
+          email,
+          password,
+          name,
+          scope: "openid profile email",
+          audience: "https://flash4devs/api",
+          state,
+        },
+      });
+    } catch (error) {
+      console.error("Erro no registro tradicional:", error);
+      toast.error("Erro ao registrar. Verifique os dados.");
     }
   };
 
@@ -109,11 +71,7 @@ export const Register = () => {
       <Toaster position="bottom-right" reverseOrder={false} />
       <div className="relative min-h-screen overflow-hidden">
         <div className="absolute inset-0 z-0 bg-white dark:bg-[#3C4043]">
-          <Squares
-            speed={0.1}
-            direction="diagonal"
-            hoverFillColor="#81A4CD"
-          />
+          <Squares speed={0.1} direction="diagonal" hoverFillColor="#81A4CD" />
         </div>
         <div className="relative z-20">
           <AnimatedContent
@@ -126,19 +84,14 @@ export const Register = () => {
             scale={0.1}
             threshold={0.2}
             rootMargin="-50px"
-          >
-            <Navbar />
-          </AnimatedContent>
-          <Footer />
+          ></AnimatedContent>
         </div>
         <div className="relative z-10 flex items-center justify-center min-h-screen pointer-events-none">
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row w-full md:w-8/12 bg-card dark:bg-[#919191] rounded-xl mx-auto shadow-lg overflow-hidden pointer-events-auto">
               <div
                 className="w-full md:w-1/2 flex flex-col items-center justify-center p-8 md:p-12 bg-no-repeat bg-cover bg-center relative order-2 md:order-1"
-                style={{
-                  backgroundImage: "url('/background.jpeg')",
-                }}
+                style={{ backgroundImage: "url('/background.jpeg')" }}
               >
                 <div className="absolute inset-0 bg-black/75"></div>
                 <div className="relative z-10 text-center">
@@ -155,7 +108,6 @@ export const Register = () => {
                   </div>
                 </div>
               </div>
-
               <div className="w-full md:w-1/2 py-8 md:py-16 px-6 md:px-12 order-1 md:order-2">
                 <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-primary dark:text-black text-center">
                   <SplitText
@@ -178,117 +130,103 @@ export const Register = () => {
                 <p className="mb-4 text-text dark:text-black text-sm md:text-base">
                   Crea tu cuenta. Es gratis y sólo te llevará un minuto.
                 </p>
-                <form onSubmit={handleSubmit}>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+                <form
+                  onSubmit={handleTraditionalRegister}
+                  className="space-y-4"
+                >
+                  <div>
+                    <label className="block text-sm text-text dark:text-black mb-1">
+                      Nombre
+                    </label>
                     <input
                       type="text"
-                      name="firstName"
-                      placeholder="Primer Nombre"
-                      className="border border-muted py-1 px-2 rounded focus:outline-none focus:ring-2 focus:ring-accent"
-                      value={formData.firstName}
-                      onChange={handleChange}
-                      required
-                    />
-                    <input
-                      type="text"
-                      name="lastName"
-                      placeholder="Apellidos"
-                      className="border border-muted py-1 px-2 rounded focus:outline-none focus:ring-2 focus:ring-accent"
-                      value={formData.lastName}
-                      onChange={handleChange}
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className="w-full px-3 py-2 rounded-lg bg-white dark:bg-[#BDC1C6] text-text dark:text-black border border-muted/20 focus:outline-none focus:ring-2 focus:ring-primary"
                       required
                     />
                   </div>
-                  <div className="mt-4 md:mt-5">
+                  <div>
+                    <label className="block text-sm text-text dark:text-black mb-1">
+                      Email
+                    </label>
                     <input
                       type="email"
-                      name="email"
-                      placeholder="Correo Electrónico"
-                      className={`border py-1 px-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-accent ${
-                        emailError ? "border-red-500" : "border-muted"
-                      }`}
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                    />
-                    {emailError && (
-                      <p className="text-red-500 text-xs mt-1">{emailError}</p>
-                    )}
-                  </div>
-                  <div className="mt-4 md:mt-5">
-                    <input
-                      type="password"
-                      name="password"
-                      placeholder="Contrasena"
-                      className="border border-muted py-1 px-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-accent"
-                      value={formData.password}
-                      onChange={handleChange}
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="w-full px-3 py-2 rounded-lg bg-white dark:bg-[#BDC1C6] text-text dark:text-black border border-muted/20 focus:outline-none focus:ring-2 focus:ring-primary"
                       required
                     />
                   </div>
-                  <div className="mt-4 md:mt-5">
-                    <input
-                      type="password"
-                      name="confirmPassword"
-                      placeholder="Confirmar Contrasena"
-                      className="border border-muted py-1 px-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-accent"
-                      value={formData.confirmPassword}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="mt-4 md:mt-5">
-                    <label className="flex items-center">
-                      <input
-                        type="checkbox"
-                        name="acceptTerms"
-                        className="border border-muted"
-                        checked={formData.acceptTerms}
-                        onChange={handleChange}
-                      />
-                      <span className="ml-2 text-text text-sm md:text-base">
-                        Acepto los{" "}
-                        <a href="#" className="text-accent font-semibold">
-                          Términos de uso
-                        </a>{" "}
-                        y la{" "}
-                        <a href="#" className="text-accent font-semibold">
-                          Política de Privacidad
-                        </a>
-                      </span>
+                  <div>
+                    <label className="block text-sm text-text dark:text-black mb-1">
+                      Contraseña
                     </label>
+                    <input
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="w-full px-3 py-2 rounded-lg bg-white dark:bg-[#BDC1C6] text-text dark:text-black border border-muted/20 focus:outline-none focus:ring-2 focus:ring-primary"
+                      required
+                    />
                   </div>
-                  <div className="mt-4 md:mt-5">
-                    <button
-                      type="submit"
-                      className="w-full text-white bg-accent py-2 md:py-3 text-center rounded hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
-                      disabled={!!emailError}
-                    >
-                      Registrate aquí
-                    </button>
+                  <div className="flex justify-center items-center">
+                  <button
+                    type="submit"
+                    className="w-60 text-white shadow-lg bg-accent py-2 md:py-3 text-center rounded hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    Registro
+                  </button>
                   </div>
                 </form>
+                <div className="mt-6">
+                  <p className="text-center text-sm text-text dark:text-black mb-4">
+                    O regístrate con:
+                  </p>
+                  <div className="flex justify-center gap-4">
+                    <button
+                      onClick={() => handleSocialRegister("google-oauth2")}
+                      className="p-2 rounded-full bg-white dark:bg-[#BDC1C6] shadow-md hover:bg-muted/30 transition-colors duration-200"
+                      title="Google"
+                    >
+                      <FaGoogle className="text-xl text-accent" />
+                    </button>
+                    <button
+                      onClick={() => handleSocialRegister("linkedin")}
+                      className="p-2 rounded-full bg-white dark:bg-[#BDC1C6] shadow-md hover:bg-muted/30 transition-colors duration-200"
+                      title="LinkedIn"
+                    >
+                      <FaLinkedin className="text-xl text-accent" />
+                    </button>
+                    <button
+                      onClick={() => handleSocialRegister("twitter")}
+                      className="p-2 rounded-full bg-white dark:bg-[#BDC1C6] shadow-md hover:bg-muted/30 transition-colors duration-200"
+                      title="X"
+                    >
+                      <XIcon className="w-5 h-5 text-accent" />
+                    </button>
+                    <button
+                      onClick={() => handleSocialRegister("facebook")}
+                      className="p-2 rounded-full bg-white dark:bg-[#BDC1C6] shadow-md hover:bg-muted/30 transition-colors duration-200"
+                      title="Facebook"
+                    >
+                      <FaFacebook className="text-xl text-accent" />
+                    </button>
+                  </div>
+                </div>
+                <p className="mt-4 text-center text-text dark:text-black">
+                  ¿Ya tienes una cuenta?{" "}
+                  <Link
+                    to="/auth/login"
+                    className="text-secondary dark:text-blue-500 hover:underline"
+                  >
+                    Login
+                  </Link>
+                </p>
               </div>
             </div>
           </div>
         </div>
-        {isLoading && (
-          <div
-            className="absolute inset-0 flex items-center justify-center bg-opacity-75 z-50"
-            style={{ backdropFilter: "blur(5px)" }}
-          >
-            <ThreeDots
-              visible={true}
-              height="80"
-              width="80"
-              color="#054A91"
-              radius="9"
-              ariaLabel="three-dots-loading"
-              wrapperStyle={{}}
-              wrapperClass=""
-            />
-          </div>
-        )}
       </div>
     </>
   );

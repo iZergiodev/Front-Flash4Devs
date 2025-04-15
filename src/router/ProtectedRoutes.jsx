@@ -1,18 +1,14 @@
-
+import { useAuth0 } from "@auth0/auth0-react";
 import { Navigate } from "react-router";
-import { useUserStore } from "../store/userStore"
 
+export const ProtectedRoutes = ({ children }) => {
+  const { isAuthenticated, isLoading } = useAuth0();
 
-// eslint-disable-next-line react/prop-types
-export const ProtectedRoutes = ({children}) => {
-    
-    const isLogged = useUserStore((state) => state.isLogged);
+  if (isLoading) return <div>Carregando...</div>;
 
-    
-    if (!isLogged) {
-        return <Navigate to="/auth/login" replace />;
-      }
-    
-      return <>{children}</>;
-    };
+  if (!isAuthenticated) {
+    return <Navigate to="/" />;
+  }
 
+  return children;
+};

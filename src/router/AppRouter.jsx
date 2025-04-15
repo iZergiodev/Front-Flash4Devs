@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router";
 import { AuthRouter } from "../auth/router/AuthRouter";
+import { Callback } from "../auth/Callback";
 import { Home } from "../../Home";
 import { Estadistica } from "../flash4devs/Estadistica";
 import { Categorias } from "../flash4devs/Categorias";
 import { FormCustom } from "../flash4devs/FormCustom";
 import { Biblioteca } from "../flash4devs/Biblioteca.jsx";
 import { AdminPanel } from "../flash4devs/adminPanel/AdminPanel.jsx";
-
 import { ProtectedRoutes } from "../router/ProtectedRoutes.jsx";
 import { CategoriasRouter } from "../flash4devs/pantallasCategorias/router/CategoriasRouter.jsx";
 import { FlashcardsRouter } from "../flash4devs/flashcards/router/FlashcardsRouter.jsx";
@@ -19,6 +19,7 @@ export const AppRouter = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/auth/*" element={<AuthRouter />} />
+      <Route path="/callback" element={<Callback />} />
       <Route
         path="/estadistica"
         element={
@@ -47,7 +48,6 @@ export const AppRouter = () => {
           </AdminRoutes>
         }
       />
-
       <Route
         path="/eligecategoria/*"
         element={
@@ -64,9 +64,6 @@ export const AppRouter = () => {
           </ProtectedRoutes>
         }
       />
-
-      {/* <Route path="/*" element={<Navigate to={"/"} />} /> */}
-      <Route />
     </Routes>
   );
 };
