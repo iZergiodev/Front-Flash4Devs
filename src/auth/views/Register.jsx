@@ -39,29 +39,66 @@ export const Register = () => {
 
   const handleTraditionalRegister = async (e) => {
     e.preventDefault();
-    const state = Math.random().toString(36).substring(7);
-    console.log(
-      "Tentando registro tradicional com:",
-      { name, email },
-      `state: ${state}`
-    );
+
     try {
-      await loginWithRedirect({
-        authorizationParams: {
-          connection: "Username-Password-Authentication",
-          redirect_uri: "http://localhost:5173/callback",
-          screen_hint: "signup",
-          email,
-          password,
-          name,
-          scope: "openid profile email",
+      const response = await fetch(
+        "https://dev-6b064544tsccsmo0.us.auth0.com/dbconnections/signup",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            client_id: "O4jebmjsg5W16pALFq8nEdvLFpwirXPl",
+            email,
+            password,
+            connection: "Username-Password-Authentication",
+            user_metadata: { name },
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success("¡Registro exitoso! Iniciando sesión...");
+        setTimeout(() => {
+          login(email, password);
+        }, 1000);
+      } else {
+        console.error("Signup error:", data);
+        toast.error(data.message || "Error al registrarse");
+      }
+    } catch (err) {
+      console.error("Unexpected error:", err);
+      toast.error("Error inesperado en el registro.");
+    }
+  };
+
+  // Funcion para login despues registro
+  const login = async (email, password) => {
+    const response = await fetch(
+      "https://dev-6b064544tsccsmo0.us.auth0.com/oauth/token",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          grant_type: "password",
+          username: email,
+          password: password,
           audience: "https://flash4devs/api",
-          state,
-        },
-      });
-    } catch (error) {
-      console.error("Erro no registro tradicional:", error);
-      toast.error("Erro ao registrar. Verifique os dados.");
+          scope: "openid profile email",
+          client_id: "O4jebmjsg5W16pALFq8nEdvLFpwirXPl",
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (response.ok) {
+      console.log("Login automático exitoso", data);
+      // localStorage.setItem("access_token", data.access_token);
+      navigate("/");
+    } else {
+      toast.error("No se pudo iniciar sesión después del registro");
     }
   };
 
