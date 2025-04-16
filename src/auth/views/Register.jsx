@@ -5,8 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 import SplitText from "../../components/effectcomponents/SplitText";
 import AnimatedContent from "../../components/effectcomponents/AnimatedContent";
 import Squares from "../../components/effectcomponents/Squares";
-import { FaGoogle, FaLinkedin, FaFacebook } from "react-icons/fa";
-import XIcon from "../../components/icons/XIcon";
+import { FaGoogle } from "react-icons/fa";
 
 export const Register = () => {
   const { loginWithRedirect } = useAuth0();
@@ -171,12 +170,12 @@ export const Register = () => {
                     />
                   </div>
                   <div className="flex justify-center items-center">
-                  <button
-                    type="submit"
-                    className="w-60 text-white shadow-lg bg-accent py-2 md:py-3 text-center rounded hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
-                  >
-                    Registro
-                  </button>
+                    <button
+                      type="submit"
+                      className="w-60 text-white shadow-lg bg-accent py-2 md:py-3 text-center rounded hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+                    >
+                      Registro
+                    </button>
                   </div>
                 </form>
                 <div className="mt-6">
@@ -190,27 +189,6 @@ export const Register = () => {
                       title="Google"
                     >
                       <FaGoogle className="text-xl text-accent" />
-                    </button>
-                    <button
-                      onClick={() => handleSocialRegister("linkedin")}
-                      className="p-2 rounded-full bg-white dark:bg-[#BDC1C6] shadow-md hover:bg-muted/30 transition-colors duration-200"
-                      title="LinkedIn"
-                    >
-                      <FaLinkedin className="text-xl text-accent" />
-                    </button>
-                    <button
-                      onClick={() => handleSocialRegister("twitter")}
-                      className="p-2 rounded-full bg-white dark:bg-[#BDC1C6] shadow-md hover:bg-muted/30 transition-colors duration-200"
-                      title="X"
-                    >
-                      <XIcon className="w-5 h-5 text-accent" />
-                    </button>
-                    <button
-                      onClick={() => handleSocialRegister("facebook")}
-                      className="p-2 rounded-full bg-white dark:bg-[#BDC1C6] shadow-md hover:bg-muted/30 transition-colors duration-200"
-                      title="Facebook"
-                    >
-                      <FaFacebook className="text-xl text-accent" />
                     </button>
                   </div>
                 </div>

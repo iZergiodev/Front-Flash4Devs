@@ -4,8 +4,7 @@ import { Link, useNavigate } from "react-router";
 import toast, { Toaster } from "react-hot-toast";
 import SplitText from "../../components/effectcomponents/SplitText";
 import Squares from "../../components/effectcomponents/Squares";
-import { FaGoogle, FaLinkedin, FaFacebook } from "react-icons/fa";
-import XIcon from "../../components/icons/XIcon";
+import { FaGoogle } from "react-icons/fa";
 
 export const Login = () => {
   const { loginWithRedirect } = useAuth0();
@@ -123,27 +122,6 @@ export const Login = () => {
                   title="Google"
                 >
                   <FaGoogle className="text-xl text-accent" />
-                </button>
-                <button
-                  onClick={() => handleSocialLogin("linkedin")}
-                  className="p-2 rounded-full bg-white dark:bg-[#BDC1C6] shadow-md hover:bg-muted/30 transition-colors duration-200"
-                  title="LinkedIn"
-                >
-                  <FaLinkedin className="text-xl text-accent" />
-                </button>
-                <button
-                  onClick={() => handleSocialLogin("twitter")}
-                  className="p-2 rounded-full bg-white dark:bg-[#BDC1C6] shadow-md hover:bg-muted/30 transition-colors duration-200"
-                  title="X"
-                >
-                  <XIcon className="w-5 h-5 text-accent" />
-                </button>
-                <button
-                  onClick={() => handleSocialLogin("facebook")}
-                  className="p-2 rounded-full bg-white dark:bg-[#BDC1C6] shadow-md hover:bg-muted/30 transition-colors duration-200"
-                  title="Facebook"
-                >
-                  <FaFacebook className="text-xl text-accent" />
                 </button>
               </div>
             </div>
