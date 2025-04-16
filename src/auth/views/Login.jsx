@@ -5,6 +5,8 @@ import toast, { Toaster } from "react-hot-toast";
 import SplitText from "../../components/effectcomponents/SplitText";
 import Squares from "../../components/effectcomponents/Squares";
 import { FaGoogle } from "react-icons/fa";
+import { motion } from "framer-motion";
+import { FaUnlockAlt } from "react-icons/fa";
 
 export const Login = () => {
   const { loginWithRedirect } = useAuth0();
@@ -33,27 +35,25 @@ export const Login = () => {
     }
   };
 
-  const handleTraditionalLogin = async (e) => {
-    e.preventDefault();
-    const state = Math.random().toString(36).substring(7);
-    console.log("Tentando login tradicional com:", email, `state: ${state}`);
-    try {
-      await loginWithRedirect({
-        authorizationParams: {
-          connection: "Username-Password-Authentication",
-          redirect_uri: "http://localhost:5173/callback",
-          email,
-          password,
-          scope: "openid profile email",
-          audience: "https://flash4devs/api",
-          state,
-        },
-      });
-    } catch (error) {
-      console.error("Erro no login tradicional:", error);
-      toast.error("Email ou senha inválidos");
-    }
-  };
+ const handleTraditionalLogin = async (e) => {
+   e.preventDefault();
+
+   try {
+     await loginWithRedirect({
+       authorizationParams: {
+         login_hint: email,
+         screen_hint: "login",
+         connection: "Username-Password-Authentication",
+         redirect_uri: "http://localhost:5173/callback",
+         scope: "openid profile email",
+         audience: "https://flash4devs/api",
+       },
+     });
+   } catch (error) {
+     console.error("Login redirect error:", error);
+     toast.error("No se pudo iniciar sesión.");
+   }
+ };
 
   return (
     <>
@@ -79,38 +79,30 @@ export const Login = () => {
                 rootMargin="-50px"
               />
             </h2>
-            <form onSubmit={handleTraditionalLogin} className="space-y-4">
-              <div>
-                <label className="block text-sm text-text dark:text-black mb-1">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-white dark:bg-[#BDC1C6] text-text dark:text-black border border-muted/20 focus:outline-none focus:ring-2 focus:ring-primary"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm text-text dark:text-black mb-1">
-                  Contraseña
-                </label>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-white dark:bg-[#BDC1C6] text-text dark:text-black border border-muted/20 focus:outline-none focus:ring-2 focus:ring-primary"
-                  required
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full text-white bg-accent py-2 px-4 rounded-lg hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
-              >
-                Acceder
-              </button>
-            </form>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="flex flex-col justify-center items-center"
+            >
+              <FaUnlockAlt className="mx-auto text-4xl text-accent animate-pulse mb-4" />
+              <h2 className="text-2xl font-bold text-primary dark:text-black mb-2">
+                Bienvenido 
+              </h2>
+              <p className="text-text dark:text-black text-sm mb-6 mt-1 p-3 text-center">
+                Inicia sesión con tu cuenta segura. Solo necesitas un clic.
+              </p>
+            </motion.div>
+            <div className="flex items-center justify-center">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={handleTraditionalLogin}
+              className="w-70 text-white bg-accent py-3 px-6 rounded-lg text-lg font-semibold hover:bg-secondary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+            >
+              Login
+            </motion.button>
+            </div>
             <div className="mt-6">
               <p className="text-center text-sm text-text dark:text-black mb-4">
                 Ou entrar con:
